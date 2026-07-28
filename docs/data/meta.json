@@ -1,24 +1,24 @@
 {
-  "last_run": "2026-07-27",
+  "last_run": "2026-07-28",
   "total_listings": 70,
   "open_listings": 70,
   "sources": {
-    "peckham_digital_watch": {
-      "status": "ok"
-    },
-    "barbican_open_calls_watch": {
+    "manual_newsletter_leads": {
       "status": "ok"
     },
     "va_residencies_watch": {
       "status": "ok"
     },
-    "artrabbit_opportunities": {
-      "status": "ok"
-    },
-    "manual_newsletter_leads": {
+    "barbican_open_calls_watch": {
       "status": "ok"
     },
     "artistsnow_opportunities": {
+      "status": "ok"
+    },
+    "artrabbit_opportunities": {
+      "status": "ok"
+    },
+    "peckham_digital_watch": {
       "status": "ok"
     }
   }

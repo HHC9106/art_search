@@ -20,10 +20,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -47,8 +47,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -74,8 +74,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -101,10 +101,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -128,10 +128,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -155,10 +155,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -182,10 +182,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -209,10 +209,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -236,8 +236,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {
@@ -265,10 +265,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -292,8 +292,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -319,10 +319,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -346,8 +346,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -373,10 +373,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -400,10 +400,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -427,10 +427,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -454,8 +454,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -481,10 +481,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -508,10 +508,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -535,10 +535,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -562,10 +562,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£1,000"
     }
@@ -591,10 +591,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -618,8 +618,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -645,8 +645,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -672,10 +672,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£500 to £750"
     }
@@ -701,10 +701,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -728,8 +728,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -755,10 +755,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "€5,000"
     }
@@ -784,10 +784,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -811,10 +811,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -838,8 +838,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -865,10 +865,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -892,8 +892,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -919,8 +919,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -946,8 +946,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -973,10 +973,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1000,10 +1000,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1027,10 +1027,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1054,8 +1054,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {
@@ -1083,10 +1083,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1110,10 +1110,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1137,8 +1137,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1164,10 +1164,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£20,000 per annum"
     }
@@ -1193,10 +1193,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£2500"
     }
@@ -1222,10 +1222,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1249,8 +1249,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1276,10 +1276,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1303,10 +1303,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1330,8 +1330,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1357,8 +1357,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1384,10 +1384,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£25,000 to £30,000 per annum"
     }
@@ -1413,10 +1413,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1440,10 +1440,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£20,800 (£37,000 Full Time Equivalent)"
     }
@@ -1469,10 +1469,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1496,10 +1496,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1523,8 +1523,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1550,8 +1550,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1577,8 +1577,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1604,8 +1604,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1631,8 +1631,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1658,8 +1658,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1685,10 +1685,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£48,402 per annum"
     }
@@ -1714,10 +1714,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1741,10 +1741,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1768,10 +1768,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1795,10 +1795,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1822,10 +1822,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1849,8 +1849,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
@@ -1876,8 +1876,8 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {
@@ -1905,10 +1905,10 @@
     "tags": [],
     "status": "open",
     "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-27",
-    "last_checked_date": "2026-07-27",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   }
 ]
