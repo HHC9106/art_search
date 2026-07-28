@@ -1,12 +1,18 @@
 {
-  "last_run": "2026-07-28",
+  "last_run": "2026-07-27",
   "total_listings": 72,
   "open_listings": 72,
   "sources": {
-    "bom_birmingham_open_media_watch": {
+    "fact_digital_residencies_watch": {
       "status": "ok"
     },
-    "va_residencies_watch": {
+    "vivid_projects_watch": {
+      "status": "ok"
+    },
+    "barbican_open_calls_watch": {
+      "status": "ok"
+    },
+    "artistsnow_opportunities": {
       "status": "ok"
     },
     "peckham_digital_watch": {
@@ -15,28 +21,22 @@
     "immersive_arts_uk_funding_watch": {
       "status": "ok"
     },
-    "artrabbit_opportunities": {
+    "va_residencies_watch": {
       "status": "ok"
     },
-    "manual_newsletter_leads": {
+    "artrabbit_opportunities": {
       "status": "ok"
     },
     "furtherfield_whats_on_watch": {
       "status": "ok"
     },
-    "artistsnow_opportunities": {
+    "manual_newsletter_leads": {
       "status": "ok"
     },
-    "barbican_open_calls_watch": {
+    "bom_birmingham_open_media_watch": {
       "status": "ok"
     },
     "site_gallery_watch": {
-      "status": "ok"
-    },
-    "fact_digital_residencies_watch": {
-      "status": "ok"
-    },
-    "vivid_projects_watch": {
       "status": "ok"
     }
   }

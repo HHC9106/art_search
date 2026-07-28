@@ -193,6 +193,33 @@ def test_synthetic_url_uses_public_url_when_fetch_url_is_a_raw_endpoint():
     assert listings[0].url == "https://www.artistsnow.com/opportunities.html#example-award"
 
 
+def test_google_search_link_for_login_gated_items_with_no_public_url():
+    html = """
+    <div class="article-list-item">
+      <h3 class="article-title"><a class="article-heading-link" href="#">Liberty Art Award</a></h3>
+      <p class="article-name">Liberty Speciality Markets</p>
+    </div>
+    """
+    soup = BeautifulSoup(html, "lxml")
+    config = SourceConfig(
+        name="artistsnow_test",
+        adapter="html",
+        url="https://www.artistsnow.com/page-types/job_listing/resultSection/?categories=awards",
+        parser_options={
+            "item_selector": ".article-list-item",
+            "title_selector": ".article-title a",
+            "link_selector": ".article-title a",
+            "organizer_selector": ".article-name",
+            "google_search_link": True,
+        },
+    )
+    listings = extract_listings(soup.select(".article-list-item"), config)
+    assert listings[0].url == (
+        "https://www.google.com/search?q=Liberty+Art+Award+Liberty+Speciality+Markets"
+    )
+    assert listings[0].organizer == "Liberty Speciality Markets"
+
+
 def test_single_page_extraction_hashes_content_and_falls_back_title():
     html = """
     <html><head><title>Residencies · V&A</title></head>
