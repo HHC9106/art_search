@@ -157,8 +157,8 @@
     "first_seen_date": "2026-07-27",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£20,000"
     }
@@ -213,8 +213,8 @@
     "first_seen_date": "2026-07-27",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£500"
     }
@@ -352,8 +352,8 @@
     "first_seen_date": "2026-07-27",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£500 to £750"
     }
@@ -902,8 +902,8 @@
     "first_seen_date": "2026-07-27",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -958,8 +958,8 @@
     "first_seen_date": "2026-07-27",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£2500"
     }
@@ -1448,8 +1448,8 @@
     "first_seen_date": "2026-07-27",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1475,8 +1475,8 @@
     "first_seen_date": "2026-07-27",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -1502,8 +1502,8 @@
     "first_seen_date": "2026-07-27",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "£1,000"
     }
@@ -1722,8 +1722,8 @@
     "first_seen_date": "2026-07-27",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "urgent",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {
       "fee_text": "€5,000"
     }
