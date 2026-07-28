@@ -1,0 +1,63 @@
+# Default nation/region -> priority tier mapping, used by the scraper (and
+# thus the email digest, which is server-side and can't see browser
+# localStorage). The dashboard itself lets you override any country's tier
+# live in the browser — this file is just the starting default before you've
+# customized anything, and what quietly falls back into place if you clear
+# your browser data.
+#
+# Levels: top | high | medium | low. Countries not listed anywhere fall back
+# to `default`. Edit freely — no code changes needed.
+
+default: medium
+
+levels:
+  top:
+    - uk
+    - united kingdom
+    - england
+    - scotland
+    - wales
+    - northern ireland
+    - gb
+    - great britain
+
+  high:
+    - us
+    - usa
+    - united states
+    - united states of america
+    - taiwan
+    - tw
+    - roc
+    - austria
+    - belgium
+    - bulgaria
+    - croatia
+    - cyprus
+    - czech republic
+    - czechia
+    - denmark
+    - estonia
+    - finland
+    - france
+    - germany
+    - greece
+    - hungary
+    - ireland
+    - italy
+    - latvia
+    - lithuania
+    - luxembourg
+    - malta
+    - netherlands
+    - poland
+    - portugal
+    - romania
+    - slovakia
+    - slovenia
+    - spain
+    - sweden
+
+  medium: []
+
+  low: []

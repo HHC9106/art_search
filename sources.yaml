@@ -9,15 +9,15 @@
 #                    an entry once enabled, or every listing from it will look "new".
 #   adapter          rss | html | playwright | manual | custom
 #   url              the feed/page to fetch. Leave "TBD" (and enabled: false) until verified.
-#   region_tier      leave null to derive from `country` via scraper/tier.py; set an
-#                    int (1/2/3) to force-override.
+#   region_tier      leave null to derive from `country` via tier_config.yaml; set
+#                    one of top/high/medium/low as a string to force-override.
 #   parser_options   adapter-specific settings (CSS selectors for html/playwright, etc.)
 #   manual_entries   only used by adapter: manual — hand-curated leads with no scrapable page.
 #
 # The entries below are a STARTING POINT proposed during planning, not verified
 # scrape targets. Real URLs/selectors still need to be supplied and confirmed.
 
-# --- Tier 1: UK ---
+# --- Top tier: UK ---
 
 - name: artistsnow_opportunities
   display_name: "Artists Now (formerly a-n) – Opportunities"
@@ -98,7 +98,7 @@
     eligibility_selector: ""
   notes: "Candidate UK aggregator proposed during planning. Needs real URL + selectors confirmed."
 
-# --- Tier 2: US / Europe / Taiwan ---
+# --- High tier: US / Europe / Taiwan ---
 
 - name: cafe_callforentry
   display_name: "CaFÉ / CallForEntry.org"
@@ -119,7 +119,7 @@
   display_name: "Res Artis"
   organizer: "Res Artis"
   country: null
-  region_tier: 2
+  region_tier: high
   adapter: html
   url: "TBD"
   enabled: false
@@ -135,7 +135,7 @@
   display_name: "e-flux – Announcements"
   organizer: "e-flux"
   country: null
-  region_tier: 2
+  region_tier: high
   adapter: rss
   url: "TBD"
   enabled: false
@@ -190,11 +190,12 @@
   notes: >
     Verified working: ~57 live international listings, deadline read from the
     data-d="YYYYMMDD" attribute (more reliable than text parsing). No per-item
-    location on the index page, so region_tier defaults to Tier 3 (Other) for
-    everything here regardless of true geography — use discipline/search
-    filters to narrow down. ArtRabbit's own category (Prize/Residency/
-    Collaboration/etc., captured in description) doesn't map cleanly to our
-    listing_type enum, so listing_type is left as the open_call default.
+    location on the index page, so region_tier falls back to the "medium"
+    config default for everything here regardless of true geography — use
+    discipline/search filters to narrow down, or set a per-country override in
+    the dashboard once you spot a pattern. ArtRabbit's own category (Prize/
+    Residency/Collaboration/etc., captured in description) doesn't map cleanly
+    to our listing_type enum, so listing_type is left as the open_call default.
 
 # --- Single-institution watch pages (quarterly) ---
 # These sites only ever show their OWN opportunity (not an aggregator), and
@@ -204,11 +205,17 @@
 # last quarterly check, the listing resurfaces as "new" (see run.py) even
 # though its id/url stay the same — a nudge to go look, not a real deep link
 # to a specific opportunity.
+#
+# Convention: any singular/single-institution source defaults to region_tier:
+# high (an explicit override below, not derived from country) since you chose
+# to track it specifically - bump it to top, or down to medium/low, per source
+# as you like; the dashboard's per-country override also applies on top of this.
 
 - name: va_residencies_watch
   display_name: "V&A Residencies — Open Calls (watch)"
   organizer: "Victoria and Albert Museum"
   country: "UK"
+  region_tier: high
   adapter: html
   url: "https://www.vam.ac.uk/info/residencies"
   enabled: true
@@ -228,6 +235,7 @@
   display_name: "Barbican Open Calls (watch)"
   organizer: "Barbican Centre"
   country: "UK"
+  region_tier: high
   adapter: html
   url: "https://www.barbican.org.uk/our-story/our-projects/open-calls"
   enabled: true
@@ -245,6 +253,7 @@
   display_name: "Peckham Digital (watch)"
   organizer: "Peckham Digital CIC"
   country: "UK"
+  region_tier: high
   adapter: html
   url: "https://peckhamdigital.org/"
   enabled: true
@@ -263,6 +272,7 @@
   display_name: "Digital Good — Artwork Commission"
   organizer: "Digital Good"
   country: "UK"
+  region_tier: high
   adapter: html
   url: "https://digitalgood.net/new-opportunity-artwork-commission-2/"
   enabled: false

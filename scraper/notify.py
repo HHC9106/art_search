@@ -11,11 +11,12 @@ from email.mime.text import MIMEText
 from pathlib import Path
 
 from scraper.models import Listing
+from scraper.tier import TIER_LEVELS
 
 HEADS_UP_DAYS = 30
 URGENT_DAYS = 7
 
-TIER_LABELS = {1: "Tier 1 — UK", 2: "Tier 2 — US / Europe / Taiwan", 3: "Tier 3 — Other"}
+TIER_LABELS = {"top": "Top", "high": "High", "medium": "Medium", "low": "Low"}
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 LISTINGS_PATH = REPO_ROOT / "docs" / "data" / "listings.json"
@@ -68,13 +69,13 @@ def render_html(sections: DigestSections, today: date) -> str:
     def render_group(title: str, listings: list[Listing]) -> str:
         if not listings:
             return ""
-        by_tier: dict[int, list[Listing]] = {}
+        by_tier: dict[str, list[Listing]] = {}
         for listing in listings:
             by_tier.setdefault(listing.region_tier, []).append(listing)
 
         parts = [f"<h2>{title}</h2>"]
-        for tier in sorted(by_tier):
-            parts.append(f"<h3>{TIER_LABELS.get(tier, 'Other')}</h3><ul>")
+        for tier in sorted(by_tier, key=lambda t: TIER_LEVELS.index(t) if t in TIER_LEVELS else len(TIER_LEVELS)):
+            parts.append(f"<h3>{TIER_LABELS.get(tier, tier.title())}</h3><ul>")
             for listing in sorted(by_tier[tier], key=lambda l: l.deadline or date.max):
                 deadline_str = listing.deadline.isoformat() if listing.deadline else "no deadline"
                 parts.append(

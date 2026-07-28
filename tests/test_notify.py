@@ -6,7 +6,7 @@ from scraper.notify import compute_sections, render_html
 TODAY = date(2026, 7, 27)
 
 
-def make_listing(url, days_left=None, region_tier=1, notified_tier="none", status="open"):
+def make_listing(url, days_left=None, region_tier="top", notified_tier="none", status="open"):
     deadline = TODAY + timedelta(days=days_left) if days_left is not None else None
     return Listing(
         id=make_id("s", url),
@@ -87,4 +87,4 @@ def test_render_html_includes_titles_and_source_errors():
     html = render_html(sections, TODAY)
     assert "Listing urgent" in html
     assert "broken: HTTPError: 403" in html
-    assert "Tier 1 — UK" in html
+    assert ">Top<" in html

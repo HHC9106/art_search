@@ -1,28 +1,38 @@
 from __future__ import annotations
 
-TIER_1_COUNTRIES = {
-    "uk", "united kingdom", "england", "scotland", "wales",
-    "northern ireland", "gb", "great britain",
-}
+from functools import lru_cache
+from pathlib import Path
 
-EU_COUNTRY_NAMES = {
-    "austria", "belgium", "bulgaria", "croatia", "cyprus", "czech republic", "czechia",
-    "denmark", "estonia", "finland", "france", "germany", "greece", "hungary",
-    "ireland", "italy", "latvia", "lithuania", "luxembourg", "malta", "netherlands",
-    "poland", "portugal", "romania", "slovakia", "slovenia", "spain", "sweden",
-}
+import yaml
 
-TIER_2_COUNTRIES = {
-    "us", "usa", "united states", "united states of america", "taiwan", "tw", "roc",
-} | EU_COUNTRY_NAMES
+TIER_LEVELS = ("top", "high", "medium", "low")
+
+DEFAULT_CONFIG_PATH = Path(__file__).resolve().parent.parent / "tier_config.yaml"
 
 
-def region_tier(country: str | None, override: int | None = None) -> int:
+@lru_cache(maxsize=None)
+def _load_config(path: Path) -> dict:
+    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    levels = raw.get("levels") or {}
+    lookup: dict[str, str] = {}
+    for tier in TIER_LEVELS:
+        for country in levels.get(tier) or []:
+            lookup[country.strip().lower()] = tier
+    default = raw.get("default", "low")
+    if default not in TIER_LEVELS:
+        raise ValueError(f"tier_config.yaml default {default!r} must be one of {TIER_LEVELS}")
+    return {"lookup": lookup, "default": default}
+
+
+def region_tier(country: str | None, override: str | None = None, config_path: Path | None = None) -> str:
+    """Nation/region -> priority tier (top/high/medium/low), driven by
+    tier_config.yaml so the mapping is user-editable without code changes.
+    The dashboard additionally lets tiers be overridden live in the browser -
+    this is just the server-side default used at scrape time and for the
+    email digest.
+    """
     if override is not None:
         return override
+    config = _load_config(config_path or DEFAULT_CONFIG_PATH)
     normalized = (country or "").strip().lower()
-    if normalized in TIER_1_COUNTRIES:
-        return 1
-    if normalized in TIER_2_COUNTRIES:
-        return 2
-    return 3
+    return config["lookup"].get(normalized, config["default"])

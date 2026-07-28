@@ -1,20 +1,27 @@
 # Art Open Calls & Prizes Tracker
 
 A personal tool that scrapes art open calls, prizes, residencies, and grants,
-ranks them by region (UK top priority, US/Europe/Taiwan tier 2, everything
-else tier 3), and lets you browse/track them in a static dashboard.
+ranks them by a nation/region priority tier (top/high/medium/low, user-defined
+— see below), and lets you browse/track them in a static dashboard.
 
 See [PLANNING.md](PLANNING.md) for the full design rationale.
 
 ## How it works
 
-- `.github/workflows/scrape.yml` runs weekly, executes `scraper/run.py`, and
-  commits the results straight into `docs/data/listings.json` /
-  `docs/data/meta.json`.
+- `.github/workflows/scrape.yml` runs weekly (plus a quarterly pass for
+  single-institution "watch" sources), executes `scraper/run.py`, and commits
+  the results straight into `docs/data/listings.json` / `docs/data/meta.json`.
 - GitHub Pages serves `docs/` directly — the dashboard (`docs/index.html` +
   `docs/app.js`) reads that same JSON file client-side.
 - Application/tracking status (interested, applied, etc.) is stored in your
   browser's `localStorage` only — it does not sync across devices.
+- **Tier is nation/region-based and fully user-editable.** `tier_config.yaml`
+  sets the server-side default (used at scrape time and for the email
+  digest), but the dashboard's Tier column is a live dropdown: changing it
+  for one listing re-tiers every listing from that same country (stored in
+  `localStorage`, so it's a personal/per-device setting — "Reset tier
+  overrides" clears it). Countries not in `tier_config.yaml` fall back to its
+  `default` (currently `medium`).
 - A weekly email digest (new listings, a one-time "heads up" ~30 days before
   a deadline, and an "urgent" notice within 7 days) is sent via Gmail SMTP.
 

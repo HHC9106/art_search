@@ -15,9 +15,10 @@
   <section class="controls">
     <div class="control-group" id="tier-filter">
       <span class="control-label">Tier</span>
-      <label><input type="checkbox" value="1" checked /> UK</label>
-      <label><input type="checkbox" value="2" checked /> US/EU/TW</label>
-      <label><input type="checkbox" value="3" checked /> Other</label>
+      <label><input type="checkbox" value="top" checked /> Top</label>
+      <label><input type="checkbox" value="high" checked /> High</label>
+      <label><input type="checkbox" value="medium" checked /> Medium</label>
+      <label><input type="checkbox" value="low" checked /> Low</label>
     </div>
 
     <div class="control-group" id="discipline-filter">
@@ -75,6 +76,7 @@
       <button id="export-btn" type="button">Export tracking</button>
       <button id="import-btn" type="button">Import tracking</button>
       <input type="file" id="import-file" accept="application/json" hidden />
+      <button id="reset-tiers-btn" type="button" title="Clear all your custom nation/region tier settings">Reset tier overrides</button>
     </div>
   </section>
 

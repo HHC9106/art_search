@@ -21,7 +21,7 @@ class Listing:
     source_name: str
     url: str
     country: Optional[str] = None
-    region_tier: int = 3
+    region_tier: str = "medium"  # top | high | medium | low - see tier_config.yaml
     discipline: list[str] = field(default_factory=list)
     listing_type: str = "open_call"  # open_call | prize | residency | grant
     deadline: Optional[date] = None

@@ -52,7 +52,7 @@ def test_html_extraction_from_fixture_page():
     assert listings[0].title == "Open Call: Emerging Painters"
     assert listings[0].url == "https://example.org/opportunities/1"
     assert listings[0].deadline == date(2026, 9, 15)
-    assert listings[0].region_tier == 1
+    assert listings[0].region_tier == "top"
     assert listings[0].raw_extra == {"fee_text": "Entry fee: £12"}
     assert listings[0].eligibility == "UK residents only, aged 18-35"
 
@@ -157,7 +157,7 @@ def test_single_page_extraction_hashes_content_and_falls_back_title():
 
     assert listing.title == "V&A Residencies — Open Calls (watch)"  # display_name wins over <title>
     assert listing.url == config.url
-    assert listing.region_tier == 1
+    assert listing.region_tier == "top"
     assert "content_hash" in listing.raw_extra
     assert listing.raw_extra["content_hash"] == extract_single_page_listing(soup, config).raw_extra["content_hash"]
 

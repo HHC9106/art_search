@@ -1,6 +1,10 @@
 const TRACKING_KEY = "art-search-tracking";
 const TRACKING_STATUSES = ["none", "interested", "applied", "accepted", "rejected", "ignored"];
 
+const TIER_OVERRIDES_KEY = "art-search-tier-overrides";
+const TIER_LEVELS = ["top", "high", "medium", "low"];
+const TIER_LABELS = { top: "Top", high: "High", medium: "Medium", low: "Low" };
+
 // Mirrors scraper/discipline_tags.py's DISCIPLINE_TAGS keys/labels — keep in sync
 // if the tag set changes there. "untagged" is a UI-only sentinel, not a real tag.
 const DISCIPLINE_TAGS = {
@@ -34,6 +38,36 @@ function setTrackingStatus(id, status) {
   saveTracking(tracking);
 }
 
+// Tier is fundamentally about the nation/region, not the individual listing,
+// so overrides are keyed by country - falling back to source_name for
+// aggregator items with no per-item country (e.g. ArtRabbit).
+function tierOverrideKey(listing) {
+  return listing.country || listing.source_name;
+}
+
+function loadTierOverrides() {
+  try {
+    return JSON.parse(localStorage.getItem(TIER_OVERRIDES_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function saveTierOverrides(overrides) {
+  localStorage.setItem(TIER_OVERRIDES_KEY, JSON.stringify(overrides));
+}
+
+function setTierOverride(key, tier) {
+  const overrides = loadTierOverrides();
+  overrides[key] = tier;
+  saveTierOverrides(overrides);
+}
+
+function effectiveTier(listing) {
+  const overrides = loadTierOverrides();
+  return overrides[tierOverrideKey(listing)] || listing.region_tier;
+}
+
 async function fetchJson(path) {
   const res = await fetch(path, { cache: "no-store" });
   if (!res.ok) throw new Error(`Failed to fetch ${path}: ${res.status}`);
@@ -53,7 +87,7 @@ function currentFilters() {
   const tiers = new Set(
     Array.from(tierBoxes)
       .filter((cb) => cb.checked)
-      .map((cb) => Number(cb.value))
+      .map((cb) => cb.value)
   );
   const disciplineBoxes = document.querySelectorAll("#discipline-filter input[type=checkbox]");
   const disciplines = new Set(
@@ -74,7 +108,7 @@ function currentFilters() {
 
 function applyFilters(all, filters) {
   return all.filter((l) => {
-    if (!filters.tiers.has(l.region_tier)) return false;
+    if (!filters.tiers.has(effectiveTier(l))) return false;
     if (filters.disciplines.size < Object.keys(DISCIPLINE_TAGS).length + 1) {
       const tags = l.discipline || [];
       const passes = tags.length
@@ -102,15 +136,12 @@ function sortListings(items, sortOrder) {
     sorted.sort((a, b) => (b.first_seen_date || "").localeCompare(a.first_seen_date || ""));
   } else {
     sorted.sort((a, b) => {
-      if (a.region_tier !== b.region_tier) return a.region_tier - b.region_tier;
+      const tierDiff = TIER_LEVELS.indexOf(effectiveTier(a)) - TIER_LEVELS.indexOf(effectiveTier(b));
+      if (tierDiff !== 0) return tierDiff;
       return deadlineKey(a).localeCompare(deadlineKey(b));
     });
   }
   return sorted;
-}
-
-function tierLabel(tier) {
-  return { 1: "UK", 2: "US/EU/TW", 3: "Other" }[tier] || "Other";
 }
 
 function renderDisciplineBadges(tags) {
@@ -146,7 +177,7 @@ function render() {
     row.innerHTML = `
       <td><a href="${listing.url}" target="_blank" rel="noopener">${escapeHtml(listing.title)}</a></td>
       <td>${escapeHtml(listing.organizer || "")}</td>
-      <td><span class="tier-badge tier-${listing.region_tier}">${tierLabel(listing.region_tier)}</span></td>
+      <td class="tier-cell"></td>
       <td>${escapeHtml(listing.listing_type || "")}</td>
       <td>${renderDisciplineBadges(listing.discipline)}</td>
       <td class="${urgentClass}">${escapeHtml(deadlineCell)}</td>
@@ -155,6 +186,24 @@ function render() {
       <td class="eligibility-cell" title="${escapeHtml(listing.eligibility || "")}">${escapeHtml(listing.eligibility || "—")}</td>
       <td></td>
     `;
+
+    const tier = effectiveTier(listing);
+    const tierCell = row.querySelector(".tier-cell");
+    const tierSelect = document.createElement("select");
+    tierSelect.className = `tier-select tier-${tier}`;
+    tierSelect.title = `Sets the tier for ${tierOverrideKey(listing)}, not just this one listing`;
+    for (const level of TIER_LEVELS) {
+      const opt = document.createElement("option");
+      opt.value = level;
+      opt.textContent = TIER_LABELS[level];
+      if (level === tier) opt.selected = true;
+      tierSelect.appendChild(opt);
+    }
+    tierSelect.addEventListener("change", () => {
+      setTierOverride(tierOverrideKey(listing), tierSelect.value);
+      render();
+    });
+    tierCell.appendChild(tierSelect);
 
     const trackingCell = row.lastElementChild;
     const select = document.createElement("select");
@@ -227,6 +276,13 @@ function setupExportImport() {
       alert(`Import failed: ${err.message}`);
     }
     importFile.value = "";
+  });
+
+  document.getElementById("reset-tiers-btn").addEventListener("click", () => {
+    if (confirm("Clear all your custom nation/region tier settings? This can't be undone.")) {
+      localStorage.removeItem(TIER_OVERRIDES_KEY);
+      render();
+    }
   });
 }
 

@@ -15,7 +15,7 @@ class SourceConfig:
     display_name: str = ""
     organizer: str = ""
     country: str | None = None
-    region_tier_override: int | None = None
+    region_tier_override: str | None = None  # top | high | medium | low
     url: str | None = None
     listing_type: str = "open_call"
     parser_options: dict[str, Any] = field(default_factory=dict)
