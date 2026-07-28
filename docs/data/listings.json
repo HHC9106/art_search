@@ -341,8 +341,8 @@
     "first_seen_date": "2026-07-28",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
@@ -594,8 +594,8 @@
     "first_seen_date": "2026-07-28",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "month",
+    "last_notified_date": "2026-07-28",
     "raw_extra": {}
   },
   {
