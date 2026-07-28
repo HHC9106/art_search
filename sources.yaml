@@ -37,18 +37,23 @@
     fee_selector: ".job-meta:nth-of-type(3) .job-meta-value"
     description_selector: ".article-text"
     synthetic_url_from_title: true
+    public_url: "https://www.artistsnow.com/opportunities.html"
   notes: >
-    a-n.co.uk now redirects to artistsnow.com (rebrand). The url's categories=
-    params exclude Jobs/Selling/Studios at the source (confirmed working via
-    the site's own filter - "Displaying N results" drops accordingly), leaving
-    Awards/Commissions/Exhibitions/Funding/Residencies/Other/Professional
-    development (~57 of ~97 total). Both individual listing links and "load
-    more" pagination still require an Artists Now account, so only the first
-    10 of those ~57 (sorted soonest-closing) are visible, and the url field is
-    a synthetic anchor back to the search page rather than a real deep link —
-    treat these as a pointer to go search/log in at artistsnow.com, not a
-    directly actionable link. eligibility_selector here actually captures
-    location (job-meta order is Closing date / Location / Payment), reused
+    a-n.co.uk now redirects to artistsnow.com (rebrand). url is the raw AJAX
+    fragment endpoint used to actually fetch data (categories= params exclude
+    Jobs/Selling/Studios at the source - confirmed working via the site's own
+    filter, "Displaying N results" drops accordingly - leaving Awards/
+    Commissions/Exhibitions/Funding/Residencies/Other/Professional development,
+    ~57 of ~97 total). public_url points the synthetic per-item link at the
+    real human-facing search page instead - clicking straight into the raw
+    endpoint renders an unstyled fragment with no page chrome, not a usable
+    page. Both individual listing links and "load more" pagination still
+    require an Artists Now account, so only the first 10 of those ~57 (sorted
+    soonest-closing) are visible, and the url field is a synthetic anchor back
+    to the search page rather than a real deep link — treat these as a pointer
+    to go search/log in at artistsnow.com, not a directly actionable link.
+    eligibility_selector here actually captures location (job-meta order is
+    Closing date / Location / Payment), reused
     since there's no dedicated location field in the schema. country is
     statically "UK" though some listings are flagged "Outside of the UK" on
     the real site — a known imprecision.

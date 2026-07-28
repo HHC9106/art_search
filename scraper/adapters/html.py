@@ -86,10 +86,15 @@ def extract_listings(items, config: SourceConfig) -> list[Listing]:
             # card's link as a login-modal trigger with no real per-item URL.
             # A slug-based fragment keeps ids stable/unique without pretending
             # to be a deep link - clicking it just lands on the listing page.
+            #
+            # public_url lets this point at the human-facing search page
+            # instead of config.url, which for some sources is a raw AJAX
+            # fragment endpoint (no page chrome/CSS - looks broken if a user
+            # actually navigates to it) rather than a real browsable page.
             # Built from scheme+host+path only (no query/fragment) so tweaking
-            # the source's query params (e.g. category filters) later never
-            # changes existing ids and creates duplicates.
-            parts = urlsplit(config.url)
+            # query params (e.g. category filters) later never changes
+            # existing ids and creates duplicates.
+            parts = urlsplit(opts.get("public_url") or config.url)
             base_url = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
             url = f"{base_url}#{slugify(title)}"
         elif not href:

@@ -167,6 +167,32 @@ def test_synthetic_url_ignores_query_params_so_ids_survive_url_changes():
     assert before[0].url == after[0].url
 
 
+def test_synthetic_url_uses_public_url_when_fetch_url_is_a_raw_endpoint():
+    # Some sources are scraped from a raw AJAX fragment endpoint that has no
+    # page chrome/CSS - clicking straight into it looks broken. public_url
+    # points the synthetic link at the real human-facing page instead.
+    html = """
+    <div class="article-list-item">
+      <h3 class="article-title"><a class="article-heading-link" href="#">Example Award</a></h3>
+    </div>
+    """
+    soup = BeautifulSoup(html, "lxml")
+    config = SourceConfig(
+        name="artistsnow_test",
+        adapter="html",
+        url="https://www.artistsnow.com/page-types/job_listing/resultSection/?categories=awards",
+        parser_options={
+            "item_selector": ".article-list-item",
+            "title_selector": ".article-title a",
+            "link_selector": ".article-title a",
+            "synthetic_url_from_title": True,
+            "public_url": "https://www.artistsnow.com/opportunities.html",
+        },
+    )
+    listings = extract_listings(soup.select(".article-list-item"), config)
+    assert listings[0].url == "https://www.artistsnow.com/opportunities.html#example-award"
+
+
 def test_single_page_extraction_hashes_content_and_falls_back_title():
     html = """
     <html><head><title>Residencies · V&A</title></head>
