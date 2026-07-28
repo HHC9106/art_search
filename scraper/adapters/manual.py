@@ -32,6 +32,7 @@ class ManualAdapter:
                     prize_amount=entry.get("prize_amount"),
                     eligibility=entry.get("eligibility"),
                     description=entry.get("notes"),
+                    discipline=entry.get("discipline", []),
                 )
             )
         return listings

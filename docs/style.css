@@ -86,6 +86,14 @@ header h1 {
   gap: 0.75rem;
 }
 
+#discipline-filter {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  max-width: 32rem;
+}
+
 select, input, button {
   background: var(--bg);
   color: var(--fg);
@@ -143,6 +151,21 @@ tr.closed-row {
 .tier-1 { background: var(--tier1); }
 .tier-2 { background: var(--tier2); }
 .tier-3 { background: var(--tier3); }
+
+.discipline-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.discipline-untagged {
+  font-style: italic;
+  opacity: 0.7;
+}
 
 .deadline-urgent {
   color: var(--urgent);

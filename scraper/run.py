@@ -7,6 +7,7 @@ from datetime import date
 from pathlib import Path
 
 from scraper.adapters.base import get_adapter
+from scraper.discipline_tags import auto_tag_discipline
 from scraper.models import Listing
 from scraper.notify import build_and_send
 from scraper.sources_config import load_sources
@@ -79,6 +80,10 @@ def run(
 
         successful_sources.add(source.name)
         for listing in fresh_listings:
+            if not listing.discipline:
+                listing.discipline = auto_tag_discipline(
+                    f"{listing.title} {listing.description or ''} {listing.eligibility or ''}"
+                )
             seen_ids_this_run.add(listing.id)
             existing = merged.get(listing.id)
             if existing is not None:

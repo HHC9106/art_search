@@ -1,6 +1,18 @@
 const TRACKING_KEY = "art-search-tracking";
 const TRACKING_STATUSES = ["none", "interested", "applied", "accepted", "rejected", "ignored"];
 
+// Mirrors scraper/discipline_tags.py's DISCIPLINE_TAGS keys/labels — keep in sync
+// if the tag set changes there. "untagged" is a UI-only sentinel, not a real tag.
+const DISCIPLINE_TAGS = {
+  new_media_art: "New Media Art",
+  digital_art: "Digital Art",
+  data_art: "Data Art",
+  civic_tech: "Civic Tech",
+  open_data: "Open Data",
+  urban_data: "Urban Data",
+  information_art: "Information Art",
+};
+
 let listings = [];
 
 function loadTracking() {
@@ -43,8 +55,15 @@ function currentFilters() {
       .filter((cb) => cb.checked)
       .map((cb) => Number(cb.value))
   );
+  const disciplineBoxes = document.querySelectorAll("#discipline-filter input[type=checkbox]");
+  const disciplines = new Set(
+    Array.from(disciplineBoxes)
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value)
+  );
   return {
     tiers,
+    disciplines,
     type: document.getElementById("type-filter").value,
     status: document.getElementById("status-filter").value,
     tracking: document.getElementById("tracking-filter").value,
@@ -56,6 +75,13 @@ function currentFilters() {
 function applyFilters(all, filters) {
   return all.filter((l) => {
     if (!filters.tiers.has(l.region_tier)) return false;
+    if (filters.disciplines.size < Object.keys(DISCIPLINE_TAGS).length + 1) {
+      const tags = l.discipline || [];
+      const passes = tags.length
+        ? tags.some((tag) => filters.disciplines.has(tag))
+        : filters.disciplines.has("untagged");
+      if (!passes) return false;
+    }
     if (filters.type && l.listing_type !== filters.type) return false;
     if (filters.status && l.status !== filters.status) return false;
     if (filters.tracking && l.tracking.status !== filters.tracking) return false;
@@ -87,6 +113,13 @@ function tierLabel(tier) {
   return { 1: "UK", 2: "US/EU/TW", 3: "Other" }[tier] || "Other";
 }
 
+function renderDisciplineBadges(tags) {
+  if (!tags || !tags.length) return '<span class="discipline-badge discipline-untagged">untagged</span>';
+  return tags
+    .map((tag) => `<span class="discipline-badge">${escapeHtml(DISCIPLINE_TAGS[tag] || tag)}</span>`)
+    .join(" ");
+}
+
 function render() {
   const filters = currentFilters();
   const filtered = sortListings(applyFilters(listings, filters), filters.sort);
@@ -115,6 +148,7 @@ function render() {
       <td>${escapeHtml(listing.organizer || "")}</td>
       <td><span class="tier-badge tier-${listing.region_tier}">${tierLabel(listing.region_tier)}</span></td>
       <td>${escapeHtml(listing.listing_type || "")}</td>
+      <td>${renderDisciplineBadges(listing.discipline)}</td>
       <td class="${urgentClass}">${escapeHtml(deadlineCell)}</td>
       <td>${listing.fee != null ? escapeHtml(String(listing.fee)) : "—"}</td>
       <td>${escapeHtml(listing.prize_amount || "—")}</td>
@@ -196,6 +230,21 @@ function setupExportImport() {
   });
 }
 
+function setupDisciplineFilter() {
+  const container = document.getElementById("discipline-filter");
+  const entries = [...Object.entries(DISCIPLINE_TAGS), ["untagged", "Untagged"]];
+  for (const [value, label] of entries) {
+    const wrapper = document.createElement("label");
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.value = value;
+    cb.checked = true;
+    wrapper.appendChild(cb);
+    wrapper.append(` ${label}`);
+    container.appendChild(wrapper);
+  }
+}
+
 function setupControls() {
   const ids = ["type-filter", "status-filter", "tracking-filter", "sort-order", "search-box"];
   for (const id of ids) {
@@ -206,9 +255,13 @@ function setupControls() {
   document.querySelectorAll("#tier-filter input[type=checkbox]").forEach((cb) => {
     cb.addEventListener("change", render);
   });
+  document.querySelectorAll("#discipline-filter input[type=checkbox]").forEach((cb) => {
+    cb.addEventListener("change", render);
+  });
 }
 
 async function init() {
+  setupDisciplineFilter();
   setupControls();
   setupExportImport();
 

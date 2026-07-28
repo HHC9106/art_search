@@ -107,6 +107,49 @@ def test_past_deadline_closes_regardless_of_staleness(tmp_path):
     assert saved[0]["status"] == "closed"
 
 
+def test_discipline_is_auto_tagged_from_title_when_not_provided(tmp_path):
+    sources_path = tmp_path / "sources.yaml"
+    listings_path = tmp_path / "listings.json"
+    meta_path = tmp_path / "meta.json"
+
+    write_sources(
+        sources_path,
+        [
+            {
+                "title": "Open call for new media art and civic tech projects",
+                "organizer": "Org",
+                "country": "UK",
+                "url": "a",
+                "deadline": "2026-12-01",
+            }
+        ],
+    )
+    run(send_email=False, today=WEEK_1, sources_path=sources_path, listings_path=listings_path, meta_path=meta_path)
+
+    import json
+
+    saved = json.loads(listings_path.read_text())
+    assert saved[0]["discipline"] == ["civic_tech", "new_media_art"]
+
+
+def test_explicit_manual_discipline_is_not_overwritten(tmp_path):
+    sources_path = tmp_path / "sources.yaml"
+    listings_path = tmp_path / "listings.json"
+    meta_path = tmp_path / "meta.json"
+
+    manual_entry = entry("a")
+    manual_entry["discipline"] = ["data_art"]
+    manual_entry["title"] = "New media art prize"  # would auto-tag differently if not respected
+
+    write_sources(sources_path, [manual_entry])
+    run(send_email=False, today=WEEK_1, sources_path=sources_path, listings_path=listings_path, meta_path=meta_path)
+
+    import json
+
+    saved = json.loads(listings_path.read_text())
+    assert saved[0]["discipline"] == ["data_art"]
+
+
 def test_broken_source_does_not_crash_the_run(tmp_path):
     sources_path = tmp_path / "sources.yaml"
     listings_path = tmp_path / "listings.json"
