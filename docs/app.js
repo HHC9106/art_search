@@ -69,6 +69,22 @@ function effectiveTier(listing) {
   return overrides[tierOverrideKey(listing)] || listing.region_tier;
 }
 
+// Bundles all three localStorage stores (tracking, tier overrides, dismissed)
+// into one backup file - see the Export/Import buttons.
+function exportState() {
+  return {
+    tracking: loadTracking(),
+    tier_overrides: loadTierOverrides(),
+    dismissed: [...loadDismissed()],
+  };
+}
+
+function importState(data) {
+  if (data.tracking) saveTracking(data.tracking);
+  if (data.tier_overrides) saveTierOverrides(data.tier_overrides);
+  if (data.dismissed) localStorage.setItem(DISMISSED_KEY, JSON.stringify(data.dismissed));
+}
+
 function loadDismissed() {
   try {
     return new Set(JSON.parse(localStorage.getItem(DISMISSED_KEY)) || []);
@@ -295,11 +311,11 @@ function renderMetaBadge(meta) {
 
 function setupExportImport() {
   document.getElementById("export-btn").addEventListener("click", () => {
-    const blob = new Blob([JSON.stringify(loadTracking(), null, 2)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify(exportState(), null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `art-search-tracking-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = "local-state-backup.json";
     a.click();
     URL.revokeObjectURL(url);
   });
@@ -311,7 +327,7 @@ function setupExportImport() {
     if (!file) return;
     try {
       const data = JSON.parse(await file.text());
-      saveTracking(data);
+      importState(data);
       listings = mergeTracking(listings.map(({ tracking, ...rest }) => rest));
       render();
     } catch (err) {

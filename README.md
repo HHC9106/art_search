@@ -13,8 +13,11 @@ See [PLANNING.md](PLANNING.md) for the full design rationale.
   the results straight into `docs/data/listings.json` / `docs/data/meta.json`.
 - GitHub Pages serves `docs/` directly — the dashboard (`docs/index.html` +
   `docs/app.js`) reads that same JSON file client-side.
-- Application/tracking status (interested, applied, etc.) is stored in your
-  browser's `localStorage` only — it does not sync across devices.
+- Application/tracking status (interested, applied, etc.), tier overrides, and
+  removed listings are stored in your browser's `localStorage` only — the
+  scraper and GitHub Actions have no access to it, so it never syncs across
+  devices or browsers on its own. See "Backing up dashboard state" below for
+  how to carry it over manually.
 - **Tier is nation/region-based by default and fully user-editable.**
   `tier_config.yaml` sets the server-side default per country (used at scrape
   time and for the email digest), but the dashboard's Tier column is a live
@@ -24,6 +27,29 @@ See [PLANNING.md](PLANNING.md) for the full design rationale.
   `default` (currently `medium`).
 - A weekly email digest (new listings, a one-time "heads up" ~30 days before
   a deadline, and an "urgent" notice within 7 days) is sent via Gmail SMTP.
+
+## Backing up dashboard state
+
+Tracking status, tier overrides, and removed listings all live only in your
+browser's `localStorage` (see "How it works" above) — there's no backend to
+sync them anywhere automatically. To back them up or carry them to a new
+browser/device:
+
+1. On the dashboard, click **Export backup** — downloads everything
+   (tracking + tier overrides + removed listings) as one JSON file.
+2. Save/overwrite it as `local-state-backup.json` at the repo root (a
+   placeholder with empty state already exists there so the convention is
+   established from the start).
+3. Commit and push that file whenever you want it backed up on GitHub — or
+   just ask Claude to do it next time you're working in this repo; it's a
+   plain tracked file, not gitignored, specifically so it can be committed
+   like any other change.
+4. To restore on a different browser/device, click **Import backup** and
+   pick that same file.
+
+This is a manual, on-demand backup — not a live sync. Nothing about your
+dashboard interactions is ever pushed automatically; you decide when to
+export and when to commit.
 
 ## Setup (one-time)
 
