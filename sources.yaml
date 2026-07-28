@@ -276,25 +276,13 @@
     2026-07-28. Whole-page watch for now; revisit if they add a dedicated
     opportunities/programme page worth pointing at instead.
 
-- name: digitalgood_commission
-  display_name: "Digital Good — Artwork Commission"
-  organizer: "Digital Good"
-  country: "UK"
-  region_tier: high
-  adapter: html
-  url: "https://digitalgood.net/new-opportunity-artwork-commission-2/"
-  enabled: false
-  listing_type: open_call
-  frequency: quarterly
-  parser_options:
-    single_page: true
-    content_selector: "main"
-  notes: >
-    Confirmed blocked (HTTP 403 "Forbidden") from both curl and a real
-    headless Playwright browser as of 2026-07-28 — looks like an IP-based WAF
-    block rather than a JS challenge, so a GitHub Actions runner will likely
-    be blocked too. Left disabled; needs manual curation if this source is
-    wanted (check it directly in a normal browser).
+
+# Note: digitalgood.net is confirmed blocked (HTTP 403 "Forbidden" from both
+# curl and a real headless Playwright browser as of 2026-07-28 - looks like
+# an IP-based WAF block rather than a JS challenge, so unscrapable from a
+# GitHub Actions runner too). Rather than a source entry that can never run,
+# it's a manual_newsletter_leads entry below instead - a fixed dashboard row
+# pointing straight at the site, checked by hand.
 
 - name: fact_digital_residencies_watch
   display_name: "FACT Liverpool — Digital Artist Residencies (watch)"
@@ -416,5 +404,12 @@
   display_name: "Manually curated leads"
   adapter: manual
   enabled: true
-  manual_entries: []
+  manual_entries:
+    - title: "Digital Good — Artwork Commission (check manually)"
+      organizer: "Digital Good"
+      country: "UK"
+      region_tier: high
+      url: "https://digitalgood.net/new-opportunity-artwork-commission-2/"
+      listing_type: "open_call"
+      notes: "Site blocked to automated scraping (403 confirmed via curl + headless browser as of 2026-07-28) - check directly in a normal browser."
   notes: "Add hand-curated entries here for leads found via newsletters with no scrapable listing page."
