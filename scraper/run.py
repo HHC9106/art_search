@@ -44,22 +44,32 @@ def compute_manual_reminders(sources: list, cadence: str) -> list[dict]:
 
 
 def dedupe_by_url(merged: dict[str, Listing]) -> dict[str, Listing]:
-    """Different aggregators sometimes list the exact same external
-    opportunity (e.g. both The Space and Art Quest listing the same Fine
-    Acts residency). Collapses same-url listings to one entry, keeping the
-    one that sorts first by id - arbitrary but stable across runs, since the
-    same url scraped by the same set of sources always resolves the same
-    way. Only touches listings whose url actually collides; unique urls
-    (the overwhelming majority) pass through untouched."""
-    seen_urls: set[str] = set()
-    deduped: dict[str, Listing] = {}
+    """Different sources sometimes list the exact same external opportunity
+    (e.g. an aggregator like The Space and a dedicated single_page watch
+    source both pointing at the same org's open-calls page). Collapses
+    same-url listings to one entry.
+
+    Prefers whichever copy has a content_hash in raw_extra (i.e. came from a
+    single_page watch source) - that's the one actually monitoring the page
+    for changes, so keeping it preserves the "resurface as new when the page
+    changes" behavior that a plain aggregator listing of the same url can't
+    provide. Falls back to whichever sorts first by id (arbitrary but stable
+    across runs) when neither/both copies have a content_hash. Only touches
+    listings whose url actually collides; unique urls (the overwhelming
+    majority) pass through untouched."""
+    groups: dict[str, list[str]] = {}
     for lid in sorted(merged.keys()):
-        listing = merged[lid]
-        url_key = (listing.url or "").strip().lower().rstrip("/")
-        if url_key and url_key in seen_urls:
+        url_key = (merged[lid].url or "").strip().lower().rstrip("/")
+        groups.setdefault(url_key, []).append(lid)
+
+    deduped: dict[str, Listing] = {}
+    for url_key, ids in groups.items():
+        if not url_key or len(ids) == 1:
+            for lid in ids:
+                deduped[lid] = merged[lid]
             continue
-        seen_urls.add(url_key)
-        deduped[lid] = listing
+        chosen = next((lid for lid in ids if merged[lid].raw_extra.get("content_hash")), ids[0])
+        deduped[chosen] = merged[chosen]
     return deduped
 
 

@@ -114,6 +114,35 @@
     }
   },
   {
+    "id": "6b8f267006f0f4eb",
+    "title": "Ars Electronica — Open Calls (watch)",
+    "organizer": "Ars Electronica",
+    "source_name": "ars_electronica_open_calls_watch",
+    "url": "https://ars.electronica.art/news/en/opencalls/",
+    "country": null,
+    "region_tier": "high",
+    "discipline": [],
+    "listing_type": "open_call",
+    "deadline": null,
+    "deadline_raw": null,
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "Ars Electronica Newsletter Open Calls About More Whether we’re honoring achievements in media art or offering exciting residency opportunities, Ars Electronica and its partners are always on the lookout for creative minds who want to present their work to a wider audience or draw inspiration for their work from other institutions. The following Open Calls are currently accepting submissions: Prix Ars Electronica 2027 Submission start: January 2027 Win the coveted Golden Nica and prize money of u",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-28",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {
+      "content_hash": "56362757b1963954"
+    }
+  },
+  {
     "id": "6ea6c5901425d8a0",
     "title": "François Daulte Research Grant 2026",
     "organizer": "ArtRabbit",
@@ -367,6 +396,37 @@
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
+  },
+  {
+    "id": "d73c4cd91566fad6",
+    "title": "Lumen Prize (watch)",
+    "organizer": "Lumen Prize",
+    "source_name": "lumen_prize_watch",
+    "url": "https://lumenprize.org/about-the-prize",
+    "country": null,
+    "region_tier": "high",
+    "discipline": [
+      "digital_art"
+    ],
+    "listing_type": "prize",
+    "deadline": null,
+    "deadline_raw": null,
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "$30,000 Prize Fund The Lumen Prize exists to support artists exploring the relationship between art and technology in all its forms. We welcome submissions from emerging and established artists working across digital art, photography, moving image, generative art, installation, mixed media, creative coding, AI, and experimental practices. You do not need to be: An established artist. Represented by a gallery. Exhibited in a museum. Working exclusively in AI. Creating immersive work. Perfect in y",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-28",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {
+      "content_hash": "5c8640efa0f84f65"
+    }
   },
   {
     "id": "da79ed0cd4de440c",

@@ -1,27 +1,27 @@
 {
   "last_run": "2026-07-28",
-  "total_listings": 18,
-  "open_listings": 18,
+  "total_listings": 20,
+  "open_listings": 20,
   "sources": {
-    "artrabbit_opportunities": {
+    "ars_electronica_open_calls_watch": {
       "status": "ok"
     },
-    "immersive_arts_uk_funding_watch": {
+    "fact_digital_residencies_watch": {
       "status": "ok"
     },
     "site_gallery_watch": {
       "status": "ok"
     },
-    "va_residencies_watch": {
+    "lumen_prize_watch": {
+      "status": "ok"
+    },
+    "artistsnow_opportunities": {
       "status": "ok"
     },
     "somerset_house_creative_tech_fellowship_watch": {
       "status": "ok"
     },
-    "manual_newsletter_leads": {
-      "status": "ok"
-    },
-    "peckham_digital_watch": {
+    "va_residencies_watch": {
       "status": "ok"
     },
     "furtherfield_whats_on_watch": {
@@ -30,19 +30,25 @@
     "artquest_opportunities": {
       "status": "ok"
     },
-    "artistsnow_opportunities": {
-      "status": "ok"
-    },
     "barbican_open_calls_watch": {
       "status": "ok"
     },
-    "fact_digital_residencies_watch": {
+    "manual_newsletter_leads": {
       "status": "ok"
     },
-    "vivid_projects_watch": {
+    "artrabbit_opportunities": {
+      "status": "ok"
+    },
+    "peckham_digital_watch": {
+      "status": "ok"
+    },
+    "immersive_arts_uk_funding_watch": {
       "status": "ok"
     },
     "thespace": {
+      "status": "ok"
+    },
+    "vivid_projects_watch": {
       "status": "ok"
     }
   }

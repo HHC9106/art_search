@@ -457,6 +457,51 @@
     (past tense, "Artist Profiles") as of 2026-07-28, no live "apply now"
     call-to-action found. Whole-page watch.
 
+- name: lumen_prize_watch
+  display_name: "Lumen Prize (watch)"
+  organizer: "Lumen Prize"
+  country: null
+  region_tier: high
+  adapter: html
+  url: "https://lumenprize.org/about-the-prize"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Annual international digital-art prize ($30k fund) - highly relevant.
+    Watching /about-the-prize rather than the homepage (which is mostly
+    sparse marketing copy) since it's the page with actual prize dates -
+    as of 2026-07-28 it shows "2026 Prize Dates: Open Call Jan 26 - May 27",
+    already closed for this cycle, so this is watching for the 2027 window
+    to open. Homepage is a heavy React SPA (~3MB) with almost no static
+    text content, confirming /about-the-prize is the right page to scrape.
+
+- name: ars_electronica_open_calls_watch
+  display_name: "Ars Electronica — Open Calls (watch)"
+  organizer: "Ars Electronica"
+  country: null
+  region_tier: high
+  adapter: html
+  url: "https://ars.electronica.art/news/en/opencalls/"
+  enabled: true
+  listing_type: open_call
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    You gave the general /news/en/ page, but there's a dedicated Open Calls
+    page linked from the nav - used that instead since it's the actual call
+    listing (currently live: Prix Ars Electronica 2027, Prix Ars Electronica
+    u19 2027). Only 2 items and no clean per-item link structure, so this is
+    a whole-page watch rather than a per-item parser. Ars Electronica's
+    opportunities also turn up via The Space aggregator pointing at this
+    same URL - relies on run.py's dedupe_by_url() to collapse them to one
+    listing rather than showing twice.
+
 # --- Manual leads (newsletter-only, no scrapable page at all) ---
 # Example of the `manual` adapter shape — delete this or replace with real leads.
 

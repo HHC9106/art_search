@@ -267,6 +267,20 @@ def test_dedupe_by_url_leaves_unique_urls_untouched():
     assert len(result) == 2
 
 
+def test_dedupe_by_url_prefers_the_watch_source_with_content_hash():
+    same_url = "https://ars.electronica.art/news/en/opencalls/"
+    aggregator_copy = make_listing("thespace", same_url, title="From The Space (no content_hash)")
+    watch_copy = make_listing("ars_electronica_open_calls_watch", same_url, title="From the watch source")
+    watch_copy.raw_extra = {"content_hash": "abc123"}
+
+    result = dedupe_by_url({aggregator_copy.id: aggregator_copy, watch_copy.id: watch_copy})
+
+    assert len(result) == 1
+    survivor = next(iter(result.values()))
+    assert survivor.title == "From the watch source"
+    assert survivor.raw_extra.get("content_hash") == "abc123"
+
+
 def test_run_dedupes_same_url_scraped_by_two_sources(tmp_path):
     sources_path = tmp_path / "sources.yaml"
     listings_path = tmp_path / "listings.json"
