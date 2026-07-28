@@ -1,0 +1,7 @@
+requests
+feedparser
+beautifulsoup4
+lxml
+pyyaml
+playwright
+python-dotenv
