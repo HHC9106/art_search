@@ -198,7 +198,7 @@ function render() {
         : "";
 
     row.innerHTML = `
-      <td><a href="${listing.url}" target="_blank" rel="noopener">${escapeHtml(listing.title)}</a></td>
+      <td><a href="${listing.url}" target="_blank" rel="noopener" title="${escapeHtml(listing.title)}">${escapeHtml(truncateWords(listing.title, 9))}</a></td>
       <td>${escapeHtml(listing.organizer || "")}</td>
       <td>${escapeHtml(listing.country || "—")}</td>
       <td class="tier-cell"></td>
@@ -265,6 +265,12 @@ function daysUntil(isoDate) {
   today.setHours(0, 0, 0, 0);
   const deadline = new Date(isoDate);
   return Math.floor((deadline - today) / (1000 * 60 * 60 * 24));
+}
+
+function truncateWords(text, maxWords) {
+  const words = (text || "").trim().split(/\s+/).filter(Boolean);
+  if (words.length <= maxWords) return text || "";
+  return `${words.slice(0, maxWords).join(" ")}…`;
 }
 
 function escapeHtml(str) {
