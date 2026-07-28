@@ -177,6 +177,7 @@ function render() {
     row.innerHTML = `
       <td><a href="${listing.url}" target="_blank" rel="noopener">${escapeHtml(listing.title)}</a></td>
       <td>${escapeHtml(listing.organizer || "")}</td>
+      <td>${escapeHtml(listing.country || "—")}</td>
       <td class="tier-cell"></td>
       <td>${escapeHtml(listing.listing_type || "")}</td>
       <td>${renderDisciplineBadges(listing.discipline)}</td>
