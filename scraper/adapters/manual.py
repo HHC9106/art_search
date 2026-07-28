@@ -33,6 +33,7 @@ class ManualAdapter:
                     eligibility=entry.get("eligibility"),
                     description=entry.get("notes"),
                     discipline=entry.get("discipline", []),
+                    raw_extra=entry.get("raw_extra", {}),
                 )
             )
         return listings

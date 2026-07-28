@@ -49,10 +49,18 @@ def run(
     sources_path: Path | None = None,
     listings_path: Path | None = None,
     meta_path: Path | None = None,
+    cadence: str = "all",
 ) -> dict:
     """Runs one full scrape-normalize-publish cycle. Accepts path/today overrides
     so tests can run it against fixture sources and fixed dates without touching
-    the real docs/data files or the system clock."""
+    the real docs/data files or the system clock.
+
+    cadence filters which sources run this time: "weekly" or "quarterly" only
+    processes sources whose `frequency` matches (single-institution watch
+    pages are typically frequency: quarterly, since they rarely change);
+    "all" (the default, used for local testing and push/dispatch runs)
+    processes every enabled source regardless of frequency.
+    """
     today = today or date.today()
     sources_path = sources_path or SOURCES_PATH
     listings_path = listings_path or LISTINGS_PATH
@@ -68,6 +76,8 @@ def run(
 
     for source in sources:
         if not source.enabled:
+            continue
+        if cadence != "all" and source.frequency != cadence:
             continue
         try:
             adapter = get_adapter(source.adapter)
@@ -90,6 +100,13 @@ def run(
                 listing.first_seen_date = existing.first_seen_date
                 listing.notified_tier = existing.notified_tier
                 listing.last_notified_date = existing.last_notified_date
+                new_hash = listing.raw_extra.get("content_hash")
+                old_hash = existing.raw_extra.get("content_hash")
+                if new_hash and new_hash != old_hash:
+                    # Single-page watch source changed since last check: surface
+                    # it again as "new" even though the id/url are unchanged.
+                    listing.first_seen_date = today
+                    listing.notified_tier = "none"
             else:
                 listing.first_seen_date = today
             listing.last_seen_date = today
@@ -103,7 +120,7 @@ def run(
         if listing.source_name in successful_sources and listing_id not in seen_ids_this_run:
             listing.last_checked_date = today
 
-    new_ids = {lid for lid in seen_ids_this_run if previous.get(lid) is None}
+    new_ids = {lid for lid, listing in merged.items() if listing.first_seen_date == today}
 
     for listing in merged.values():
         _recompute_status(listing, today)
@@ -136,6 +153,12 @@ def run(
 def main() -> None:
     parser = argparse.ArgumentParser(description="Scrape, normalize, and publish art open-call listings.")
     parser.add_argument("--dry-run", action="store_true", help="Write listings.json locally but skip sending email")
+    parser.add_argument(
+        "--cadence",
+        choices=["weekly", "quarterly", "all"],
+        default="all",
+        help="Only run sources matching this frequency ('all' runs every enabled source)",
+    )
     args = parser.parse_args()
 
     try:
@@ -144,7 +167,7 @@ def main() -> None:
     except ImportError:
         pass
 
-    run(send_email=not args.dry_run)
+    run(send_email=not args.dry_run, cadence=args.cadence)
 
 
 if __name__ == "__main__":

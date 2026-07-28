@@ -196,31 +196,94 @@
     Collaboration/etc., captured in description) doesn't map cleanly to our
     listing_type enum, so listing_type is left as the open_call default.
 
-# --- Manual leads (newsletter-only, or pages worth a periodic manual check) ---
+# --- Single-institution watch pages (quarterly) ---
+# These sites only ever show their OWN opportunity (not an aggregator), and
+# rarely change, so they're checked quarterly instead of weekly. adapter: html
+# with parser_options.single_page: true treats the whole page as one watched
+# item: it hashes the main content region, and if that hash changes since the
+# last quarterly check, the listing resurfaces as "new" (see run.py) even
+# though its id/url stay the same — a nudge to go look, not a real deep link
+# to a specific opportunity.
+
+- name: va_residencies_watch
+  display_name: "V&A Residencies — Open Calls (watch)"
+  organizer: "Victoria and Albert Museum"
+  country: "UK"
+  adapter: html
+  url: "https://www.vam.ac.uk/info/residencies"
+  enabled: true
+  listing_type: residency
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    No open call listed as of 2026-07-28 — the page's dedicated "Open Calls"
+    section explicitly says "We currently have no Open Calls." Content there
+    is freeform CMS text, not a repeatable card structure, so per-item scraping
+    isn't reliable even once populated - this just watches the whole page for
+    any change and flags it for a manual look.
+
+- name: barbican_open_calls_watch
+  display_name: "Barbican Open Calls (watch)"
+  organizer: "Barbican Centre"
+  country: "UK"
+  adapter: html
+  url: "https://www.barbican.org.uk/our-story/our-projects/open-calls"
+  enabled: true
+  listing_type: open_call
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    No live open call as of 2026-07-28 — page currently only shows an archive
+    of past projects (Real Quick, alt.barbican, Concert Hall Wall) in a
+    non-repeating layout. Whole-page watch, same reasoning as V&A above.
+
+- name: peckham_digital_watch
+  display_name: "Peckham Digital (watch)"
+  organizer: "Peckham Digital CIC"
+  country: "UK"
+  adapter: html
+  url: "https://peckhamdigital.org/"
+  enabled: true
+  listing_type: open_call
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Homepage only mentions "events and open calls" as a newsletter signup
+    line, no active opportunity or dedicated opportunities page found as of
+    2026-07-28. Whole-page watch for now; revisit if they add a dedicated
+    opportunities/programme page worth pointing at instead.
+
+- name: digitalgood_commission
+  display_name: "Digital Good — Artwork Commission"
+  organizer: "Digital Good"
+  country: "UK"
+  adapter: html
+  url: "https://digitalgood.net/new-opportunity-artwork-commission-2/"
+  enabled: false
+  listing_type: open_call
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Confirmed blocked (HTTP 403 "Forbidden") from both curl and a real
+    headless Playwright browser as of 2026-07-28 — looks like an IP-based WAF
+    block rather than a JS challenge, so a GitHub Actions runner will likely
+    be blocked too. Left disabled; needs manual curation if this source is
+    wanted (check it directly in a normal browser).
+
+# --- Manual leads (newsletter-only, no scrapable page at all) ---
 # Example of the `manual` adapter shape — delete this or replace with real leads.
 
 - name: manual_newsletter_leads
   display_name: "Manually curated leads"
   adapter: manual
   enabled: true
-  manual_entries:
-    - title: "V&A Residencies — Open Calls (check periodically)"
-      organizer: "Victoria and Albert Museum"
-      country: "UK"
-      url: "https://www.vam.ac.uk/info/residencies"
-      listing_type: "residency"
-      notes: >
-        No open call listed as of 2026-07-28 — the page's dedicated "Open
-        Calls" section explicitly says "We currently have no Open Calls."
-        Content there is freeform CMS text, not a repeatable card structure,
-        so it isn't reliably scrapable even once populated. Revisit manually.
-    - title: "Barbican Open Calls (check periodically)"
-      organizer: "Barbican Centre"
-      country: "UK"
-      url: "https://www.barbican.org.uk/our-story/our-projects/open-calls"
-      listing_type: "open_call"
-      notes: >
-        No live open call as of 2026-07-28 — page currently only shows an
-        archive of past projects (Real Quick, alt.barbican, Concert Hall
-        Wall) in a non-repeating layout. Revisit manually.
-  notes: "Add hand-curated entries here for leads found via newsletters with no scrapable listing page, or institutional pages worth a periodic manual check."
+  manual_entries: []
+  notes: "Add hand-curated entries here for leads found via newsletters with no scrapable listing page."

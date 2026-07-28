@@ -150,6 +150,88 @@ def test_explicit_manual_discipline_is_not_overwritten(tmp_path):
     assert saved[0]["discipline"] == ["data_art"]
 
 
+def test_cadence_filters_sources_by_frequency(tmp_path):
+    sources_path = tmp_path / "sources.yaml"
+    listings_path = tmp_path / "listings.json"
+    meta_path = tmp_path / "meta.json"
+
+    sources = [
+        {
+            "name": "weekly_source",
+            "adapter": "manual",
+            "enabled": True,
+            "frequency": "weekly",
+            "manual_entries": [entry("weekly-item")],
+        },
+        {
+            "name": "quarterly_source",
+            "adapter": "manual",
+            "enabled": True,
+            "frequency": "quarterly",
+            "manual_entries": [entry("quarterly-item")],
+        },
+    ]
+    sources_path.write_text(yaml.safe_dump(sources), encoding="utf-8")
+
+    meta = run(
+        send_email=False,
+        today=WEEK_1,
+        sources_path=sources_path,
+        listings_path=listings_path,
+        meta_path=meta_path,
+        cadence="weekly",
+    )
+    assert meta["total_listings"] == 1
+    assert "weekly_source" in meta["sources"]
+    assert "quarterly_source" not in meta["sources"]
+
+    meta = run(
+        send_email=False,
+        today=WEEK_2,
+        sources_path=sources_path,
+        listings_path=listings_path,
+        meta_path=meta_path,
+        cadence="quarterly",
+    )
+    # both persisted now - weekly_source's listing carried over from before, plus the quarterly one added
+    assert meta["total_listings"] == 2
+    assert "quarterly_source" in meta["sources"]
+    assert "weekly_source" not in meta["sources"]  # not re-run this time
+
+
+def test_content_hash_change_resurfaces_listing_as_new(tmp_path):
+    sources_path = tmp_path / "sources.yaml"
+    listings_path = tmp_path / "listings.json"
+    meta_path = tmp_path / "meta.json"
+
+    def write_watch_source(content_hash):
+        manual_entry = entry("watch-page")
+        manual_entry["raw_extra"] = {"content_hash": content_hash}
+        write_sources(sources_path, [manual_entry])
+
+    write_watch_source("hash-v1")
+    run(send_email=False, today=WEEK_1, sources_path=sources_path, listings_path=listings_path, meta_path=meta_path)
+
+    import json
+
+    saved = json.loads(listings_path.read_text())
+    assert saved[0]["first_seen_date"] == WEEK_1.isoformat()
+    original_id = saved[0]["id"]
+
+    # Quarter later: page content unchanged -> first_seen_date should NOT reset.
+    write_watch_source("hash-v1")
+    run(send_email=False, today=WEEK_4, sources_path=sources_path, listings_path=listings_path, meta_path=meta_path)
+    saved = json.loads(listings_path.read_text())
+    assert saved[0]["first_seen_date"] == WEEK_1.isoformat()
+
+    # Page content changed -> should resurface as "new" (first_seen_date resets).
+    write_watch_source("hash-v2")
+    run(send_email=False, today=WEEK_4, sources_path=sources_path, listings_path=listings_path, meta_path=meta_path)
+    saved = json.loads(listings_path.read_text())
+    assert saved[0]["first_seen_date"] == WEEK_4.isoformat()
+    assert saved[0]["id"] == original_id  # id stable throughout (same source+url)
+
+
 def test_broken_source_does_not_crash_the_run(tmp_path):
     sources_path = tmp_path / "sources.yaml"
     listings_path = tmp_path / "listings.json"

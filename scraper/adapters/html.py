@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 from urllib.parse import urljoin
 
 import requests
@@ -16,15 +17,57 @@ class HtmlAdapter:
         if not config.url or config.url == "TBD":
             raise ValueError(f"Source '{config.name}' has no URL configured yet")
 
-        item_selector = config.parser_options.get("item_selector")
-        if not item_selector:
+        opts = config.parser_options
+        if not opts.get("single_page") and not opts.get("item_selector"):
             raise ValueError(f"Source '{config.name}' is missing parser_options.item_selector")
 
         response = requests.get(config.url, headers={"User-Agent": USER_AGENT}, timeout=30)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "lxml")
 
-        return extract_listings(soup.select(item_selector), config)
+        if opts.get("single_page"):
+            return [extract_single_page_listing(soup, config)]
+
+        return extract_listings(soup.select(opts["item_selector"]), config)
+
+
+def extract_single_page_listing(soup, config: SourceConfig) -> Listing:
+    """For single-institution pages with no repeatable listing structure (e.g.
+    an "Open Calls" section that's plain CMS prose): treats the whole page as
+    one watched item. Hashes a content region so run.py can detect "this page
+    changed since we last checked" even though title/deadline may not be
+    reliably parseable, and surface that as worth a manual look."""
+    opts = config.parser_options
+
+    title = select_text(soup, opts.get("title_selector")) or config.display_name
+    if not title:
+        title = soup.title.get_text(strip=True) if soup.title else ""
+
+    deadline_text = select_text(soup, opts.get("deadline_selector"))
+    deadline, deadline_raw = parse_deadline(deadline_text)
+
+    content_el = soup.select_one(opts.get("content_selector", "body")) or soup
+    content_text = content_el.get_text(" ", strip=True)
+    content_hash = hashlib.sha256(content_text.encode("utf-8")).hexdigest()[:16]
+
+    description = select_text(soup, opts.get("description_selector")) or content_text[:500]
+    eligibility = select_text(soup, opts.get("eligibility_selector"))
+
+    return Listing(
+        id=make_id(config.name, config.url),
+        title=title,
+        organizer=config.organizer or config.display_name,
+        source_name=config.name,
+        url=config.url,
+        country=config.country,
+        region_tier=region_tier(config.country, config.region_tier_override),
+        listing_type=config.listing_type,
+        deadline=deadline,
+        deadline_raw=deadline_raw,
+        description=description,
+        eligibility=eligibility,
+        raw_extra={"content_hash": content_hash},
+    )
 
 
 def extract_listings(items, config: SourceConfig) -> list[Listing]:

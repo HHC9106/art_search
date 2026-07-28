@@ -2,10 +2,17 @@ name: scrape-and-publish
 
 on:
   schedule:
-    - cron: "0 6 * * 1" # weekly, Monday 06:00 UTC
-  workflow_dispatch: {}
+    - cron: "0 6 * * 1"        # weekly, Monday 06:00 UTC
+    - cron: "0 6 1 1,4,7,10 *" # quarterly, 1st of Jan/Apr/Jul/Oct 06:00 UTC - single-institution watch sources
+  workflow_dispatch:
+    inputs:
+      cadence:
+        description: "Which sources to run (matches sources.yaml frequency; 'all' ignores frequency)"
+        type: choice
+        options: [all, weekly, quarterly]
+        default: all
   push:
-    branches: [main]
+    branches: [main, first_draft]
     paths:
       - "scraper/**"
       - "sources.yaml"
@@ -42,12 +49,25 @@ jobs:
       - name: Install Playwright Chromium
         run: python -m playwright install --with-deps chromium
 
+      - name: Determine cadence
+        id: cadence
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "value=${{ github.event.inputs.cadence }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "0 6 1 1,4,7,10 *" ]; then
+            echo "value=quarterly" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            echo "value=weekly" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=all" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run scraper (fetch, normalize, write, email)
         env:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
-        run: python -m scraper.run
+        run: python -m scraper.run --cadence ${{ steps.cadence.outputs.value }}
 
       - name: Commit data if changed
         run: |

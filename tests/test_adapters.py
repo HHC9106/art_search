@@ -3,7 +3,7 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 
-from scraper.adapters.html import extract_listings
+from scraper.adapters.html import extract_listings, extract_single_page_listing
 from scraper.adapters.parsing_utils import parse_deadline, parse_yyyymmdd, slugify
 from scraper.sources_config import SourceConfig
 
@@ -133,3 +133,48 @@ def test_html_extraction_synthetic_url_for_login_gated_links():
     assert listings[0].url == "https://www.artistsnow.com/opportunities.html#example-award"
     assert listings[0].organizer == "Example Org"
     assert listings[0].id != listings[1].id
+
+
+def test_single_page_extraction_hashes_content_and_falls_back_title():
+    html = """
+    <html><head><title>Residencies · V&A</title></head>
+    <body><nav>Site nav, changes often</nav>
+    <main><h2>Open Calls</h2><p>We currently have no Open Calls.</p></main>
+    </body></html>
+    """
+    soup = BeautifulSoup(html, "lxml")
+    config = SourceConfig(
+        name="va_residencies_watch",
+        adapter="html",
+        display_name="V&A Residencies — Open Calls (watch)",
+        organizer="Victoria and Albert Museum",
+        country="UK",
+        url="https://www.vam.ac.uk/info/residencies",
+        listing_type="residency",
+        parser_options={"single_page": True, "content_selector": "main"},
+    )
+    listing = extract_single_page_listing(soup, config)
+
+    assert listing.title == "V&A Residencies — Open Calls (watch)"  # display_name wins over <title>
+    assert listing.url == config.url
+    assert listing.region_tier == 1
+    assert "content_hash" in listing.raw_extra
+    assert listing.raw_extra["content_hash"] == extract_single_page_listing(soup, config).raw_extra["content_hash"]
+
+
+def test_single_page_content_hash_changes_when_watched_region_changes():
+    config = SourceConfig(
+        name="watch_test",
+        adapter="html",
+        display_name="Watch Test",
+        url="https://example.org/watch",
+        parser_options={"single_page": True, "content_selector": "main"},
+    )
+    soup_a = BeautifulSoup("<main>We currently have no Open Calls.</main>", "lxml")
+    soup_b = BeautifulSoup("<main>New commission now open, apply by 1 Sept.</main>", "lxml")
+
+    listing_a = extract_single_page_listing(soup_a, config)
+    listing_b = extract_single_page_listing(soup_b, config)
+
+    assert listing_a.raw_extra["content_hash"] != listing_b.raw_extra["content_hash"]
+    assert listing_a.id == listing_b.id  # same source+url -> same id despite content change

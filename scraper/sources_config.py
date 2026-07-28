@@ -21,6 +21,7 @@ class SourceConfig:
     parser_options: dict[str, Any] = field(default_factory=dict)
     manual_entries: list[dict[str, Any]] = field(default_factory=list)
     notes: str = ""
+    frequency: str = "weekly"  # weekly | quarterly - how often this source should be checked
 
 
 def load_sources(path: str | Path) -> list[SourceConfig]:
@@ -48,6 +49,7 @@ def load_sources(path: str | Path) -> list[SourceConfig]:
                 parser_options=entry.get("parser_options") or {},
                 manual_entries=entry.get("manual_entries") or [],
                 notes=entry.get("notes", ""),
+                frequency=entry.get("frequency", "weekly"),
             )
         )
     return sources
