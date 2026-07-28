@@ -341,24 +341,6 @@
     both very sparse as of 2026-07-28, no open call/residency content found.
     Whole-page watch on the homepage.
 
-- name: bom_birmingham_open_media_watch
-  display_name: "BOM (Birmingham Open Media) (watch)"
-  organizer: "Birmingham Open Media"
-  country: "UK"
-  region_tier: high
-  adapter: html
-  url: "https://bom.org.uk/"
-  enabled: true
-  listing_type: open_call
-  frequency: quarterly
-  parser_options:
-    single_page: true
-    content_selector: "article"
-  notes: >
-    Immersive arts org (VR/AR/games) — highly relevant practice area. No
-    opportunity/open-call link found on the homepage as of 2026-07-28. No
-    <main> landmark, but the page body is wrapped in a single <article>.
-
 - name: site_gallery_watch
   display_name: "Site Gallery, Sheffield (watch)"
   organizer: "Site Gallery"

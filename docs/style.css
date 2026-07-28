@@ -142,6 +142,15 @@ tr.closed-row {
   color: var(--muted);
 }
 
+tr.dismissed-row {
+  opacity: 0.6;
+}
+
+.remove-btn {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+}
+
 .tier-select {
   font-size: 0.75rem;
   font-weight: 600;

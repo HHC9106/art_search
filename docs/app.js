@@ -5,6 +5,8 @@ const TIER_OVERRIDES_KEY = "art-search-tier-overrides";
 const TIER_LEVELS = ["top", "high", "medium", "low"];
 const TIER_LABELS = { top: "Top", high: "High", medium: "Medium", low: "Low" };
 
+const DISMISSED_KEY = "art-search-dismissed";
+
 // Mirrors scraper/discipline_tags.py's DISCIPLINE_TAGS keys/labels — keep in sync
 // if the tag set changes there. "untagged" is a UI-only sentinel, not a real tag.
 const DISCIPLINE_TAGS = {
@@ -67,6 +69,25 @@ function effectiveTier(listing) {
   return overrides[tierOverrideKey(listing)] || listing.region_tier;
 }
 
+function loadDismissed() {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(DISMISSED_KEY)) || []);
+  } catch {
+    return new Set();
+  }
+}
+
+function isDismissed(id) {
+  return loadDismissed().has(id);
+}
+
+function setDismissed(id, dismissed) {
+  const ids = loadDismissed();
+  if (dismissed) ids.add(id);
+  else ids.delete(id);
+  localStorage.setItem(DISMISSED_KEY, JSON.stringify([...ids]));
+}
+
 async function fetchJson(path) {
   const res = await fetch(path, { cache: "no-store" });
   if (!res.ok) throw new Error(`Failed to fetch ${path}: ${res.status}`);
@@ -102,11 +123,13 @@ function currentFilters() {
     tracking: document.getElementById("tracking-filter").value,
     search: document.getElementById("search-box").value.trim().toLowerCase(),
     sort: document.getElementById("sort-order").value,
+    showRemoved: document.getElementById("show-removed-filter").checked,
   };
 }
 
 function applyFilters(all, filters) {
   return all.filter((l) => {
+    if (isDismissed(l.id) !== filters.showRemoved) return false;
     if (!filters.tiers.has(effectiveTier(l))) return false;
     if (filters.disciplines.size < Object.keys(DISCIPLINE_TAGS).length + 1) {
       const tags = l.discipline || [];
@@ -162,6 +185,7 @@ function render() {
   for (const listing of filtered) {
     const row = document.createElement("tr");
     if (listing.status === "closed") row.classList.add("closed-row");
+    if (filters.showRemoved) row.classList.add("dismissed-row");
 
     const deadlineCell = listing.deadline || listing.deadline_raw || "—";
     const urgentClass =
@@ -184,7 +208,8 @@ function render() {
       <td>${listing.fee != null ? escapeHtml(String(listing.fee)) : "—"}</td>
       <td>${escapeHtml(listing.prize_amount || "—")}</td>
       <td class="eligibility-cell" title="${escapeHtml(listing.eligibility || "")}">${escapeHtml(listing.eligibility || "—")}</td>
-      <td></td>
+      <td class="tracking-cell"></td>
+      <td class="remove-cell"></td>
     `;
 
     const tier = effectiveTier(listing);
@@ -205,7 +230,7 @@ function render() {
     });
     tierCell.appendChild(tierSelect);
 
-    const trackingCell = row.lastElementChild;
+    const trackingCell = row.querySelector(".tracking-cell");
     const select = document.createElement("select");
     for (const status of TRACKING_STATUSES) {
       const opt = document.createElement("option");
@@ -219,6 +244,17 @@ function render() {
       listing.tracking = { ...listing.tracking, status: select.value };
     });
     trackingCell.appendChild(select);
+
+    const removeCell = row.querySelector(".remove-cell");
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.className = "remove-btn";
+    removeBtn.textContent = filters.showRemoved ? "Restore" : "Remove";
+    removeBtn.addEventListener("click", () => {
+      setDismissed(listing.id, !filters.showRemoved);
+      render();
+    });
+    removeCell.appendChild(removeBtn);
 
     tbody.appendChild(row);
   }
@@ -302,7 +338,7 @@ function setupDisciplineFilter() {
 }
 
 function setupControls() {
-  const ids = ["type-filter", "status-filter", "tracking-filter", "sort-order", "search-box"];
+  const ids = ["type-filter", "status-filter", "tracking-filter", "sort-order", "search-box", "show-removed-filter"];
   for (const id of ids) {
     const el = document.getElementById(id);
     el.addEventListener("input", render);

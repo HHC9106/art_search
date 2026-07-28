@@ -907,35 +907,6 @@
     "raw_extra": {}
   },
   {
-    "id": "8f26cf1876cc88df",
-    "title": "BOM (Birmingham Open Media) (watch)",
-    "organizer": "Birmingham Open Media",
-    "source_name": "bom_birmingham_open_media_watch",
-    "url": "https://bom.org.uk/",
-    "country": "UK",
-    "region_tier": "high",
-    "discipline": [],
-    "listing_type": "open_call",
-    "deadline": null,
-    "deadline_raw": null,
-    "fee": null,
-    "fee_currency": null,
-    "fee_waiver_available": null,
-    "prize_amount": null,
-    "eligibility": null,
-    "description": "Our Mission BOM (Birmingham Open Media) is an immersive arts organisation, empowering communities through innovation with immersive technology and inclusive learning programmes. We create award-winning experiences using VR, AR and games with a strong social purpose, and we're on a mission to diversify the immersive sector. We're passionate about the potential of immersive technologies to build social connections, support learning, and inspire creativity. Innovate We innovate with immersive techn",
-    "tags": [],
-    "status": "open",
-    "first_seen_date": "2026-07-27",
-    "last_seen_date": "2026-07-28",
-    "last_checked_date": "2026-07-28",
-    "notified_tier": "none",
-    "last_notified_date": null,
-    "raw_extra": {
-      "content_hash": "9f7566b2a2366163"
-    }
-  },
-  {
     "id": "90311d6ff82de0cc",
     "title": "British Council research Fellowships",
     "organizer": "British Council",
