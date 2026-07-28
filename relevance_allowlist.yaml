@@ -17,8 +17,7 @@
 #     singular watch sources, so their listings aren't lost if they also
 #     turn up on an aggregator.
 #
-# Edit freely — no code changes needed. "research" is deliberately broad and
-# will over-match; tighten it here if it lets through too much noise.
+# Edit freely — no code changes needed.
 #
 # A few requested terms were left out of extra_keywords below because
 # they're already covered elsewhere: "data art", "new media art", and
@@ -26,6 +25,14 @@
 # new_media_art tags); "civic technology" is covered there too (civic_tech
 # tag); "creative coding" was already present here before this list was
 # added.
+#
+# 2026-07-28: removed 5 bare single-word entries (urban, research,
+# environment, environmental, intelligence — the last also dropped from
+# urban_data's keyword list in discipline_tags.py) because substring
+# matching made them over-match almost anything ("business intelligence",
+# "suburban", any use of "research" at all) on the aggregator sources this
+# filter gates with no human review. Replaced with the specific compound
+# phrases that actually carried the intended signal — see below.
 
 extra_keywords:
   # Practice
@@ -45,10 +52,11 @@ extra_keywords:
   - social data
   - civic data
   - environmental data
+  - environmental art
+  - environmental justice
   - data justice
   - algorithmic governance
   - algorithmic accountability
-  - urban
   - urban infrastructure
   - urban metabolism
   - waste systems
@@ -59,10 +67,11 @@ extra_keywords:
   - classification systems
   - digital society
   - artificial intelligence
-  - intelligence
-  - environment
-  - environmental
-  - research
+  - ai art
+  - artistic research
+  - research fellowship
+  - research grant
+  - practice-based research
   - creative tech
   - creative technology
   - data visualization

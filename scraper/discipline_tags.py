@@ -25,7 +25,7 @@ DISCIPLINE_TAGS: dict[str, dict[str, object]] = {
     },
     "urban_data": {
         "label": "Urban Data",
-        "keywords": ["urban data", "urban informatics", "smart city", "smart cities", "urban"],
+        "keywords": ["urban data", "urban informatics", "smart city", "smart cities"],
     },
     "information_art": {
         "label": "Information Art",

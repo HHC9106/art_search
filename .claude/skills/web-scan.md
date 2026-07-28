@@ -12,10 +12,12 @@ for it (e.g. "run a web scan", "/web-scan").
 
 ## Procedure
 
-1. Run these 10 themed queries (also stored in `sources.yaml`'s disabled
+1. Run these 20 themed queries (also stored in `sources.yaml`'s disabled
    `google_search_opportunities` entry, `parser_options.search_queries` —
    that's the canonical, editable copy; if the two ever drift, that file
    wins and this list should be updated to match):
+
+   Practice/format (original 10):
    - `"open call" "media art"`
    - `"artist residency" "media art"`
    - `"artist commission" "digital art"`
@@ -26,6 +28,19 @@ for it (e.g. "run a web scan", "/web-scan").
    - `"creative coding" residency`
    - `"art prize" "digital art"`
    - `"open call" "data art"`
+
+   Civic/critical-tech themes + underrepresented listing types (added
+   2026-07-28 to cover practice areas the original 10 never searched for):
+   - `"open call" "civic tech"`
+   - `"open call" "open data"`
+   - `"artist residency" "urban data"`
+   - `"open call" "AI art"`
+   - `"artist residency" "artificial intelligence"`
+   - `"artist grant" "digital art"`
+   - `"artist fellowship" "media art"`
+   - `"open call" "algorithmic"`
+   - `"open call" "institutional critique"`
+   - `"open call" "data justice"`
 
    Add the current year to each query (e.g. append ` 2026`) so results skew
    toward the current cycle rather than past years' calls.

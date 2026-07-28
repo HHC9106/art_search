@@ -284,6 +284,16 @@
       - '"creative coding" residency'
       - '"art prize" "digital art"'
       - '"open call" "data art"'
+      - '"open call" "civic tech"'
+      - '"open call" "open data"'
+      - '"artist residency" "urban data"'
+      - '"open call" "AI art"'
+      - '"artist residency" "artificial intelligence"'
+      - '"artist grant" "digital art"'
+      - '"artist fellowship" "media art"'
+      - '"open call" "algorithmic"'
+      - '"open call" "institutional critique"'
+      - '"open call" "data justice"'
   notes: >
     Disabled as of 2026-07-28: Google removed "search the entire web" for
     new free Programmable Search Engines - a PSE can now only search a

@@ -59,6 +59,18 @@ def test_strong_filter_organizer_match_is_case_insensitive_substring():
     assert passes_strong_filter("Unrelated text", organizer="site gallery, sheffield")
 
 
+def test_bare_generic_words_no_longer_over_match():
+    # urban/research/environment/environmental/intelligence were removed as
+    # bare keywords (2026-07-28) because substring matching let them over-match
+    # unrelated text; the compound phrases that replaced them (urban data,
+    # artistic research, environmental data, artificial intelligence, etc.)
+    # shouldn't accidentally still match these.
+    assert not passes_strong_filter("Business intelligence workshop for entrepreneurs", organizer="Random Corp")
+    assert not passes_strong_filter("Suburban housing development plan", organizer="Random Council")
+    assert not passes_strong_filter("Scientific research conference", organizer="Random University")
+    assert not passes_strong_filter("Environment secretary announces new policy", organizer="Random Gov")
+
+
 def test_strong_filter_custom_config_is_user_definable(tmp_path):
     config_path = tmp_path / "relevance_allowlist.yaml"
     config_path.write_text(
