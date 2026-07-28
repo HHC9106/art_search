@@ -3,16 +3,16 @@
   "total_listings": 66,
   "open_listings": 66,
   "sources": {
-    "manual_newsletter_leads": {
-      "status": "ok"
-    },
-    "artrabbit_opportunities": {
-      "status": "ok"
-    },
     "peckham_digital_watch": {
       "status": "ok"
     },
     "artistsnow_opportunities": {
+      "status": "ok"
+    },
+    "manual_newsletter_leads": {
+      "status": "ok"
+    },
+    "artrabbit_opportunities": {
       "status": "ok"
     },
     "barbican_open_calls_watch": {
