@@ -135,6 +135,38 @@ def test_html_extraction_synthetic_url_for_login_gated_links():
     assert listings[0].id != listings[1].id
 
 
+def test_synthetic_url_ignores_query_params_so_ids_survive_url_changes():
+    # Regression: changing a source's query params (e.g. adding category
+    # filters) must never change the id of an already-seen listing, or it
+    # duplicates on the next run instead of upserting in place.
+    html = """
+    <div class="article-list-item">
+      <h3 class="article-title"><a class="article-heading-link" href="#">Example Award</a></h3>
+    </div>
+    """
+    soup = BeautifulSoup(html, "lxml")
+
+    def build_config(url):
+        return SourceConfig(
+            name="artistsnow_test",
+            adapter="html",
+            url=url,
+            parser_options={
+                "item_selector": ".article-list-item",
+                "title_selector": ".article-title a",
+                "link_selector": ".article-title a",
+                "synthetic_url_from_title": True,
+            },
+        )
+
+    before = extract_listings(soup.select(".article-list-item"), build_config("https://example.com/results/"))
+    after = extract_listings(
+        soup.select(".article-list-item"), build_config("https://example.com/results/?categories=awards")
+    )
+    assert before[0].id == after[0].id
+    assert before[0].url == after[0].url
+
+
 def test_single_page_extraction_hashes_content_and_falls_back_title():
     html = """
     <html><head><title>Residencies · V&A</title></head>

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import hashlib
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit, urlunsplit
 
 import requests
 from bs4 import BeautifulSoup
@@ -86,7 +86,12 @@ def extract_listings(items, config: SourceConfig) -> list[Listing]:
             # card's link as a login-modal trigger with no real per-item URL.
             # A slug-based fragment keeps ids stable/unique without pretending
             # to be a deep link - clicking it just lands on the listing page.
-            url = f"{config.url.split('#')[0]}#{slugify(title)}"
+            # Built from scheme+host+path only (no query/fragment) so tweaking
+            # the source's query params (e.g. category filters) later never
+            # changes existing ids and creates duplicates.
+            parts = urlsplit(config.url)
+            base_url = urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
+            url = f"{base_url}#{slugify(title)}"
         elif not href:
             continue
         else:
