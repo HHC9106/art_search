@@ -300,6 +300,119 @@
     be blocked too. Left disabled; needs manual curation if this source is
     wanted (check it directly in a normal browser).
 
+- name: fact_digital_residencies_watch
+  display_name: "FACT Liverpool — Digital Artist Residencies (watch)"
+  organizer: "FACT (Foundation for Art and Creative Technology)"
+  country: "UK"
+  region_tier: high
+  adapter: html
+  url: "https://www.fact.co.uk/digital-artist-residencies"
+  enabled: true
+  listing_type: residency
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Programme page describing past/current residency cohorts (2024, 2026)
+    hosted with partner orgs (Lucid Games, DaDa, Homotopia) — no explicit
+    public "apply now" call-to-action or deadline found as of 2026-07-28,
+    residents may be selected via partners rather than an open call. Whole-
+    page watch.
+
+- name: furtherfield_whats_on_watch
+  display_name: "Furtherfield — What's On (watch)"
+  organizer: "Furtherfield"
+  country: "UK"
+  region_tier: high
+  adapter: html
+  url: "https://www.furtherfield.org/about-us/whats-on/"
+  enabled: true
+  listing_type: open_call
+  frequency: quarterly
+  parser_options:
+    single_page: true
+  notes: >
+    Watching the What's On/events page rather than the homepage (homepage has
+    no opportunity content at all). Only past "Open Call" entries (2016/2017)
+    found as of 2026-07-28, nothing current. No <main> landmark on this page,
+    so content_selector defaults to body — noisier hash (includes nav/footer)
+    but still catches real content changes.
+
+- name: vivid_projects_watch
+  display_name: "Vivid Projects, Birmingham (watch)"
+  organizer: "Vivid Projects"
+  country: "UK"
+  region_tier: high
+  adapter: html
+  url: "https://vividprojects.org.uk/"
+  enabled: true
+  listing_type: open_call
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Media-practice arts org, Birmingham. Homepage and /vivid-projects/ page
+    both very sparse as of 2026-07-28, no open call/residency content found.
+    Whole-page watch on the homepage.
+
+- name: bom_birmingham_open_media_watch
+  display_name: "BOM (Birmingham Open Media) (watch)"
+  organizer: "Birmingham Open Media"
+  country: "UK"
+  region_tier: high
+  adapter: html
+  url: "https://bom.org.uk/"
+  enabled: true
+  listing_type: open_call
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "article"
+  notes: >
+    Immersive arts org (VR/AR/games) — highly relevant practice area. No
+    opportunity/open-call link found on the homepage as of 2026-07-28. No
+    <main> landmark, but the page body is wrapped in a single <article>.
+
+- name: site_gallery_watch
+  display_name: "Site Gallery, Sheffield (watch)"
+  organizer: "Site Gallery"
+  country: "UK"
+  region_tier: high
+  adapter: html
+  url: "https://www.sitegallery.org/"
+  enabled: true
+  listing_type: open_call
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Contemporary art space specialising in moving image/new media/
+    performance. Has an "Opportunities for Young People" link but nothing for
+    professional artists as of 2026-07-28. Whole-page watch on the homepage.
+
+- name: immersive_arts_uk_funding_watch
+  display_name: "Immersive Arts UK — Funding (watch)"
+  organizer: "Immersive Arts"
+  country: "UK"
+  region_tier: high
+  adapter: html
+  url: "https://immersivearts.uk/funding"
+  enabled: true
+  listing_type: grant
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    UK-wide funding programme (2024-2027) for immersive-tech art practice -
+    Explore/Experiment/Expand grant strands. Watching /funding directly
+    (rather than the homepage, which is mostly news) since that's the actual
+    call page; second and final round closed 2025-09-29 as of 2026-07-28, so
+    presumably done unless they announce a new round or programme.
+
 # --- Manual leads (newsletter-only, no scrapable page at all) ---
 # Example of the `manual` adapter shape — delete this or replace with real leads.
 
