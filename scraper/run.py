@@ -10,7 +10,7 @@ from scraper.adapters.base import get_adapter
 from scraper.discipline_tags import auto_tag_discipline
 from scraper.models import Listing
 from scraper.notify import build_and_send
-from scraper.relevance_filter import is_excluded
+from scraper.relevance_filter import is_excluded, passes_strong_filter
 from scraper.sources_config import load_sources
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -139,6 +139,19 @@ def run(
         lid: listing
         for lid, listing in merged.items()
         if not is_excluded(f"{listing.title} {listing.description or ''} {listing.eligibility or ''}")
+    }
+
+    # Strong allow-list filter for multi-source aggregators
+    # (apply_relevance_filter: true in sources.yaml) - unlike everything
+    # else, these must actively match the practice keyword list or an
+    # allowlisted organizer to survive at all. Singular/watch/manual sources
+    # are untouched regardless of what's scraped from them.
+    filtered_sources = {source.name for source in sources if source.apply_relevance_filter}
+    merged = {
+        lid: listing
+        for lid, listing in merged.items()
+        if listing.source_name not in filtered_sources
+        or passes_strong_filter(f"{listing.title} {listing.description or ''} {listing.eligibility or ''}", listing.organizer)
     }
 
     new_ids = {lid for lid, listing in merged.items() if listing.first_seen_date == today}

@@ -233,6 +233,47 @@ def test_content_hash_change_resurfaces_listing_as_new(tmp_path):
     assert saved[0]["id"] == original_id  # id stable throughout (same source+url)
 
 
+def test_strong_filter_applies_only_to_flagged_aggregator_sources(tmp_path):
+    sources_path = tmp_path / "sources.yaml"
+    listings_path = tmp_path / "listings.json"
+    meta_path = tmp_path / "meta.json"
+
+    irrelevant = entry("irrelevant")
+    irrelevant["title"] = "Oil painting exhibition open call"
+
+    sources = [
+        {
+            "name": "aggregator_source",
+            "adapter": "manual",
+            "enabled": True,
+            "apply_relevance_filter": True,
+            "manual_entries": [irrelevant],
+        },
+        {
+            "name": "curated_source",
+            "adapter": "manual",
+            "enabled": True,
+            "apply_relevance_filter": False,
+            "manual_entries": [entry("curated-irrelevant-but-kept")],
+        },
+    ]
+    sources_path.write_text(yaml.safe_dump(sources), encoding="utf-8")
+
+    meta = run(
+        send_email=False,
+        today=WEEK_1,
+        sources_path=sources_path,
+        listings_path=listings_path,
+        meta_path=meta_path,
+    )
+
+    import json
+
+    saved = {item["source_name"] for item in json.loads(listings_path.read_text())}
+    assert saved == {"curated_source"}  # aggregator_source's irrelevant listing was dropped
+    assert meta["total_listings"] == 1
+
+
 def test_excluded_keyword_listings_are_dropped(tmp_path):
     sources_path = tmp_path / "sources.yaml"
     listings_path = tmp_path / "listings.json"

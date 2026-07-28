@@ -27,6 +27,7 @@
   url: "https://www.artistsnow.com/page-types/job_listing/resultSection/?categories=awards&categories=commissions&categories=exhibitions&categories=funding&categories=residencies&categories=other&categories=professional-development"
   enabled: true
   listing_type: open_call
+  apply_relevance_filter: true
   parser_options:
     item_selector: ".article-list-item"
     title_selector: ".article-title a"
@@ -189,6 +190,7 @@
   url: "https://www.artrabbit.com/artist-opportunities"
   enabled: true
   listing_type: open_call
+  apply_relevance_filter: true
   parser_options:
     item_selector: "div.artopp"
     title_selector: "h2 a"
@@ -204,6 +206,11 @@
     the dashboard once you spot a pattern. ArtRabbit's own category (Prize/
     Residency/Collaboration/etc., captured in description) doesn't map cleanly
     to our listing_type enum, so listing_type is left as the open_call default.
+    apply_relevance_filter: true means only listings matching the practice
+    keyword list survive - organizer here is always the literal string
+    "ArtRabbit" (no per-item organizer scraped from the index page), so the
+    organizer allowlist in relevance_allowlist.yaml never applies to this
+    source; keyword match is the only path through for ArtRabbit listings.
 
 - name: thespace
   display_name: "The Space — Opportunities from Across the Sector"
@@ -213,6 +220,7 @@
   url: "https://www.thespace.org/resource/news-and-opportunities-from-across-the-sector/"
   enabled: true
   listing_type: open_call
+  apply_relevance_filter: true
   notes: >
     Curated digest page, not a repeating card structure - each opportunity is
     a pair of consecutive <p> tags (arrow-emoji description + link, then a
@@ -399,6 +407,26 @@
     (rather than the homepage, which is mostly news) since that's the actual
     call page; second and final round closed 2025-09-29 as of 2026-07-28, so
     presumably done unless they announce a new round or programme.
+
+- name: somerset_house_creative_tech_fellowship_watch
+  display_name: "Somerset House — Creative Technologies Fellowship (watch)"
+  organizer: "Somerset House"
+  country: "UK"
+  region_tier: high
+  adapter: html
+  url: "https://www.somersethouse.org.uk/somerset-house-studios/residencies-and-opportunities/creative-technologies-fellowship"
+  enabled: true
+  listing_type: residency
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Fellowship with UAL Creative Computing Institute - critical practice
+    exploring computational systems/social or environmental questions,
+    highly relevant practice area. Page describes already-selected fellows
+    (past tense, "Artist Profiles") as of 2026-07-28, no live "apply now"
+    call-to-action found. Whole-page watch.
 
 # --- Manual leads (newsletter-only, no scrapable page at all) ---
 # Example of the `manual` adapter shape — delete this or replace with real leads.

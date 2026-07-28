@@ -1,0 +1,46 @@
+# Strong allow-list filter, applied ONLY to multi-source aggregators
+# (sources.yaml entries with apply_relevance_filter: true — currently
+# ArtRabbit, Artists Now, and The Space). These pull in dozens of listings
+# per run with no editorial curation, so unlike the rest of the pipeline,
+# a listing from one of these sources must actively match something below
+# to survive at all — everything else is dropped entirely.
+#
+# Singular/watch sources (V&A, Barbican, FACT, etc.) are NOT affected by
+# this file — those were already chosen deliberately one at a time.
+#
+# A listing passes if EITHER:
+#   - its title/description/eligibility text matches a keyword here, or one
+#     already defined in scraper/discipline_tags.py (that vocabulary is
+#     reused here rather than duplicated), OR
+#   - its organizer matches (substring, case-insensitive) an entry in
+#     `organizers` below — typically the same organizations behind the
+#     singular watch sources, so their listings aren't lost if they also
+#     turn up on an aggregator.
+#
+# Edit freely — no code changes needed. "research" is deliberately broad and
+# will over-match; tighten it here if it lets through too much noise.
+
+extra_keywords:
+  - social data
+  - urban
+  - environment
+  - environmental
+  - research
+  - creative tech
+  - creative technology
+  - creative coding
+  - data visualization
+  - data visualisation
+
+organizers:
+  - Victoria and Albert Museum
+  - Barbican
+  - Peckham Digital
+  - FACT
+  - Furtherfield
+  - Vivid Projects
+  - Site Gallery
+  - Immersive Arts
+  - Digital Good
+  - Arts Council England
+  - Somerset House

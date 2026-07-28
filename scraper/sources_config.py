@@ -22,6 +22,7 @@ class SourceConfig:
     manual_entries: list[dict[str, Any]] = field(default_factory=list)
     notes: str = ""
     frequency: str = "weekly"  # weekly | quarterly - how often this source should be checked
+    apply_relevance_filter: bool = False  # strong allow-list filter, for multi-source aggregators
 
 
 def load_sources(path: str | Path) -> list[SourceConfig]:
@@ -50,6 +51,7 @@ def load_sources(path: str | Path) -> list[SourceConfig]:
                 manual_entries=entry.get("manual_entries") or [],
                 notes=entry.get("notes", ""),
                 frequency=entry.get("frequency", "weekly"),
+                apply_relevance_filter=entry.get("apply_relevance_filter", False),
             )
         )
     return sources
