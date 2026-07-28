@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 
-from scraper.adapters.parsing_utils import USER_AGENT, parse_deadline, select_text
+from scraper.adapters.parsing_utils import USER_AGENT, parse_deadline, parse_yyyymmdd, select_text, slugify
 from scraper.models import Listing, make_id
 from scraper.sources_config import SourceConfig
 from scraper.tier import region_tier
@@ -38,21 +38,35 @@ def extract_listings(items, config: SourceConfig) -> list[Listing]:
         link_selector = opts.get("link_selector")
         link_el = item.select_one(link_selector) if link_selector else item
         href = link_el.get("href") if link_el else None
-        if not href:
+        if (not href or href == "#") and opts.get("synthetic_url_from_title"):
+            # Some login-gated sites (e.g. membership job boards) render every
+            # card's link as a login-modal trigger with no real per-item URL.
+            # A slug-based fragment keeps ids stable/unique without pretending
+            # to be a deep link - clicking it just lands on the listing page.
+            url = f"{config.url.split('#')[0]}#{slugify(title)}"
+        elif not href:
             continue
-        url = urljoin(config.url, href)
+        else:
+            url = urljoin(config.url, href)
 
-        deadline_text = select_text(item, opts.get("deadline_selector"))
-        deadline, deadline_raw = parse_deadline(deadline_text)
+        deadline_attr = opts.get("deadline_attr")
+        if deadline_attr:
+            deadline_raw = item.get(deadline_attr)
+            deadline = parse_yyyymmdd(deadline_raw)
+        else:
+            deadline_text = select_text(item, opts.get("deadline_selector"))
+            deadline, deadline_raw = parse_deadline(deadline_text)
+
         fee_text = select_text(item, opts.get("fee_selector"))
         description = select_text(item, opts.get("description_selector"))
         eligibility = select_text(item, opts.get("eligibility_selector"))
+        organizer = select_text(item, opts.get("organizer_selector")) or config.organizer or config.display_name
 
         listings.append(
             Listing(
                 id=make_id(config.name, url),
                 title=title,
-                organizer=config.organizer or config.display_name,
+                organizer=organizer,
                 source_name=config.name,
                 url=url,
                 country=config.country,

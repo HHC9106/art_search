@@ -19,20 +19,35 @@
 
 # --- Tier 1: UK ---
 
-- name: a_n_opportunities
-  display_name: "a-n The Artists Information Company – Opportunities"
-  organizer: "a-n The Artists Information Company"
+- name: artistsnow_opportunities
+  display_name: "Artists Now (formerly a-n) – Opportunities"
+  organizer: "Artists Now"
   country: "UK"
   adapter: html
-  url: "TBD"
-  enabled: false
+  url: "https://www.artistsnow.com/page-types/job_listing/resultSection/"
+  enabled: true
+  listing_type: open_call
   parser_options:
-    item_selector: ""
-    title_selector: ""
-    link_selector: ""
-    deadline_selector: ""
-    eligibility_selector: ""
-  notes: "Candidate UK source proposed during planning. Needs real URL + selectors confirmed."
+    item_selector: ".article-list-item"
+    title_selector: ".article-title a"
+    link_selector: ".article-title a"
+    organizer_selector: ".article-name"
+    deadline_selector: ".job-meta:nth-of-type(1) .job-meta-value"
+    eligibility_selector: ".job-meta:nth-of-type(2) .job-meta-value"
+    fee_selector: ".job-meta:nth-of-type(3) .job-meta-value"
+    description_selector: ".article-text"
+    synthetic_url_from_title: true
+  notes: >
+    a-n.co.uk now redirects to artistsnow.com (rebrand). Both individual listing
+    links and "load more" pagination require an Artists Now account, so only the
+    first 10 of ~97 results (sorted soonest-closing) are visible, and the url
+    field is a synthetic anchor back to the search page rather than a real deep
+    link — treat these as a pointer to go search/log in at artistsnow.com, not
+    a directly actionable link. eligibility_selector here actually captures
+    location (job-meta order is Closing date / Location / Payment), reused
+    since there's no dedicated location field in the schema. country is
+    statically "UK" though ~17% of listings are flagged "Outside of the UK" on
+    the real site — a known imprecision.
 
 - name: arts_council_england
   display_name: "Arts Council England – Funding & Open Calls"
@@ -47,7 +62,11 @@
     link_selector: ""
     deadline_selector: ""
     eligibility_selector: ""
-  notes: "Candidate UK source proposed during planning. Needs real URL + selectors confirmed."
+  notes: >
+    Confirmed blocked by Cloudflare bot protection (both curl and a real
+    headless Playwright browser got "Sorry, you have been blocked" / a JS
+    challenge) — not scrapable from a GitHub Actions runner. Leave disabled;
+    needs manual curation if this source is wanted.
 
 - name: axisweb_opportunities
   display_name: "Axisweb – Opportunities"
@@ -152,12 +171,56 @@
     eligibility_selector: ""
   notes: "Candidate Taiwan source proposed during planning. Needs real URL + selectors confirmed."
 
-# --- Manual leads (newsletter-only, no scrapable page) ---
+# --- Aggregators (international, mixed/unknown region per listing) ---
+
+- name: artrabbit_opportunities
+  display_name: "ArtRabbit – Artist Opportunities"
+  organizer: "ArtRabbit"
+  country: null
+  adapter: html
+  url: "https://www.artrabbit.com/artist-opportunities"
+  enabled: true
+  listing_type: open_call
+  parser_options:
+    item_selector: "div.artopp"
+    title_selector: "h2 a"
+    link_selector: "h2 a"
+    deadline_attr: "data-d"
+    description_selector: "h3.b_categorical-heading"
+  notes: >
+    Verified working: ~57 live international listings, deadline read from the
+    data-d="YYYYMMDD" attribute (more reliable than text parsing). No per-item
+    location on the index page, so region_tier defaults to Tier 3 (Other) for
+    everything here regardless of true geography — use discipline/search
+    filters to narrow down. ArtRabbit's own category (Prize/Residency/
+    Collaboration/etc., captured in description) doesn't map cleanly to our
+    listing_type enum, so listing_type is left as the open_call default.
+
+# --- Manual leads (newsletter-only, or pages worth a periodic manual check) ---
 # Example of the `manual` adapter shape — delete this or replace with real leads.
 
 - name: manual_newsletter_leads
   display_name: "Manually curated leads"
   adapter: manual
   enabled: true
-  manual_entries: []
-  notes: "Add hand-curated entries here for leads found via newsletters with no scrapable listing page."
+  manual_entries:
+    - title: "V&A Residencies — Open Calls (check periodically)"
+      organizer: "Victoria and Albert Museum"
+      country: "UK"
+      url: "https://www.vam.ac.uk/info/residencies"
+      listing_type: "residency"
+      notes: >
+        No open call listed as of 2026-07-28 — the page's dedicated "Open
+        Calls" section explicitly says "We currently have no Open Calls."
+        Content there is freeform CMS text, not a repeatable card structure,
+        so it isn't reliably scrapable even once populated. Revisit manually.
+    - title: "Barbican Open Calls (check periodically)"
+      organizer: "Barbican Centre"
+      country: "UK"
+      url: "https://www.barbican.org.uk/our-story/our-projects/open-calls"
+      listing_type: "open_call"
+      notes: >
+        No live open call as of 2026-07-28 — page currently only shows an
+        archive of past projects (Real Quick, alt.barbican, Concert Hall
+        Wall) in a non-repeating layout. Revisit manually.
+  notes: "Add hand-curated entries here for leads found via newsletters with no scrapable listing page, or institutional pages worth a periodic manual check."
