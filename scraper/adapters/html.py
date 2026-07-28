@@ -83,6 +83,12 @@ def extract_listings(items, config: SourceConfig) -> list[Listing]:
         link_selector = opts.get("link_selector")
         link_el = item.select_one(link_selector) if link_selector else item
         href = link_el.get("href") if link_el else None
+        if not href and opts.get("fallback_link_selector"):
+            # Some sites link to a real external URL for most items but omit
+            # it for a few - fall back to another selector (e.g. the site's
+            # own internal detail page) rather than dropping the listing.
+            fallback_el = item.select_one(opts["fallback_link_selector"])
+            href = fallback_el.get("href") if fallback_el else None
         if not href or href == "#":
             if opts.get("google_search_link"):
                 # Login-gated with no usable real/synthetic destination at

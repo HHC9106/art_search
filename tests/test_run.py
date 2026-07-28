@@ -2,7 +2,8 @@ from datetime import date
 
 import yaml
 
-from scraper.run import compute_manual_reminders, run
+from scraper.models import Listing, make_id
+from scraper.run import compute_manual_reminders, dedupe_by_url, run
 from scraper.sources_config import load_sources
 
 WEEK_1 = date(2026, 7, 6)
@@ -231,6 +232,66 @@ def test_content_hash_change_resurfaces_listing_as_new(tmp_path):
     saved = json.loads(listings_path.read_text())
     assert saved[0]["first_seen_date"] == WEEK_4.isoformat()
     assert saved[0]["id"] == original_id  # id stable throughout (same source+url)
+
+
+def make_listing(source_name, url, title="Title"):
+    return Listing(id=make_id(source_name, url), title=title, organizer="Org", source_name=source_name, url=url)
+
+
+def test_dedupe_by_url_collapses_same_url_across_sources():
+    same_url = "https://real-organizer.example/apply"
+    a = make_listing("thespace", same_url, title="From The Space")
+    b = make_listing("artquest_opportunities", same_url, title="From Art Quest")
+    unrelated = make_listing("artrabbit_opportunities", "https://other.example/apply", title="Unrelated")
+
+    result = dedupe_by_url({a.id: a, b.id: b, unrelated.id: unrelated})
+
+    assert len(result) == 2
+    kept_titles = {listing.title for listing in result.values()}
+    assert "Unrelated" in kept_titles
+    assert len(kept_titles & {"From The Space", "From Art Quest"}) == 1  # only one of the two survives
+
+
+def test_dedupe_by_url_is_case_and_trailing_slash_insensitive():
+    a = make_listing("thespace", "https://Real-Organizer.example/Apply/")
+    b = make_listing("artquest_opportunities", "https://real-organizer.example/apply")
+
+    result = dedupe_by_url({a.id: a, b.id: b})
+    assert len(result) == 1
+
+
+def test_dedupe_by_url_leaves_unique_urls_untouched():
+    a = make_listing("s1", "https://one.example")
+    b = make_listing("s2", "https://two.example")
+    result = dedupe_by_url({a.id: a, b.id: b})
+    assert len(result) == 2
+
+
+def test_run_dedupes_same_url_scraped_by_two_sources(tmp_path):
+    sources_path = tmp_path / "sources.yaml"
+    listings_path = tmp_path / "listings.json"
+    meta_path = tmp_path / "meta.json"
+
+    shared_entry_a = entry("https://real-organizer.example/apply")
+    shared_entry_a["title"] = "New media art open call (from source A)"
+    shared_entry_b = entry("https://real-organizer.example/apply")
+    shared_entry_b["title"] = "New media art open call (from source B)"
+
+    sources = [
+        {"name": "source_a", "adapter": "manual", "enabled": True, "manual_entries": [shared_entry_a]},
+        {"name": "source_b", "adapter": "manual", "enabled": True, "manual_entries": [shared_entry_b]},
+    ]
+    sources_path.write_text(yaml.safe_dump(sources), encoding="utf-8")
+
+    meta = run(
+        send_email=False,
+        today=WEEK_1,
+        sources_path=sources_path,
+        listings_path=listings_path,
+        meta_path=meta_path,
+    )
+
+    assert meta["total_listings"] == 1
 
 
 def test_strong_filter_applies_only_to_flagged_aggregator_sources(tmp_path):

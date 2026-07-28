@@ -15,6 +15,11 @@ def test_parse_deadline_handles_common_formats():
     assert parse_deadline("Deadline: 2026-10-01")[0] == date(2026, 10, 1)
 
 
+def test_parse_deadline_handles_uk_slash_format():
+    assert parse_deadline("Deadline:29/07/2026")[0] == date(2026, 7, 29)
+    assert parse_deadline("Deadline: 03/08/2026")[0] == date(2026, 8, 3)
+
+
 def test_parse_deadline_falls_back_to_raw_text_when_unparseable():
     deadline, raw = parse_deadline("Rolling deadline, no fixed date")
     assert deadline is None
@@ -218,6 +223,43 @@ def test_google_search_link_for_login_gated_items_with_no_public_url():
         "https://www.google.com/search?q=Liberty+Art+Award+Liberty+Speciality+Markets"
     )
     assert listings[0].organizer == "Liberty Speciality Markets"
+
+
+def test_fallback_link_selector_used_when_primary_link_missing():
+    html = """
+    <div class="landing-page-item pt-opportunity">
+      <h5><a href="https://artquest.org.uk/opportunity/example-award/">Example Award</a></h5>
+      <p class="deadline">Deadline:31/07/2026</p>
+      <p>Description text.</p>
+      <p class="website"><a href="https://real-organizer.example/apply">https://real-organizer.example/apply</a></p>
+    </div>
+    <div class="landing-page-item pt-opportunity">
+      <h5><a href="https://artquest.org.uk/opportunity/no-external-link/">No External Link Award</a></h5>
+      <p class="deadline">Deadline:03/08/2026</p>
+      <p>Description text.</p>
+    </div>
+    """
+    soup = BeautifulSoup(html, "lxml")
+    config = SourceConfig(
+        name="artquest_test",
+        adapter="html",
+        url="https://artquest.org.uk/opportunities/",
+        parser_options={
+            "item_selector": ".landing-page-item.pt-opportunity",
+            "title_selector": "h5 a",
+            "link_selector": "p.website a",
+            "fallback_link_selector": "h5 a",
+            "deadline_selector": "p.deadline",
+            "description_selector": "p:not(.deadline):not(.website)",
+        },
+    )
+    listings = extract_listings(soup.select(".landing-page-item.pt-opportunity"), config)
+    assert len(listings) == 2
+    assert listings[0].url == "https://real-organizer.example/apply"
+    assert listings[0].deadline == date(2026, 7, 31)
+    # second item has no p.website - falls back to the internal artquest.org.uk page
+    assert listings[1].url == "https://artquest.org.uk/opportunity/no-external-link/"
+    assert listings[1].deadline == date(2026, 8, 3)
 
 
 def test_single_page_extraction_hashes_content_and_falls_back_title():

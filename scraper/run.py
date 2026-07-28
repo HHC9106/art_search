@@ -43,6 +43,26 @@ def compute_manual_reminders(sources: list, cadence: str) -> list[dict]:
     ]
 
 
+def dedupe_by_url(merged: dict[str, Listing]) -> dict[str, Listing]:
+    """Different aggregators sometimes list the exact same external
+    opportunity (e.g. both The Space and Art Quest listing the same Fine
+    Acts residency). Collapses same-url listings to one entry, keeping the
+    one that sorts first by id - arbitrary but stable across runs, since the
+    same url scraped by the same set of sources always resolves the same
+    way. Only touches listings whose url actually collides; unique urls
+    (the overwhelming majority) pass through untouched."""
+    seen_urls: set[str] = set()
+    deduped: dict[str, Listing] = {}
+    for lid in sorted(merged.keys()):
+        listing = merged[lid]
+        url_key = (listing.url or "").strip().lower().rstrip("/")
+        if url_key and url_key in seen_urls:
+            continue
+        seen_urls.add(url_key)
+        deduped[lid] = listing
+    return deduped
+
+
 def _recompute_status(listing: Listing, today: date) -> None:
     if listing.deadline and listing.deadline < today:
         listing.status = "closed"
@@ -153,6 +173,8 @@ def run(
         if listing.source_name not in filtered_sources
         or passes_strong_filter(f"{listing.title} {listing.description or ''} {listing.eligibility or ''}", listing.organizer)
     }
+
+    merged = dedupe_by_url(merged)
 
     new_ids = {lid for lid, listing in merged.items() if listing.first_seen_date == today}
 

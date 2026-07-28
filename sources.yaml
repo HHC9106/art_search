@@ -234,6 +234,35 @@
     year, rolling to next year if that's already past. No per-item location,
     so region_tier falls back to the "medium" config default like ArtRabbit.
 
+- name: artquest_opportunities
+  display_name: "Art Quest — Opportunities"
+  organizer: "Art Quest"
+  country: null
+  adapter: html
+  url: "https://artquest.org.uk/opportunities/"
+  enabled: true
+  listing_type: open_call
+  apply_relevance_filter: true
+  parser_options:
+    item_selector: ".landing-page-item.pt-opportunity"
+    title_selector: "h5 a"
+    link_selector: "p.website a"
+    fallback_link_selector: "h5 a"
+    deadline_selector: "p.deadline"
+    description_selector: "p:not(.deadline):not(.website)"
+  notes: >
+    ~18 live listings. Deadline is DD/MM/YYYY (e.g. "29/07/2026"), which
+    needed a small addition to scraper/adapters/parsing_utils.py's shared
+    date parser. Links to the real external opportunity page via
+    p.website a when present; falls back to Art Quest's own internal detail
+    page (h5 a) for the few items missing an external link. No per-item
+    organizer captured (same limitation as ArtRabbit) - organizer is always
+    "Art Quest", so keyword match is the only path through the strong
+    filter, never the organizer allowlist. Overlaps with The Space in
+    practice (same underlying opportunities, e.g. Fine Acts, British
+    Council, Hugo Burge Foundation, all seen on both) - cross-source URL
+    dedup in run.py collapses these to one listing rather than two.
+
 # --- Single-institution watch pages (quarterly) ---
 # These sites only ever show their OWN opportunity (not an aggregator), and
 # rarely change, so they're checked quarterly instead of weekly. adapter: html

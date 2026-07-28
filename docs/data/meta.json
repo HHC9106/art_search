@@ -1,27 +1,27 @@
 {
   "last_run": "2026-07-28",
-  "total_listings": 17,
-  "open_listings": 17,
+  "total_listings": 18,
+  "open_listings": 18,
   "sources": {
-    "immersive_arts_uk_funding_watch": {
+    "artrabbit_opportunities": {
       "status": "ok"
     },
     "peckham_digital_watch": {
       "status": "ok"
     },
-    "artistsnow_opportunities": {
+    "immersive_arts_uk_funding_watch": {
       "status": "ok"
     },
-    "artrabbit_opportunities": {
+    "vivid_projects_watch": {
       "status": "ok"
     },
-    "somerset_house_creative_tech_fellowship_watch": {
+    "manual_newsletter_leads": {
       "status": "ok"
     },
-    "barbican_open_calls_watch": {
+    "thespace": {
       "status": "ok"
     },
-    "furtherfield_whats_on_watch": {
+    "artquest_opportunities": {
       "status": "ok"
     },
     "va_residencies_watch": {
@@ -30,19 +30,20 @@
     "fact_digital_residencies_watch": {
       "status": "ok"
     },
-    "manual_newsletter_leads": {
-      "status": "ok"
-    },
     "site_gallery_watch": {
       "status": "ok"
     },
-    "thespace": {
-      "status": "error",
-      "error": "HTTPError: 415 Client Error: Unsupported Media Type for url: https://www.thespace.org/resource/news-and-opportunities-from-across-the-sector/"
+    "furtherfield_whats_on_watch": {
+      "status": "ok"
     },
-    "vivid_projects_watch": {
-      "status": "error",
-      "error": "HTTPError: 415 Client Error: Unsupported Media Type for url: https://vividprojects.org.uk/"
+    "somerset_house_creative_tech_fellowship_watch": {
+      "status": "ok"
+    },
+    "artistsnow_opportunities": {
+      "status": "ok"
+    },
+    "barbican_open_calls_watch": {
+      "status": "ok"
     }
   }
 }

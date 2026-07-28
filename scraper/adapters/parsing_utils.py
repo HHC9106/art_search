@@ -5,8 +5,11 @@ from datetime import date, datetime
 
 USER_AGENT = "art-search-bot/1.0 (+mailto:andyentre@gmail.com; personal open-call aggregator)"
 
-_DATE_PATTERN = re.compile(r"\d{4}-\d{2}-\d{2}|\d{1,2}\s+\w+\s+\d{4}|\w+\s+\d{1,2},?\s+\d{4}")
-_DATE_FORMATS = ("%Y-%m-%d", "%d %B %Y", "%d %b %Y", "%B %d, %Y", "%B %d %Y")
+_DATE_PATTERN = re.compile(
+    r"\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4}|\d{1,2}\s+\w+\s+\d{4}|\w+\s+\d{1,2},?\s+\d{4}"
+)
+# %d/%m/%Y (UK day-first) tried before %m/%d/%Y - all our sources are UK-based
+_DATE_FORMATS = ("%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y", "%d %B %Y", "%d %b %Y", "%B %d, %Y", "%B %d %Y")
 
 _SLUG_PATTERN = re.compile(r"[^a-z0-9]+")
 
