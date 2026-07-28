@@ -38,11 +38,10 @@ function setTrackingStatus(id, status) {
   saveTracking(tracking);
 }
 
-// Tier is fundamentally about the nation/region, not the individual listing,
-// so overrides are keyed by country - falling back to source_name for
-// aggregator items with no per-item country (e.g. ArtRabbit).
+// Per-listing tier override - changing one row never affects any other,
+// even ones sharing the same country.
 function tierOverrideKey(listing) {
-  return listing.country || listing.source_name;
+  return listing.id;
 }
 
 function loadTierOverrides() {
@@ -192,7 +191,7 @@ function render() {
     const tierCell = row.querySelector(".tier-cell");
     const tierSelect = document.createElement("select");
     tierSelect.className = `tier-select tier-${tier}`;
-    tierSelect.title = `Sets the tier for ${tierOverrideKey(listing)}, not just this one listing`;
+    tierSelect.title = "Sets the tier for this listing only";
     for (const level of TIER_LEVELS) {
       const opt = document.createElement("option");
       opt.value = level;

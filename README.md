@@ -15,10 +15,10 @@ See [PLANNING.md](PLANNING.md) for the full design rationale.
   `docs/app.js`) reads that same JSON file client-side.
 - Application/tracking status (interested, applied, etc.) is stored in your
   browser's `localStorage` only — it does not sync across devices.
-- **Tier is nation/region-based and fully user-editable.** `tier_config.yaml`
-  sets the server-side default (used at scrape time and for the email
-  digest), but the dashboard's Tier column is a live dropdown: changing it
-  for one listing re-tiers every listing from that same country (stored in
+- **Tier is nation/region-based by default and fully user-editable.**
+  `tier_config.yaml` sets the server-side default per country (used at scrape
+  time and for the email digest), but the dashboard's Tier column is a live
+  per-listing dropdown: changing it only affects that one row (stored in
   `localStorage`, so it's a personal/per-device setting — "Reset tier
   overrides" clears it). Countries not in `tier_config.yaml` fall back to its
   `default` (currently `medium`).
