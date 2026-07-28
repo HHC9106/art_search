@@ -46,6 +46,7 @@ def extract_listings(items, config: SourceConfig) -> list[Listing]:
         deadline, deadline_raw = parse_deadline(deadline_text)
         fee_text = select_text(item, opts.get("fee_selector"))
         description = select_text(item, opts.get("description_selector"))
+        eligibility = select_text(item, opts.get("eligibility_selector"))
 
         listings.append(
             Listing(
@@ -60,6 +61,7 @@ def extract_listings(items, config: SourceConfig) -> list[Listing]:
                 deadline=deadline,
                 deadline_raw=deadline_raw,
                 description=description,
+                eligibility=eligibility,
                 raw_extra={"fee_text": fee_text} if fee_text else {},
             )
         )

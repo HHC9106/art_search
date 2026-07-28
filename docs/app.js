@@ -60,7 +60,7 @@ function applyFilters(all, filters) {
     if (filters.status && l.status !== filters.status) return false;
     if (filters.tracking && l.tracking.status !== filters.tracking) return false;
     if (filters.search) {
-      const haystack = `${l.title} ${l.organizer}`.toLowerCase();
+      const haystack = `${l.title} ${l.organizer} ${l.eligibility || ""}`.toLowerCase();
       if (!haystack.includes(filters.search)) return false;
     }
     return true;
@@ -118,6 +118,7 @@ function render() {
       <td class="${urgentClass}">${escapeHtml(deadlineCell)}</td>
       <td>${listing.fee != null ? escapeHtml(String(listing.fee)) : "—"}</td>
       <td>${escapeHtml(listing.prize_amount || "—")}</td>
+      <td class="eligibility-cell" title="${escapeHtml(listing.eligibility || "")}">${escapeHtml(listing.eligibility || "—")}</td>
       <td></td>
     `;
 

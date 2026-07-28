@@ -31,6 +31,7 @@
     title_selector: ""
     link_selector: ""
     deadline_selector: ""
+    eligibility_selector: ""
   notes: "Candidate UK source proposed during planning. Needs real URL + selectors confirmed."
 
 - name: arts_council_england
@@ -45,6 +46,7 @@
     title_selector: ""
     link_selector: ""
     deadline_selector: ""
+    eligibility_selector: ""
   notes: "Candidate UK source proposed during planning. Needs real URL + selectors confirmed."
 
 - name: axisweb_opportunities
@@ -59,6 +61,7 @@
     title_selector: ""
     link_selector: ""
     deadline_selector: ""
+    eligibility_selector: ""
   notes: "Candidate UK source proposed during planning. Needs real URL + selectors confirmed."
 
 - name: curator_space
@@ -73,6 +76,7 @@
     title_selector: ""
     link_selector: ""
     deadline_selector: ""
+    eligibility_selector: ""
   notes: "Candidate UK aggregator proposed during planning. Needs real URL + selectors confirmed."
 
 # --- Tier 2: US / Europe / Taiwan ---
@@ -89,6 +93,7 @@
     title_selector: ""
     link_selector: ""
     deadline_selector: ""
+    eligibility_selector: ""
   notes: "Likely needs the manual-curation fallback if this site is bot-protected."
 
 - name: res_artis
@@ -104,6 +109,7 @@
     title_selector: ""
     link_selector: ""
     deadline_selector: ""
+    eligibility_selector: ""
   notes: "International residency network, candidate source proposed during planning."
 
 - name: e_flux_announcements
@@ -128,6 +134,7 @@
     title_selector: ""
     link_selector: ""
     deadline_selector: ""
+    eligibility_selector: ""
   notes: "Candidate Taiwan source proposed during planning. Needs real URL + selectors confirmed."
 
 - name: taiwan_ncaf
@@ -142,6 +149,7 @@
     title_selector: ""
     link_selector: ""
     deadline_selector: ""
+    eligibility_selector: ""
   notes: "Candidate Taiwan source proposed during planning. Needs real URL + selectors confirmed."
 
 # --- Manual leads (newsletter-only, no scrapable page) ---

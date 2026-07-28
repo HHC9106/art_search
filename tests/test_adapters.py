@@ -41,6 +41,7 @@ def test_html_extraction_from_fixture_page():
             "link_selector": ".op-title a",
             "deadline_selector": ".op-deadline",
             "fee_selector": ".op-fee",
+            "eligibility_selector": ".op-eligibility",
             "description_selector": ".op-desc",
         },
     )
@@ -53,8 +54,10 @@ def test_html_extraction_from_fixture_page():
     assert listings[0].deadline == date(2026, 9, 15)
     assert listings[0].region_tier == 1
     assert listings[0].raw_extra == {"fee_text": "Entry fee: £12"}
+    assert listings[0].eligibility == "UK residents only, aged 18-35"
 
     assert listings[1].deadline == date(2026, 10, 1)
+    assert listings[1].eligibility is None  # no eligibility_selector match for this item
 
     # third item has no deadline selector match -> deadline stays None, no crash
     assert listings[2].deadline is None

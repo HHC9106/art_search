@@ -116,6 +116,13 @@ th, td {
   white-space: nowrap;
 }
 
+.eligibility-cell {
+  white-space: normal;
+  max-width: 20rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 tbody tr:hover {
   background: var(--row-hover);
 }
