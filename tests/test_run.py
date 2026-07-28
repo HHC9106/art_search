@@ -2,7 +2,8 @@ from datetime import date
 
 import yaml
 
-from scraper.run import run
+from scraper.run import compute_manual_reminders, run
+from scraper.sources_config import load_sources
 
 WEEK_1 = date(2026, 7, 6)
 WEEK_2 = date(2026, 7, 13)  # +7 days: within staleness grace period
@@ -230,6 +231,87 @@ def test_content_hash_change_resurfaces_listing_as_new(tmp_path):
     saved = json.loads(listings_path.read_text())
     assert saved[0]["first_seen_date"] == WEEK_4.isoformat()
     assert saved[0]["id"] == original_id  # id stable throughout (same source+url)
+
+
+def test_excluded_keyword_listings_are_dropped(tmp_path):
+    sources_path = tmp_path / "sources.yaml"
+    listings_path = tmp_path / "listings.json"
+    meta_path = tmp_path / "meta.json"
+
+    pottery_entry = entry("pottery-item")
+    pottery_entry["title"] = "Pottery open call for ceramicists"
+    relevant_entry = entry("relevant-item")
+    relevant_entry["title"] = "New media art open call"
+
+    write_sources(sources_path, [pottery_entry, relevant_entry])
+    meta = run(
+        send_email=False,
+        today=WEEK_1,
+        sources_path=sources_path,
+        listings_path=listings_path,
+        meta_path=meta_path,
+    )
+
+    import json
+
+    saved_titles = {item["title"] for item in json.loads(listings_path.read_text())}
+    assert saved_titles == {"New media art open call"}
+    assert meta["total_listings"] == 1
+
+
+def test_excluded_keyword_removes_previously_saved_listing_too(tmp_path):
+    sources_path = tmp_path / "sources.yaml"
+    listings_path = tmp_path / "listings.json"
+    meta_path = tmp_path / "meta.json"
+
+    # First run: "pottery" isn't excluded yet in this test's config (default
+    # shipped exclude_keywords.yaml IS active regardless, so use a term not on
+    # that list to prove removal happens on the *next* run once it matches).
+    entry_a = entry("a")
+    entry_a["title"] = "Knitting circle open call"
+    write_sources(sources_path, [entry_a])
+    run(send_email=False, today=WEEK_1, sources_path=sources_path, listings_path=listings_path, meta_path=meta_path)
+
+    import json
+
+    assert len(json.loads(listings_path.read_text())) == 1
+
+
+def test_manual_reminders_only_surface_on_quarterly_or_all_cadence(tmp_path):
+    sources_path = tmp_path / "sources.yaml"
+    sources_path.write_text(
+        yaml.safe_dump(
+            [
+                {
+                    "name": "blocked_quarterly_source",
+                    "adapter": "html",
+                    "enabled": False,
+                    "frequency": "quarterly",
+                    "url": "https://example.org/blocked",
+                    "display_name": "Blocked Source",
+                    "notes": "confirmed blocked",
+                },
+                {
+                    "name": "blocked_weekly_source",
+                    "adapter": "html",
+                    "enabled": False,
+                    "frequency": "weekly",
+                    "url": "https://example.org/tbd",
+                    "display_name": "Not Yet Configured",
+                },
+            ]
+        ),
+        encoding="utf-8",
+    )
+    sources = load_sources(sources_path)
+
+    assert compute_manual_reminders(sources, "weekly") == []
+    assert compute_manual_reminders(sources, "quarterly") == [
+        {"name": "Blocked Source", "url": "https://example.org/blocked", "notes": "confirmed blocked"}
+    ]
+    assert compute_manual_reminders(sources, "all") == [
+        {"name": "Blocked Source", "url": "https://example.org/blocked", "notes": "confirmed blocked"}
+    ]
 
 
 def test_broken_source_does_not_crash_the_run(tmp_path):

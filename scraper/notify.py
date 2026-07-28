@@ -4,7 +4,7 @@ import argparse
 import json
 import os
 import smtplib
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -28,10 +28,13 @@ class DigestSections:
     heads_up: list[Listing]
     urgent: list[Listing]
     source_errors: dict[str, str]
+    manual_reminders: list[dict] = field(default_factory=list)
 
     @property
     def is_empty(self) -> bool:
-        return not (self.new_listings or self.heads_up or self.urgent or self.source_errors)
+        return not (
+            self.new_listings or self.heads_up or self.urgent or self.source_errors or self.manual_reminders
+        )
 
 
 def compute_sections(
@@ -39,6 +42,7 @@ def compute_sections(
     new_ids: set[str],
     source_errors: dict[str, str],
     today: date,
+    manual_reminders: list[dict] | None = None,
 ) -> DigestSections:
     """Mutates notified_tier/last_notified_date in place on listings that cross
     a threshold this run, so the same listing is only ever flagged once per tier
@@ -62,7 +66,13 @@ def compute_sections(
             listing.notified_tier = "month"
             listing.last_notified_date = today
 
-    return DigestSections(new_listings=new_listings, heads_up=heads_up, urgent=urgent, source_errors=source_errors)
+    return DigestSections(
+        new_listings=new_listings,
+        heads_up=heads_up,
+        urgent=urgent,
+        source_errors=source_errors,
+        manual_reminders=manual_reminders or [],
+    )
 
 
 def render_html(sections: DigestSections, today: date) -> str:
@@ -89,6 +99,15 @@ def render_html(sections: DigestSections, today: date) -> str:
     html.append(render_group("Urgent — deadline within 7 days", sections.urgent))
     html.append(render_group(f"Heads up — deadline within {HEADS_UP_DAYS} days", sections.heads_up))
     html.append(render_group("New this run", sections.new_listings))
+
+    if sections.manual_reminders:
+        html.append("<h2>Manual check reminder (quarterly)</h2><ul>")
+        for reminder in sections.manual_reminders:
+            html.append(
+                f'<li><a href="{reminder["url"]}">{reminder["name"]}</a> — can\'t be scraped automatically, '
+                f"go check it directly. {reminder.get('notes', '')}</li>"
+            )
+        html.append("</ul>")
 
     if sections.source_errors:
         html.append("<h2>Source health</h2><ul>")
@@ -122,8 +141,9 @@ def build_and_send(
     new_ids: set[str],
     source_errors: dict[str, str],
     today: date,
+    manual_reminders: list[dict] | None = None,
 ) -> DigestSections:
-    sections = compute_sections(listings, new_ids, source_errors, today)
+    sections = compute_sections(listings, new_ids, source_errors, today, manual_reminders)
     if sections.is_empty:
         print("Digest empty (no new/heads-up/urgent/errors) — skipping email.")
         return sections

@@ -24,7 +24,7 @@
   organizer: "Artists Now"
   country: "UK"
   adapter: html
-  url: "https://www.artistsnow.com/page-types/job_listing/resultSection/"
+  url: "https://www.artistsnow.com/page-types/job_listing/resultSection/?categories=awards&categories=commissions&categories=exhibitions&categories=funding&categories=residencies&categories=other&categories=professional-development"
   enabled: true
   listing_type: open_call
   parser_options:
@@ -38,24 +38,30 @@
     description_selector: ".article-text"
     synthetic_url_from_title: true
   notes: >
-    a-n.co.uk now redirects to artistsnow.com (rebrand). Both individual listing
-    links and "load more" pagination require an Artists Now account, so only the
-    first 10 of ~97 results (sorted soonest-closing) are visible, and the url
-    field is a synthetic anchor back to the search page rather than a real deep
-    link — treat these as a pointer to go search/log in at artistsnow.com, not
-    a directly actionable link. eligibility_selector here actually captures
+    a-n.co.uk now redirects to artistsnow.com (rebrand). The url's categories=
+    params exclude Jobs/Selling/Studios at the source (confirmed working via
+    the site's own filter - "Displaying N results" drops accordingly), leaving
+    Awards/Commissions/Exhibitions/Funding/Residencies/Other/Professional
+    development (~57 of ~97 total). Both individual listing links and "load
+    more" pagination still require an Artists Now account, so only the first
+    10 of those ~57 (sorted soonest-closing) are visible, and the url field is
+    a synthetic anchor back to the search page rather than a real deep link —
+    treat these as a pointer to go search/log in at artistsnow.com, not a
+    directly actionable link. eligibility_selector here actually captures
     location (job-meta order is Closing date / Location / Payment), reused
     since there's no dedicated location field in the schema. country is
-    statically "UK" though ~17% of listings are flagged "Outside of the UK" on
+    statically "UK" though some listings are flagged "Outside of the UK" on
     the real site — a known imprecision.
 
 - name: arts_council_england
   display_name: "Arts Council England – Funding & Open Calls"
   organizer: "Arts Council England"
   country: "UK"
+  region_tier: high
   adapter: html
-  url: "TBD"
+  url: "https://www.artscouncil.org.uk/"
   enabled: false
+  frequency: quarterly
   parser_options:
     item_selector: ""
     title_selector: ""
@@ -65,8 +71,9 @@
   notes: >
     Confirmed blocked by Cloudflare bot protection (both curl and a real
     headless Playwright browser got "Sorry, you have been blocked" / a JS
-    challenge) — not scrapable from a GitHub Actions runner. Leave disabled;
-    needs manual curation if this source is wanted.
+    challenge) — not scrapable from a GitHub Actions runner. Left disabled but
+    frequency: quarterly so it still shows up as a quarterly manual-check
+    reminder in the email digest instead of being silently forgotten.
 
 - name: axisweb_opportunities
   display_name: "Axisweb – Opportunities"

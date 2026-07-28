@@ -10,6 +10,7 @@ from scraper.adapters.base import get_adapter
 from scraper.discipline_tags import auto_tag_discipline
 from scraper.models import Listing
 from scraper.notify import build_and_send
+from scraper.relevance_filter import is_excluded
 from scraper.sources_config import load_sources
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -29,6 +30,17 @@ def load_previous_listings(listings_path: Path) -> dict[str, Listing]:
         return {}
     raw = json.loads(listings_path.read_text(encoding="utf-8"))
     return {item["id"]: Listing.from_dict(item) for item in raw}
+
+
+def compute_manual_reminders(sources: list, cadence: str) -> list[dict]:
+    """Sources that can't be auto-scraped (blocked/login-gated) but are still
+    worth periodically checking by hand - surfaced only on the same cadence as
+    their frequency, so it's a quarterly nudge, not a weekly one."""
+    return [
+        {"name": source.display_name, "url": source.url, "notes": source.notes.strip()}
+        for source in sources
+        if not source.enabled and source.frequency == "quarterly" and cadence in ("quarterly", "all")
+    ]
 
 
 def _recompute_status(listing: Listing, today: date) -> None:
@@ -120,6 +132,15 @@ def run(
         if listing.source_name in successful_sources and listing_id not in seen_ids_this_run:
             listing.last_checked_date = today
 
+    # Drop irrelevant subject matter/listing types (exclude_keywords.yaml)
+    # entirely - both newly-scraped ones and anything already saved that now
+    # matches, so edits to the keyword list take effect immediately.
+    merged = {
+        lid: listing
+        for lid, listing in merged.items()
+        if not is_excluded(f"{listing.title} {listing.description or ''} {listing.eligibility or ''}")
+    }
+
     new_ids = {lid for lid, listing in merged.items() if listing.first_seen_date == today}
 
     for listing in merged.values():
@@ -127,8 +148,16 @@ def run(
 
     ordered = [merged[lid] for lid in sorted(merged.keys())]
 
+    manual_reminders = compute_manual_reminders(sources, cadence)
+
     if send_email:
-        build_and_send(listings=ordered, new_ids=new_ids, source_errors=source_errors, today=today)
+        build_and_send(
+            listings=ordered,
+            new_ids=new_ids,
+            source_errors=source_errors,
+            today=today,
+            manual_reminders=manual_reminders,
+        )
 
     listings_path.parent.mkdir(parents=True, exist_ok=True)
     listings_path.write_text(

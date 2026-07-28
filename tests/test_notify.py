@@ -88,3 +88,18 @@ def test_render_html_includes_titles_and_source_errors():
     assert "Listing urgent" in html
     assert "broken: HTTPError: 403" in html
     assert ">Top<" in html
+
+
+def test_manual_reminders_make_sections_non_empty_and_render():
+    reminders = [{"name": "Blocked Source", "url": "https://example.org/blocked", "notes": "confirmed blocked"}]
+    sections = compute_sections([], new_ids=set(), source_errors={}, today=TODAY, manual_reminders=reminders)
+    assert not sections.is_empty
+    html = render_html(sections, TODAY)
+    assert "Blocked Source" in html
+    assert "confirmed blocked" in html
+
+
+def test_no_manual_reminders_defaults_to_empty_list():
+    sections = compute_sections([], new_ids=set(), source_errors={}, today=TODAY)
+    assert sections.manual_reminders == []
+    assert sections.is_empty

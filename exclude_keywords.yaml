@@ -1,0 +1,16 @@
+# Listings whose title/description/eligibility text contains any of these
+# (case-insensitive substring match) are dropped entirely at scrape time -
+# never saved, never shown, applied across every source. Purely about
+# irrelevant subject matter/medium or listing types that keep showing up on
+# aggregators (ArtRabbit, Artists Now) despite not matching your practice.
+#
+# Edit freely — no code changes needed. Removing an entry doesn't restore
+# anything already-excluded; it'll just stop being excluded on the next run.
+
+keywords:
+  - pottery
+  - ceramic
+  - ceramics
+  - painting
+  - education program
+  - education programme
