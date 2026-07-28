@@ -205,6 +205,27 @@
     Residency/Collaboration/etc., captured in description) doesn't map cleanly
     to our listing_type enum, so listing_type is left as the open_call default.
 
+- name: thespace
+  display_name: "The Space — Opportunities from Across the Sector"
+  organizer: "The Space"
+  country: null
+  adapter: custom
+  url: "https://www.thespace.org/resource/news-and-opportunities-from-across-the-sector/"
+  enabled: true
+  listing_type: open_call
+  notes: >
+    Curated digest page, not a repeating card structure - each opportunity is
+    a pair of consecutive <p> tags (arrow-emoji description + link, then a
+    separate "Deadline: ..." paragraph), so this needed a bespoke
+    scraper/adapters/custom/thespace.py rather than the generic html adapter.
+    Only extracts the "Currently open for applications" and "Midlands
+    opportunities" sections - deliberately skips Events/Conferences,
+    Resources, and webinar sections further down the same page, which use
+    identical paragraph styling but aren't open calls. Deadlines are often
+    bare day+month with no year ("31 July") - parsed assuming the current
+    year, rolling to next year if that's already past. No per-item location,
+    so region_tier falls back to the "medium" config default like ArtRabbit.
+
 # --- Single-institution watch pages (quarterly) ---
 # These sites only ever show their OWN opportunity (not an aggregator), and
 # rarely change, so they're checked quarterly instead of weekly. adapter: html
