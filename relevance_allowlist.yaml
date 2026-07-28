@@ -1,9 +1,9 @@
 # Strong allow-list filter, applied ONLY to multi-source aggregators
 # (sources.yaml entries with apply_relevance_filter: true — currently
-# ArtRabbit, Artists Now, and The Space). These pull in dozens of listings
-# per run with no editorial curation, so unlike the rest of the pipeline,
-# a listing from one of these sources must actively match something below
-# to survive at all — everything else is dropped entirely.
+# ArtRabbit, Artists Now, The Space, and Art Quest). These pull in dozens of
+# listings per run with no editorial curation, so unlike the rest of the
+# pipeline, a listing from one of these sources must actively match
+# something below to survive at all — everything else is dropped entirely.
 #
 # Singular/watch sources (V&A, Barbican, FACT, etc.) are NOT affected by
 # this file — those were already chosen deliberately one at a time.
@@ -19,18 +19,61 @@
 #
 # Edit freely — no code changes needed. "research" is deliberately broad and
 # will over-match; tighten it here if it lets through too much noise.
+#
+# A few requested terms were left out of extra_keywords below because
+# they're already covered elsewhere: "data art" and "civic technology" are
+# already in scraper/discipline_tags.py (data_art and civic_tech tags);
+# "creative coding" was already present here before this list was added.
 
 extra_keywords:
+  # Practice
+  - computational art
+  - data sculpture
+  - data sonification
+  - interactive installation
+  - physical computing
+  - creative coding
+  - digital fabrication
+  - sound installation
+  - media installation
+
+  # Themes
   - social data
+  - civic data
+  - environmental data
+  - data justice
+  - algorithmic governance
+  - algorithmic accountability
   - urban
+  - urban infrastructure
+  - urban metabolism
+  - waste systems
+  - critical infrastructure
+  - satellite imagery
+  - remote sensing
+  - census data
+  - classification systems
+  - digital society
   - environment
   - environmental
   - research
   - creative tech
   - creative technology
-  - creative coding
   - data visualization
   - data visualisation
+
+  # Critical technology
+  - forensic architecture
+  - investigative media
+  - investigative technology
+  - forensic media
+  - spatial investigation
+  - evidence-based art
+  - institutional critique
+  - public accountability
+  - infrastructure politics
+  - critical cartography
+  - computational design
 
 organizers:
   - Victoria and Albert Museum
@@ -44,3 +87,4 @@ organizers:
   - Digital Good
   - Arts Council England
   - Somerset House
+  - Data as Culture
