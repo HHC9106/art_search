@@ -21,13 +21,17 @@
 # will over-match; tighten it here if it lets through too much noise.
 #
 # A few requested terms were left out of extra_keywords below because
-# they're already covered elsewhere: "data art" and "civic technology" are
-# already in scraper/discipline_tags.py (data_art and civic_tech tags);
-# "creative coding" was already present here before this list was added.
+# they're already covered elsewhere: "data art", "new media art", and
+# "data-driven art" are already in scraper/discipline_tags.py (data_art and
+# new_media_art tags); "civic technology" is covered there too (civic_tech
+# tag); "creative coding" was already present here before this list was
+# added.
 
 extra_keywords:
   # Practice
   - computational art
+  - interactive art
+  - data-driven design
   - data sculpture
   - data sonification
   - interactive installation
