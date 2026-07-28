@@ -12,9 +12,23 @@ for it (e.g. "run a web scan", "/web-scan").
 
 ## Procedure
 
-1. Read the query list from `sources.yaml`'s `google_search_opportunities`
-   entry (`parser_options.search_queries`) — that list is the single source
-   of truth, don't duplicate it here.
+1. Run these 10 themed queries (also stored in `sources.yaml`'s disabled
+   `google_search_opportunities` entry, `parser_options.search_queries` —
+   that's the canonical, editable copy; if the two ever drift, that file
+   wins and this list should be updated to match):
+   - `"open call" "media art"`
+   - `"artist residency" "media art"`
+   - `"artist commission" "digital art"`
+   - `"open call" "new media art"`
+   - `"artist residency" installation`
+   - `"artist commission" interactive installation`
+   - `"open call" "computational art"`
+   - `"creative coding" residency`
+   - `"art prize" "digital art"`
+   - `"open call" "data art"`
+
+   Add the current year to each query (e.g. append ` 2026`) so results skew
+   toward the current cycle rather than past years' calls.
 
 2. Also read the current `claude_web_scan_leads.manual_entries` list (in the
    same file) and skim `docs/data/listings.json` URLs, so you know what's
