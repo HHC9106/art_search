@@ -264,12 +264,12 @@
     dedup in run.py collapses these to one listing rather than two.
 
 - name: google_search_opportunities
-  display_name: "Google Search — Themed Opportunity Queries"
+  display_name: "Google Search — Themed Opportunity Queries (disabled)"
   organizer: null
   country: null
   adapter: google_search
   url: null
-  enabled: true
+  enabled: false
   listing_type: open_call
   apply_relevance_filter: true
   parser_options:
@@ -285,24 +285,56 @@
       - '"art prize" "digital art"'
       - '"open call" "data art"'
   notes: >
-    Uses the Google Custom Search JSON API - NOT scraped HTML. Direct
-    scraping of google.com/search is blocked by CAPTCHA/bot detection
-    (confirmed via both a plain request and a real headless browser) and
-    against Google's Terms of Service, so this goes through the sanctioned
-    API instead. Requires GOOGLE_SEARCH_API_KEY and GOOGLE_SEARCH_ENGINE_ID
-    as environment variables/GitHub secrets (see README) - the source
-    errors out cleanly (not a crash) if either is missing, same as any
-    other source failure. Each query is capped at 10 results and restricted
-    to content Google has indexed within roughly the past year
-    (dateRestrict=y1 - a rolling window, closer to "updated recently" than
-    a strict calendar-year check). Per-query failures are caught
-    individually inside the adapter so one bad query never drops the other
-    nine. apply_relevance_filter: true like the other aggregators - a
-    result surviving a themed query still has to pass the practice
-    keyword/organizer allowlist to be kept. Deadlines are best-effort
-    parsed from the short result snippet (often absent); when found, the
-    existing past-deadline closing logic in run.py applies automatically -
-    no separate "is the deadline due" check was needed.
+    Disabled as of 2026-07-28: Google removed "search the entire web" for
+    new free Programmable Search Engines - a PSE can now only search a
+    fixed list of ~50 specific domains you configure, not the open web, so
+    this adapter would return little value even with a real API key. Left
+    in place (code + tests untouched, query list preserved) in case you
+    later decide to configure it against a curated domain allowlist, or
+    switch to a different provider (e.g. Brave Search API) that still
+    offers real whole-web search. For now, superseded by the manual
+    /web-scan skill (see claude_web_scan_leads below and
+    .claude/skills/web-scan.md), which runs these same themed queries via
+    Claude's own web search when you ask for it, judges relevance/freshness
+    directly instead of via keyword matching, and appends genuine new leads
+    as manual entries.
+
+- name: claude_web_scan_leads
+  display_name: "Claude Web-Scan — Themed Query Leads"
+  organizer: null
+  country: null
+  adapter: manual
+  enabled: true
+  manual_entries:
+    - title: "Bindi Digital Art Prize 2026"
+      organizer: "Arts Mid North Coast"
+      url: "https://artsmidnorthcoast.com/bindi-digital-art-prize-2026/"
+      listing_type: "prize"
+      deadline: "2026-08-21"
+      notes: "Found via /web-scan 2026-07-28. $3,000 first prize + $500 Highly Commended + $500 People's Choice. No geographic eligibility restriction stated on the page - verify before applying. Winners announced 2026-10-23."
+    - title: "Ars Biologica ArtXScience Residency"
+      organizer: "Ars Biologica (with Ars Electronica)"
+      country: "Czech Republic"
+      url: "https://artinfoland.com/opportunities/ars-biologica-artxscience-residency-open-call/"
+      listing_type: "residency"
+      deadline: "2026-09-28"
+      notes: "Found via /web-scan 2026-07-28. Ceske Budejovice, Czech Republic, in partnership with Ars Electronica (Austria) and the Biology Centre of the Czech Academy of Sciences. Interdisciplinary art/science residency on climate/soil microorganisms or freshwater microbial ecosystems - spatial (non-screen-based) artwork + community engagement, culminating in a spring 2028 festival."
+    - title: "Galerija Siva — Open Call for Exhibitions and Artist Residencies 2027"
+      organizer: "Galerija Siva / Autonomous Cultural Centre Attack"
+      country: "Croatia"
+      url: "https://attack.hr/en/galerija-siva-otvoreni-poziv-za-izlozbe-i-umjetnicke-rezidencije-2027"
+      listing_type: "open_call"
+      deadline: "2026-08-20"
+      notes: "Found via /web-scan 2026-07-28. General contemporary/experimental art space (Zagreb) - accepts installation/video/performance/sound/site-specific/new media art alongside graffiti/street art/illustration/comics, so broader than a dedicated media-art venue; included because new media art is explicitly listed, but worth judging fit yourself."
+  notes: >
+    Populated by running the /web-scan skill (.claude/skills/web-scan.md) -
+    not auto-scraped. Each run searches the themed queries above (borrowed
+    from the disabled google_search_opportunities entry so there's one
+    query list, not two) via Claude's WebSearch tool, judges each result
+    for practice relevance and whether it looks current/not-yet-expired,
+    then appends genuinely new leads here (deduped by URL against what's
+    already listed). Entries persist until their deadline passes (handled
+    by the normal status logic in run.py) or you remove them by hand.
 
 # --- Single-institution watch pages (quarterly) ---
 # These sites only ever show their OWN opportunity (not an aggregator), and

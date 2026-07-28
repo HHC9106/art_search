@@ -72,16 +72,14 @@ export and when to commit.
      [App Password](https://myaccount.google.com/apppasswords) (requires 2FA
      enabled on the account)
    - `EMAIL_TO` — where the digest should be sent
-   - `GOOGLE_SEARCH_API_KEY` / `GOOGLE_SEARCH_ENGINE_ID` — only needed for the
-     `google_search_opportunities` source, which runs themed queries through
-     Google's Custom Search JSON API (not scraped HTML — direct scraping of
-     Google Search is blocked and against their ToS). Get a Search Engine ID
-     from [Programmable Search Engine](https://programmablesearchengine.google.com/)
-     (configure it to search the entire web) and an API key from a Google
-     Cloud project with the Custom Search API enabled. Free tier: 100
-     queries/day — this source uses 10 per run. Without these two secrets set,
-     this one source just errors out cleanly each run (logged, not a crash);
-     everything else keeps working.
+   - `GOOGLE_SEARCH_API_KEY` / `GOOGLE_SEARCH_ENGINE_ID` — **not currently
+     used.** These would only matter for the `google_search_opportunities`
+     source, which is disabled as of 2026-07-28: Google removed "search the
+     entire web" for new free Programmable Search Engines, so a new engine
+     can only search a fixed list of specific domains you configure, not the
+     open web — not worth setting up for themed queries meant to cast a wide
+     net. See that source's notes in `sources.yaml` for details. Superseded
+     by the `/web-scan` skill below, which needs no secrets at all.
 
 4. **Trigger the workflow manually once** (Actions tab → "scrape-and-publish"
    → Run workflow) to confirm everything works end-to-end before trusting
@@ -133,6 +131,18 @@ Tests are fixture-based and never make live network calls — `tests/test_run.py
 exercises the full scrape→upsert→status pipeline using the `manual` adapter
 against temp files, and `tests/test_adapters.py` exercises the HTML
 extraction logic against a saved sample page in `tests/fixtures/`.
+
+## Web-scan skill (manual, no API key needed)
+
+`.claude/skills/web-scan.md` is a Claude Code skill — run `/web-scan` in a
+session (or just ask) to have Claude search the same themed open-call/prize/
+residency queries via its own WebSearch tool, judge each result for practice
+relevance and freshness directly (rather than keyword-matching), and append
+genuinely new leads into `sources.yaml`'s `claude_web_scan_leads` manual
+entries. It's the replacement for the disabled `google_search_opportunities`
+source — same query list, no Google account/API key/billing required, but
+manual/on-demand rather than scheduled: it only runs when you ask for it in a
+session, unlike every other source's weekly/quarterly cron.
 
 ## Adding a new source
 

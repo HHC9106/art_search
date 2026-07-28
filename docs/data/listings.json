@@ -317,6 +317,35 @@
     }
   },
   {
+    "id": "a8d9ab8c177e32e7",
+    "title": "Bindi Digital Art Prize 2026",
+    "organizer": "Arts Mid North Coast",
+    "source_name": "claude_web_scan_leads",
+    "url": "https://artsmidnorthcoast.com/bindi-digital-art-prize-2026/",
+    "country": null,
+    "region_tier": "medium",
+    "discipline": [
+      "digital_art"
+    ],
+    "listing_type": "prize",
+    "deadline": "2026-08-21",
+    "deadline_raw": "2026-08-21",
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "Found via /web-scan 2026-07-28. $3,000 first prize + $500 Highly Commended + $500 People's Choice. No geographic eligibility restriction stated on the page - verify before applying. Winners announced 2026-10-23.",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-28",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {}
+  },
+  {
     "id": "addeee9abbdaa7a3",
     "title": "The Climate Playwriting Prize is an open invitation from The Globe Theatre to playwrights to respond creatively to environmental change. They are p...",
     "organizer": "The Globe Theatre",
@@ -456,6 +485,33 @@
     "raw_extra": {}
   },
   {
+    "id": "dfb79feae033955f",
+    "title": "Ars Biologica ArtXScience Residency",
+    "organizer": "Ars Biologica (with Ars Electronica)",
+    "source_name": "claude_web_scan_leads",
+    "url": "https://artinfoland.com/opportunities/ars-biologica-artxscience-residency-open-call/",
+    "country": "Czech Republic",
+    "region_tier": "high",
+    "discipline": [],
+    "listing_type": "residency",
+    "deadline": "2026-09-28",
+    "deadline_raw": "2026-09-28",
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "Found via /web-scan 2026-07-28. Ceske Budejovice, Czech Republic, in partnership with Ars Electronica (Austria) and the Biology Centre of the Czech Academy of Sciences. Interdisciplinary art/science residency on climate/soil microorganisms or freshwater microbial ecosystems - spatial (non-screen-based) artwork + community engagement, culminating in a spring 2028 festival.",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-28",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {}
+  },
+  {
     "id": "dfbea45ca990d408",
     "title": "Vivid Projects, Birmingham (watch)",
     "organizer": "Vivid Projects",
@@ -472,16 +528,16 @@
     "fee_waiver_available": null,
     "prize_amount": null,
     "eligibility": null,
-    "description": "Vivid Projects – Home page Vivid Projects is a non-profit company supporting media arts practice. About Vivid Projects Cur rent Proj ects See more projects",
+    "description": "Vivid Projects – Home page Vivid Projects is a non-profit company supporting media arts practice. About Vivid Projects Cur rent Proj ects Vivid Lab Bedtime Stories: Experimental Radio Lab 1 May 2026 –\n\t\t\t\t\t\t\t31 August 2026 See more projects",
     "tags": [],
     "status": "open",
-    "first_seen_date": "2026-07-27",
+    "first_seen_date": "2026-07-28",
     "last_seen_date": "2026-07-28",
     "last_checked_date": "2026-07-28",
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {
-      "content_hash": "5a08fef2213e5eec"
+      "content_hash": "422bfec3b4359a4e"
     }
   },
   {
@@ -512,6 +568,35 @@
     "raw_extra": {
       "content_hash": "1159aed7aa69420c"
     }
+  },
+  {
+    "id": "eff4027e877a5f27",
+    "title": "Galerija Siva — Open Call for Exhibitions and Artist Residencies 2027",
+    "organizer": "Galerija Siva / Autonomous Cultural Centre Attack",
+    "source_name": "claude_web_scan_leads",
+    "url": "https://attack.hr/en/galerija-siva-otvoreni-poziv-za-izlozbe-i-umjetnicke-rezidencije-2027",
+    "country": "Croatia",
+    "region_tier": "high",
+    "discipline": [
+      "new_media_art"
+    ],
+    "listing_type": "open_call",
+    "deadline": "2026-08-20",
+    "deadline_raw": "2026-08-20",
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "Found via /web-scan 2026-07-28. General contemporary/experimental art space (Zagreb) - accepts installation/video/performance/sound/site-specific/new media art alongside graffiti/street art/illustration/comics, so broader than a dedicated media-art venue; included because new media art is explicitly listed, but worth judging fit yourself.",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-28",
+    "last_seen_date": "2026-07-28",
+    "last_checked_date": "2026-07-28",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {}
   },
   {
     "id": "fef7d7556f3c90ca",
