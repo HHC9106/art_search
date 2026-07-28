@@ -134,7 +134,7 @@ extraction logic against a saved sample page in `tests/fixtures/`.
 
 ## Web-scan skill (manual, no API key needed)
 
-`.claude/skills/web-scan.md` is a Claude Code skill — run `/web-scan` in a
+`.claude/skills/web-scan/SKILL.md` is a Claude Code skill — run `/web-scan` in a
 session (or just ask) to have Claude search the same themed open-call/prize/
 residency queries via its own WebSearch tool, judge each result for practice
 relevance and freshness directly (rather than keyword-matching), and append
