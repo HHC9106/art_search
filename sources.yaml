@@ -263,6 +263,47 @@
     Council, Hugo Burge Foundation, all seen on both) - cross-source URL
     dedup in run.py collapses these to one listing rather than two.
 
+- name: google_search_opportunities
+  display_name: "Google Search — Themed Opportunity Queries"
+  organizer: null
+  country: null
+  adapter: google_search
+  url: null
+  enabled: true
+  listing_type: open_call
+  apply_relevance_filter: true
+  parser_options:
+    search_queries:
+      - '"open call" "media art"'
+      - '"artist residency" "media art"'
+      - '"artist commission" "digital art"'
+      - '"open call" "new media art"'
+      - '"artist residency" installation'
+      - '"artist commission" interactive installation'
+      - '"open call" "computational art"'
+      - '"creative coding" residency'
+      - '"art prize" "digital art"'
+      - '"open call" "data art"'
+  notes: >
+    Uses the Google Custom Search JSON API - NOT scraped HTML. Direct
+    scraping of google.com/search is blocked by CAPTCHA/bot detection
+    (confirmed via both a plain request and a real headless browser) and
+    against Google's Terms of Service, so this goes through the sanctioned
+    API instead. Requires GOOGLE_SEARCH_API_KEY and GOOGLE_SEARCH_ENGINE_ID
+    as environment variables/GitHub secrets (see README) - the source
+    errors out cleanly (not a crash) if either is missing, same as any
+    other source failure. Each query is capped at 10 results and restricted
+    to content Google has indexed within roughly the past year
+    (dateRestrict=y1 - a rolling window, closer to "updated recently" than
+    a strict calendar-year check). Per-query failures are caught
+    individually inside the adapter so one bad query never drops the other
+    nine. apply_relevance_filter: true like the other aggregators - a
+    result surviving a themed query still has to pass the practice
+    keyword/organizer allowlist to be kept. Deadlines are best-effort
+    parsed from the short result snippet (often absent); when found, the
+    existing past-deadline closing logic in run.py applies automatically -
+    no separate "is the deadline due" check was needed.
+
 # --- Single-institution watch pages (quarterly) ---
 # These sites only ever show their OWN opportunity (not an aggregator), and
 # rarely change, so they're checked quarterly instead of weekly. adapter: html

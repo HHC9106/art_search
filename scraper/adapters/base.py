@@ -26,4 +26,7 @@ def get_adapter(adapter_type: str) -> SourceAdapter:
     if adapter_type == "custom":
         from scraper.adapters.custom import CustomAdapter
         return CustomAdapter()
+    if adapter_type == "google_search":
+        from scraper.adapters.google_search import GoogleSearchAdapter
+        return GoogleSearchAdapter()
     raise ValueError(f"Unknown adapter type: {adapter_type!r}")

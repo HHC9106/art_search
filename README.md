@@ -46,6 +46,16 @@ See [PLANNING.md](PLANNING.md) for the full design rationale.
      [App Password](https://myaccount.google.com/apppasswords) (requires 2FA
      enabled on the account)
    - `EMAIL_TO` — where the digest should be sent
+   - `GOOGLE_SEARCH_API_KEY` / `GOOGLE_SEARCH_ENGINE_ID` — only needed for the
+     `google_search_opportunities` source, which runs themed queries through
+     Google's Custom Search JSON API (not scraped HTML — direct scraping of
+     Google Search is blocked and against their ToS). Get a Search Engine ID
+     from [Programmable Search Engine](https://programmablesearchengine.google.com/)
+     (configure it to search the entire web) and an API key from a Google
+     Cloud project with the Custom Search API enabled. Free tier: 100
+     queries/day — this source uses 10 per run. Without these two secrets set,
+     this one source just errors out cleanly each run (logged, not a crash);
+     everything else keeps working.
 
 4. **Trigger the workflow manually once** (Actions tab → "scrape-and-publish"
    → Run workflow) to confirm everything works end-to-end before trusting
