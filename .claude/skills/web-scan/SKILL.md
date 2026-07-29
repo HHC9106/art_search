@@ -71,8 +71,20 @@ for it (e.g. "run a web scan", "/web-scan").
    eligibility, and a short description — don't guess fields you can't
    support from the page.
 
-5. Append each as an entry under `claude_web_scan_leads.manual_entries` in
-   `sources.yaml`, matching the shape `scraper/adapters/manual.py` expects:
+5. Transparency check on your own judgment call: compute the automated
+   `relevance_score()` for each surviving lead's actual title+description+
+   eligibility text (e.g. via Bash: `python -c "from scraper.relevance_filter
+   import relevance_score; print(relevance_score('...'))"`) and note the
+   result — this doesn't gate anything (you already judged it relevant),
+   it's purely so a mismatch is visible: a low score (< threshold, currently
+   3) on something you judged relevant either means you're picking up
+   context the keyword filter can't see (worth keeping, and maybe worth
+   proposing a vocabulary addition afterward), or means you were too
+   lenient (worth a second look before including it).
+
+6. Append each as an entry under `claude_web_scan_leads.manual_entries` in
+   `sources.yaml`, matching the shape `scraper/adapters/manual.py` expects,
+   with the score folded into `notes`:
    ```yaml
    - title: "..."
      organizer: "..."
@@ -82,18 +94,21 @@ for it (e.g. "run a web scan", "/web-scan").
      listing_type: "open_call" # open_call | prize | residency | grant
      deadline: "2026-09-30"    # omit if not determinable
      eligibility: "..."        # optional
-     notes: "..."              # short context, becomes the description field
+     notes: "Found via /web-scan YYYY-MM-DD. relevance_score: N (threshold 3).
+       ...short context..."
    ```
 
-6. Run `python -m scraper.run --dry-run --cadence all` to regenerate
+7. Run `python -m scraper.run --dry-run --cadence all` to regenerate
    `docs/data/listings.json`/`meta.json` and confirm the new entries appear
    correctly (right tier, discipline tags, status).
 
-7. Report a short summary to the user: how many queries ran, how many
+8. Report a short summary to the user: how many queries ran, how many
    results were judged relevant, how many were genuinely new vs. already
-   tracked, and what got added.
+   tracked, and what got added — including each added lead's
+   `relevance_score`, and flagging any that scored below threshold so you
+   know judgment (not the automated filter) is what let it through.
 
-8. Commit (`sources.yaml` + `docs/data/*.json`) and push — this stands in
+9. Commit (`sources.yaml` + `docs/data/*.json`) and push — this stands in
    for what the automated scraper would otherwise commit, so treat it the
    same way (plain data commit, no need to ask permission for the commit
    itself, but do surface the diff/summary so the user can see what was
@@ -109,3 +124,6 @@ for it (e.g. "run a web scan", "/web-scan").
 - Judge relevance directly rather than reusing `passes_strong_filter()` —
   that keyword allowlist exists because scraped aggregator sources have no
   human-in-the-loop; here you already are the judgment call.
+- `relevance_score()` is computed here only as a transparency check on that
+  judgment call, never as a gate — a low score doesn't disqualify a lead you
+  already decided was genuinely relevant.
