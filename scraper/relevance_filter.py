@@ -27,25 +27,54 @@ def is_excluded(text: str | None, config_path: Path | None = None) -> bool:
     return any(keyword in haystack for keyword in _load_keywords(config_path or DEFAULT_CONFIG_PATH))
 
 
+STRONG_WEIGHT = 3
+WEAK_WEIGHT = 1
+DEFAULT_THRESHOLD = 3
+
+
 @lru_cache(maxsize=None)
 def _load_allowlist(path: Path) -> dict:
     raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     discipline_keywords = [kw for spec in DISCIPLINE_TAGS.values() for kw in spec["keywords"]]
-    extra_keywords = [kw.strip().lower() for kw in (raw.get("extra_keywords") or []) if kw.strip()]
+    strong_keywords = discipline_keywords + [
+        kw.strip().lower() for kw in (raw.get("strong_keywords") or []) if kw.strip()
+    ]
+    weak_keywords = [kw.strip().lower() for kw in (raw.get("weak_keywords") or []) if kw.strip()]
+    format_keywords = [kw.strip().lower() for kw in (raw.get("format_keywords") or []) if kw.strip()]
     organizers = [o.strip().lower() for o in (raw.get("organizers") or []) if o.strip()]
-    return {"keywords": tuple(discipline_keywords + extra_keywords), "organizers": tuple(organizers)}
+    return {
+        "strong": tuple(strong_keywords),
+        "weak": tuple(weak_keywords + format_keywords),
+        "organizers": tuple(organizers),
+        "threshold": raw.get("threshold", DEFAULT_THRESHOLD),
+    }
+
+
+def relevance_score(text: str | None, config_path: Path | None = None) -> int:
+    """Weighted keyword score for a listing's text: each distinct strong_keywords
+    match (discipline_tags.py's vocabulary plus relevance_allowlist.yaml's
+    strong_keywords) counts for STRONG_WEIGHT; each distinct weak_keywords/
+    format_keywords match counts for WEAK_WEIGHT. Weak/format words describe a
+    generic topic or opportunity type (urban, research, commission, grant...)
+    that's too common to trust alone, so they only add up in combination -
+    strong words are specific enough that one match should already clear the
+    default threshold on its own."""
+    config = _load_allowlist(config_path or DEFAULT_ALLOWLIST_PATH)
+    haystack = (text or "").lower()
+    score = STRONG_WEIGHT * sum(1 for kw in config["strong"] if kw in haystack)
+    score += WEAK_WEIGHT * sum(1 for kw in config["weak"] if kw in haystack)
+    return score
 
 
 def passes_strong_filter(text: str | None, organizer: str | None, config_path: Path | None = None) -> bool:
-    """True if a listing should survive the strong allow-list filter used for
-    multi-source aggregators: matches a keyword (discipline_tags.py's
-    vocabulary plus relevance_allowlist.yaml's extras), or its organizer is
-    on the allowlist (substring match, e.g. an aggregator-listed "V&A South
-    Kensington" matches an allowlisted "Victoria and Albert Museum" only if
-    written the same way - kept intentionally simple)."""
+    """True if a listing should survive the weighted allow-list filter used for
+    multi-source aggregators: its relevance_score() reaches the configured
+    threshold, or its organizer is on the allowlist (substring match, e.g. an
+    aggregator-listed "V&A South Kensington" matches an allowlisted "Victoria
+    and Albert Museum" only if written the same way - kept intentionally
+    simple)."""
     config = _load_allowlist(config_path or DEFAULT_ALLOWLIST_PATH)
-    haystack = (text or "").lower()
-    if any(keyword in haystack for keyword in config["keywords"]):
+    if relevance_score(text, config_path) >= config["threshold"]:
         return True
     normalized_organizer = (organizer or "").strip().lower()
     if not normalized_organizer:

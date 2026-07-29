@@ -1,6 +1,6 @@
 import yaml
 
-from scraper.relevance_filter import is_excluded, passes_strong_filter
+from scraper.relevance_filter import is_excluded, passes_strong_filter, relevance_score
 
 
 def test_shipped_keywords_exclude_known_irrelevant_terms():
@@ -59,25 +59,72 @@ def test_strong_filter_organizer_match_is_case_insensitive_substring():
     assert passes_strong_filter("Unrelated text", organizer="site gallery, sheffield")
 
 
-def test_bare_generic_words_no_longer_over_match():
-    # urban/research/environment/environmental/intelligence were removed as
-    # bare keywords (2026-07-28) because substring matching let them over-match
-    # unrelated text; the compound phrases that replaced them (urban data,
-    # artistic research, environmental data, artificial intelligence, etc.)
-    # shouldn't accidentally still match these.
+def test_single_weak_or_format_word_does_not_pass_alone():
+    # urban/research/intelligence/environmental (weak_keywords) and
+    # commission/grant/fellowship/funding (format_keywords) are each worth
+    # only WEAK_WEIGHT=1, below threshold=3, specifically so one generic word
+    # alone can never pass - only combinations of them can.
     assert not passes_strong_filter("Business intelligence workshop for entrepreneurs", organizer="Random Corp")
     assert not passes_strong_filter("Suburban housing development plan", organizer="Random Council")
     assert not passes_strong_filter("Scientific research conference", organizer="Random University")
     assert not passes_strong_filter("Environment secretary announces new policy", organizer="Random Gov")
 
 
+def test_weighted_score_lets_generic_word_combinations_pass():
+    # Real case (2026-07-28) that drove the switch from a boolean filter to a
+    # weighted score: "Artwork Commission - ESRC Digital Good Network...
+    # artwork or visualisation representing our research and findings"
+    # previously only passed via the organizer allowlist (Digital Good) - the
+    # text itself matched nothing. "visualisation" is now a strong_keyword
+    # (specific enough to trust alone), so this passes on text alone even
+    # with an unrecognized organizer (e.g. if it had come via ArtRabbit/Art
+    # Quest, neither of which captures a real per-item organizer).
+    text = (
+        "Artwork Commission - ESRC Digital Good Network. The network seeks an "
+        "artwork or visualisation representing our research and findings."
+    )
+    assert relevance_score(text) >= 3
+    assert passes_strong_filter(text, organizer="ArtRabbit")
+
+    # Synthetic case: three generic words (urban/research/public engagement,
+    # all weak_keywords) plus a format word (commission) with no single
+    # strong_keyword present - none would pass alone, but together they clear
+    # threshold=3.
+    combo_text = "Urban Research Commission - public engagement project"
+    assert relevance_score(combo_text) >= 3
+    assert passes_strong_filter(combo_text, organizer="ArtRabbit")
+
+
+def test_weighted_score_still_blocks_generic_pairs():
+    # Guards against the weighted filter reopening the exact false positive
+    # the original bare-word removal fixed: "curatorial research grants"
+    # style text (real example: Jonathan Ruffer curatorial grants) only
+    # reaches research(1) + grant(1) = 2, still below threshold=3.
+    text = "Jonathan Ruffer curatorial grants - Small grants supporting curatorial research"
+    assert relevance_score(text) < 3
+    assert not passes_strong_filter(text, organizer="Art Fund")
+
+
 def test_strong_filter_custom_config_is_user_definable(tmp_path):
     config_path = tmp_path / "relevance_allowlist.yaml"
     config_path.write_text(
-        yaml.safe_dump({"extra_keywords": ["knitting"], "organizers": ["Acme Arts"]}), encoding="utf-8"
+        yaml.safe_dump(
+            {
+                "threshold": 2,
+                "strong_keywords": ["knitting"],
+                "weak_keywords": ["circle"],
+                "format_keywords": ["open call"],
+                "organizers": ["Acme Arts"],
+            }
+        ),
+        encoding="utf-8",
     )
 
     assert passes_strong_filter("Knitting circle open call", organizer="Nobody", config_path=config_path)
+    # "circle" (weak) + "open call" (format) = 2, meets this config's threshold: 2
+    assert passes_strong_filter("Some circle meets for an open call", organizer="Nobody", config_path=config_path)
+    # "circle" alone = 1, below threshold: 2
+    assert not passes_strong_filter("A circle of friends", organizer="Nobody", config_path=config_path)
     assert passes_strong_filter("Unrelated", organizer="Acme Arts Centre", config_path=config_path)
     assert not passes_strong_filter("Unrelated", organizer="Nobody", config_path=config_path)
     # discipline_tags.py vocabulary still applies even with a custom allowlist file

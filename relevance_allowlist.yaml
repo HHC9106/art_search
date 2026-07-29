@@ -1,40 +1,73 @@
-# Strong allow-list filter, applied ONLY to multi-source aggregators
+# Weighted relevance filter, applied ONLY to multi-source aggregators
 # (sources.yaml entries with apply_relevance_filter: true — currently
 # ArtRabbit, Artists Now, The Space, and Art Quest). These pull in dozens of
 # listings per run with no editorial curation, so unlike the rest of the
-# pipeline, a listing from one of these sources must actively match
-# something below to survive at all — everything else is dropped entirely.
+# pipeline, a listing from one of these sources must actively score above
+# `threshold` to survive at all — everything else is dropped entirely.
 #
 # Singular/watch sources (V&A, Barbican, FACT, etc.) are NOT affected by
 # this file — those were already chosen deliberately one at a time.
 #
-# A listing passes if EITHER:
-#   - its title/description/eligibility text matches a keyword here, or one
-#     already defined in scraper/discipline_tags.py (that vocabulary is
-#     reused here rather than duplicated), OR
-#   - its organizer matches (substring, case-insensitive) an entry in
-#     `organizers` below — typically the same organizations behind the
-#     singular watch sources, so their listings aren't lost if they also
-#     turn up on an aggregator.
+# 2026-07-28: replaced the old any-keyword-passes boolean filter with a
+# weighted score, because the binary version had two opposite failure modes
+# depending on how broad a word was:
+#   - too broad (bare "urban"/"research"/"intelligence"/"environment"):
+#     matched almost anything, so it got removed entirely — but that also
+#     meant a genuinely relevant listing using ONLY generic words (no
+#     "digital"/"data"/"media" etc.) had zero path through at all.
+#   - too narrow (a single compound phrase): a listing needs to spell things
+#     out almost exactly your way to pass, which misses real opportunities
+#     phrased differently.
+# A weighted score fixes both: specific words are trusted alone, generic
+# words only count when several show up together.
 #
-# Edit freely — no code changes needed.
+# How scoring works — a listing's title/description/eligibility text is
+# checked against three tiers:
+#   - strong_keywords (weight 3, combined with scraper/discipline_tags.py's
+#     own vocabulary — reused rather than duplicated): specific enough to
+#     your practice that a single hit should pass on its own.
+#   - weak_keywords (weight 1): topically real but too generic to trust
+#     alone (urban, research, intelligence...) — only useful in combination
+#     with something else.
+#   - format_keywords (weight 1): describes the *kind* of opportunity, not
+#     the subject (commission, grant, fellowship, funding) — same reasoning:
+#     never sufficient alone or paired only with other format words, since
+#     that carries no topic signal at all.
+# A listing passes if strong+weak+format score reaches `threshold`, OR its
+# organizer matches (substring, case-insensitive) an entry in `organizers`
+# below — typically the same organizations behind the singular watch
+# sources, so their listings aren't lost if they also turn up on an
+# aggregator, regardless of keyword text.
 #
-# A few requested terms were left out of extra_keywords below because
-# they're already covered elsewhere: "data art", "new media art", and
-# "data-driven art" are already in scraper/discipline_tags.py (data_art and
-# new_media_art tags); "civic technology" is covered there too (civic_tech
-# tag); "creative coding" was already present here before this list was
-# added.
+# Worked example that drove this change (2026-07-28): "Artwork Commission —
+# ESRC Digital Good Network" (seeking "an artwork or visualisation
+# representing our research and findings") previously only passed because
+# "Digital Good" happens to be in the organizer allowlist below — the text
+# itself matched nothing at all. If the identical listing had come through
+# ArtRabbit or Art Quest instead (neither captures a real per-item
+# organizer — see their notes in sources.yaml — so the organizer allowlist
+# can't help), it would have been silently dropped. Fixed by promoting bare
+# "visualisation"/"visualization" to strong_keywords: specific enough to
+# your practice that one hit is trustworthy on its own, unlike a truly
+# generic word, so this kind of commission now passes on text alone. Verified:
+# scraper.relevance_filter.relevance_score() on that exact text now scores
+# 3 (>= threshold) from "visualisation" alone.
 #
-# 2026-07-28: removed 5 bare single-word entries (urban, research,
-# environment, environmental, intelligence — the last also dropped from
-# urban_data's keyword list in discipline_tags.py) because substring
-# matching made them over-match almost anything ("business intelligence",
-# "suburban", any use of "research" at all) on the aggregator sources this
-# filter gates with no human review. Replaced with the specific compound
-# phrases that actually carried the intended signal — see below.
+# A second scenario this is built to catch: several generic words
+# co-occurring (e.g. "Urban Research Commission — public engagement
+# project") — none specific enough alone, but urban(1) + research(1) +
+# public engagement(1) + commission(1) = 4, clears threshold. Verified NOT
+# to reopen the false positives the old bare-word removal fixed: "curatorial
+# research grants" style listings (real example: Jonathan Ruffer curatorial
+# grants) only reach research(1) + grant(1) = 2, still below threshold, so
+# they correctly stay excluded — see tests/test_relevance_filter.py.
+#
+# threshold is tunable — raise it to be stricter, lower it to let more
+# borderline combinations through.
 
-extra_keywords:
+threshold: 3
+
+strong_keywords:
   # Practice
   - computational art
   - interactive art
@@ -47,6 +80,8 @@ extra_keywords:
   - digital fabrication
   - sound installation
   - media installation
+  - visualization
+  - visualisation
 
   # Themes
   - social data
@@ -89,6 +124,24 @@ extra_keywords:
   - infrastructure politics
   - critical cartography
   - computational design
+
+# Topically real but too generic to trust alone - only count in combination
+# with each other or with format_keywords below.
+weak_keywords:
+  - urban
+  - research
+  - intelligence
+  - environmental
+  - research network
+  - public engagement
+
+# Describes the kind of opportunity, not the subject - same reasoning as
+# weak_keywords: never enough alone or paired only with each other.
+format_keywords:
+  - commission
+  - grant
+  - fellowship
+  - funding
 
 organizers:
   - Victoria and Albert Museum
