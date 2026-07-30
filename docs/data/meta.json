@@ -1,69 +1,39 @@
 {
-  "last_run": "2026-07-30",
-  "total_listings": 31,
-  "open_listings": 31,
+  "last_run": "2026-07-29",
+  "total_listings": 33,
+  "open_listings": 33,
   "sources": {
-    "zebrastraat_ntaa_watch": {
-      "status": "ok"
-    },
-    "manual_newsletter_leads": {
-      "status": "ok"
-    },
-    "falling_walls_art_science_watch": {
-      "status": "ok"
-    },
-    "site_gallery_watch": {
-      "status": "ok"
-    },
-    "peckham_digital_watch": {
-      "status": "ok"
-    },
-    "claude_web_scan_leads": {
-      "status": "ok"
-    },
-    "pudding_cup_watch": {
-      "status": "ok"
-    },
-    "artistsnow_opportunities": {
-      "status": "ok"
-    },
-    "furtherfield_whats_on_watch": {
+    "vivid_projects_watch": {
       "status": "ok"
     },
     "coal_prize_watch": {
       "status": "ok"
     },
-    "artquest_opportunities": {
-      "status": "ok"
-    },
-    "vivid_projects_watch": {
-      "status": "ok"
-    },
-    "aesthetica_art_prize_watch": {
-      "status": "ok"
-    },
-    "immersive_arts_uk_funding_watch": {
-      "status": "ok"
-    },
-    "thespace": {
-      "status": "ok"
-    },
-    "artrabbit_opportunities": {
+    "rss_journalism_awards_watch": {
       "status": "ok"
     },
     "somerset_house_creative_tech_fellowship_watch": {
       "status": "ok"
     },
-    "fact_digital_residencies_watch": {
+    "claude_web_scan_leads": {
       "status": "ok"
     },
-    "information_is_beautiful_awards_watch": {
+    "artistsnow_opportunities": {
       "status": "ok"
     },
-    "barbican_open_calls_watch": {
+    "manual_newsletter_leads": {
       "status": "ok"
     },
-    "lumen_prize_watch": {
+    "artrabbit_opportunities": {
+      "status": "ok"
+    },
+    "va_residencies_watch": {
+      "status": "ok"
+    },
+    "immersive_arts_uk_funding_watch": {
+      "status": "ok"
+    },
+    "falling_walls_art_science_watch": {
       "status": "ok"
     },
     "ars_electronica_open_calls_watch": {
@@ -72,7 +42,43 @@
     "digital_storytelling_lab_breakthroughs_watch": {
       "status": "ok"
     },
-    "va_residencies_watch": {
+    "information_is_beautiful_awards_watch": {
+      "status": "ok"
+    },
+    "peckham_digital_watch": {
+      "status": "ok"
+    },
+    "site_gallery_watch": {
+      "status": "ok"
+    },
+    "fact_digital_residencies_watch": {
+      "status": "ok"
+    },
+    "pudding_cup_watch": {
+      "status": "ok"
+    },
+    "artquest_opportunities": {
+      "status": "ok"
+    },
+    "furtherfield_whats_on_watch": {
+      "status": "ok"
+    },
+    "barbican_open_calls_watch": {
+      "status": "ok"
+    },
+    "lumen_prize_watch": {
+      "status": "ok"
+    },
+    "zebrastraat_ntaa_watch": {
+      "status": "ok"
+    },
+    "dandad_digital_experience_design_watch": {
+      "status": "ok"
+    },
+    "aesthetica_art_prize_watch": {
+      "status": "ok"
+    },
+    "thespace": {
       "status": "ok"
     }
   }

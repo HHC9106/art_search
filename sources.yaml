@@ -765,6 +765,49 @@
     at a new URL (e.g. /awards/2026) rather than updating this one - revisit
     this entry's url if the watch goes quiet for a long time.
 
+- name: dandad_digital_experience_design_watch
+  display_name: "D&AD Awards — Digital Experience Design (watch)"
+  organizer: "D&AD"
+  country: "UK"
+  region_tier: high
+  adapter: html
+  url: "https://www.dandad.org/awards/d-ad-awards/categories/digital-experience-design"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    UK charity's design award category for digital products/platforms/
+    services - 11 subcategories spanning UX, inclusive design, AI/tech
+    applications, and motion design. Winners receive D&AD Pencils. The 2026
+    entry period is already closed as of 2026-07-29 - watching for the 2027
+    call to open at this same category URL.
+
+- name: rss_journalism_awards_watch
+  display_name: "RSS Excellence in Statistical Journalism Awards (watch)"
+  organizer: "Royal Statistical Society"
+  country: "UK"
+  region_tier: high
+  adapter: html
+  url: "https://rss.org.uk/training-events/events/excellence-awards/journalism-awards/"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Royal Statistical Society award (since 2007, ESRC-sponsored) recognizing
+    excellence in statistics/data-driven journalism - categories include Data
+    Visualization, Explaining the Facts, Investigative Journalism, and Best
+    Statistical Commentary by a Non-Journalist. Strong fit for data_art/
+    information_art practice, though it recognizes published journalism
+    rather than art per se - worth judging fit yourself. 2026 nominations
+    already closed as of 2026-07-29 ("nomination period for 2026 award has
+    now closed") - watching for the 2027 cycle to open at this same URL.
+
 # --- Manual leads (newsletter-only, no scrapable page at all) ---
 # Example of the `manual` adapter shape — delete this or replace with real leads.
 
