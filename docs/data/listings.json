@@ -85,6 +85,37 @@
     }
   },
   {
+    "id": "44d96ce737a1b621",
+    "title": "The Pudding — Pudding Cup (watch)",
+    "organizer": "The Pudding",
+    "source_name": "pudding_cup_watch",
+    "url": "https://pudding.cool/pudding-cup/",
+    "country": "US",
+    "region_tier": "high",
+    "discipline": [
+      "data_art"
+    ],
+    "listing_type": "prize",
+    "deadline": null,
+    "deadline_raw": null,
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "The Pudding Cup The best visual and data-driven stories of 2025 Weâre excited to announce the winners of our ninth-annual Pudding Cup! Our judges selected these three projects from close to 100 entries. Each will receive $1,500 for their hard work. The 2025 winners Dithering â Part I By: Damar Aji Pramudita Not everything needs to be an interactive visual story. This piece, though, is an example of leveraging this medium to explain something more clearly (and more delightfully) than you coul",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-29",
+    "last_seen_date": "2026-07-29",
+    "last_checked_date": "2026-07-29",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {
+      "content_hash": "f233e3037287dd10"
+    }
+  },
+  {
     "id": "4d304db2098f4aa9",
     "title": "Furtherfield — What's On (watch)",
     "organizer": "Furtherfield",
@@ -230,6 +261,35 @@
     }
   },
   {
+    "id": "827a9a823ba03f19",
+    "title": "Digital Storytelling Lab — Breakthroughs Awards (watch)",
+    "organizer": "Digital Storytelling Lab, Columbia University",
+    "source_name": "digital_storytelling_lab_breakthroughs_watch",
+    "url": "https://digitalstorytellinglab.com/breakthroughs/about",
+    "country": "US",
+    "region_tier": "high",
+    "discipline": [],
+    "listing_type": "prize",
+    "deadline": null,
+    "deadline_raw": null,
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "← Breakthroughs Breakthroughs in Storytelling Awards Presented by the Digital Storytelling Lab at Columbia University School of the Arts The Breakthroughs in Storytelling Awards recognize the year's most innovative narratives — signal achievements across the broad spectrum of media that rely on digital technologies, including film, video, journalism, advertising, games, art, theater, virtual reality, augmented reality, and experimental narratives. Launched in 2016 to spur creativity and further ",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-29",
+    "last_seen_date": "2026-07-29",
+    "last_checked_date": "2026-07-29",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {
+      "content_hash": "4dfd878f69f83ab4"
+    }
+  },
+  {
     "id": "837ab70d90e91da9",
     "title": "Somerset House — Creative Technologies Fellowship (watch)",
     "organizer": "Somerset House",
@@ -285,6 +345,37 @@
     "last_notified_date": null,
     "raw_extra": {
       "content_hash": "9e2689ddc8a9d23f"
+    }
+  },
+  {
+    "id": "8b75d70c691de109",
+    "title": "Zebrastraat — New Technological Art Award (watch)",
+    "organizer": "Zebrastraat",
+    "source_name": "zebrastraat_ntaa_watch",
+    "url": "https://www.zebrastraat.be/nl/ntaa",
+    "country": "Belgium",
+    "region_tier": "high",
+    "discipline": [
+      "digital_art"
+    ],
+    "listing_type": "prize",
+    "deadline": null,
+    "deadline_raw": null,
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "Menu Straat Events Living agenda contact ✕ Zebrastraat Home Events Culture Living agenda contact NTAA Exhibition Artworks Guided Tours Program Contest Editions Gallery Contact Press New Technological Art Award Nederlands Français English NTAa’25 combines an international art competition with a curated exhibition of digital works.\n                                Celebrating 100 years of digital art, a professional jury selected 26 artists from hundreds of\n                                submissio",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-29",
+    "last_seen_date": "2026-07-29",
+    "last_checked_date": "2026-07-29",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {
+      "content_hash": "b0dc6308dd8d2437"
     }
   },
   {
@@ -375,6 +466,35 @@
     "raw_extra": {}
   },
   {
+    "id": "a9ad744af94fc976",
+    "title": "Falling Walls — Art Meets Science (watch)",
+    "organizer": "Falling Walls Foundation",
+    "source_name": "falling_walls_art_science_watch",
+    "url": "https://falling-walls.com/art-science",
+    "country": "Germany",
+    "region_tier": "high",
+    "discipline": [],
+    "listing_type": "prize",
+    "deadline": null,
+    "deadline_raw": null,
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "© Julia Janssen Breadcrumb Home About the Summit Science Summit Art & Science THE FALLING WALLS GLOBAL CALL FOR SCIENCE BREAKTHROUGHS 2026 IS NOW CLOSED In the Art & Science category, we seek bold, visionary artists whose work is fuelled by the wonders of science. From the humanities to life sciences, technology, and beyond, we’re looking for creations that illuminate the mysteries of our world, tackle pressing societal issues, and celebrate the breathtaking beauty of scientific discovery. This ",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-29",
+    "last_seen_date": "2026-07-29",
+    "last_checked_date": "2026-07-29",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {
+      "content_hash": "3657d7fbb3a82633"
+    }
+  },
+  {
     "id": "be2f7add1e3b197d",
     "title": "Digital Good — Artwork Commission (check manually)",
     "organizer": "Digital Good",
@@ -427,6 +547,35 @@
     "notified_tier": "none",
     "last_notified_date": null,
     "raw_extra": {}
+  },
+  {
+    "id": "d1328a7166c983f5",
+    "title": "Aesthetica Art Prize (watch)",
+    "organizer": "Aesthetica Magazine",
+    "source_name": "aesthetica_art_prize_watch",
+    "url": "https://artprize.aestheticamagazine.com/about-us/",
+    "country": "UK",
+    "region_tier": "high",
+    "discipline": [],
+    "listing_type": "prize",
+    "deadline": null,
+    "deadline_raw": null,
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "Menu Artist Profiles Go Back Art Prize 2026 Art Prize 2025 Art Prize 2024 Exhibition Go Back North Yorkshire Exhibitions 2026 Exhibition 2026 Exhibition 2025 Exhibition 2024 Meet the Shortlist Go Back Shortlist 2026 Shortlist 2025 Shortlist 2024 About us Submit Your Work Success Stories About the Aesthetica Art Prize Who We Are The Aesthetica Art Prize celebrates contemporary art across a range of media. We're exhibiting and championing some of the world’s most significant talent and contributin",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-29",
+    "last_seen_date": "2026-07-29",
+    "last_checked_date": "2026-07-29",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {
+      "content_hash": "76c68571a1316744"
+    }
   },
   {
     "id": "d73c4cd91566fad6",
@@ -626,6 +775,35 @@
     }
   },
   {
+    "id": "ef20ed44bc6f144c",
+    "title": "Information is Beautiful Awards (watch)",
+    "organizer": "Data Visualization Society",
+    "source_name": "information_is_beautiful_awards_watch",
+    "url": "https://www.informationisbeautifulawards.com/awards/2024",
+    "country": null,
+    "region_tier": "high",
+    "discipline": [],
+    "listing_type": "prize",
+    "deadline": null,
+    "deadline_raw": null,
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "Information is Beautiful Awards Menu ↓ About News Awards FAQs Entry Showcase Nominations Sponsor Register Sign In Search Twitter Facebook Register Sign In Home Awards Information is Beautiful Awards 2024 Information is Beautiful Awards 2024 Presented by the Data Visualization Society :: Browse all shortlists, longlists and winners dating back to 2012 . :: Follow the awards' Twitter , Instagram & Facebook page . :: Learn more about the Data Visualization Society on our website , and follow the DV",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-29",
+    "last_seen_date": "2026-07-29",
+    "last_checked_date": "2026-07-29",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {
+      "content_hash": "7ebce2a57342e228"
+    }
+  },
+  {
     "id": "eff4027e877a5f27",
     "title": "Galerija Siva — Open Call for Exhibitions and Artist Residencies 2027",
     "organizer": "Galerija Siva / Autonomous Cultural Centre Attack",
@@ -653,6 +831,35 @@
     "notified_tier": "month",
     "last_notified_date": "2026-07-28",
     "raw_extra": {}
+  },
+  {
+    "id": "fe5abff9575b3a74",
+    "title": "COAL Prize (watch)",
+    "organizer": "COAL",
+    "source_name": "coal_prize_watch",
+    "url": "https://projetcoal.org/en/prize/coal-prize/call-for-projects-2026/",
+    "country": "France",
+    "region_tier": "high",
+    "discipline": [],
+    "listing_type": "prize",
+    "deadline": null,
+    "deadline_raw": null,
+    "fee": null,
+    "fee_currency": null,
+    "fee_waiver_available": null,
+    "prize_amount": null,
+    "eligibility": null,
+    "description": "Call COAL PRIZE 2026 : The Night The COAL Prize 2026 is dedicated to the theme of night The COAL Prize invites artists to defend the night as a common good, a major ecological issue for the regeneration of life, a refuge, a diversity of languages to be celebrated, a right to rest and to darkness. Inventing stories to relearn how to inhabit the shadows, creating art with the night, is to contribute to an ecology of rhythms… Discover the call for projects open until April 28 ! Image credits: Matth",
+    "tags": [],
+    "status": "open",
+    "first_seen_date": "2026-07-29",
+    "last_seen_date": "2026-07-29",
+    "last_checked_date": "2026-07-29",
+    "notified_tier": "none",
+    "last_notified_date": null,
+    "raw_extra": {
+      "content_hash": "da5f60d30b2d9a4f"
+    }
   },
   {
     "id": "ff4dc3e65b84eb61",

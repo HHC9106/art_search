@@ -613,6 +613,158 @@
     same URL - relies on run.py's dedupe_by_url() to collapse them to one
     listing rather than showing twice.
 
+- name: coal_prize_watch
+  display_name: "COAL Prize (watch)"
+  organizer: "COAL"
+  country: "France"
+  region_tier: high
+  adapter: html
+  url: "https://projetcoal.org/en/prize/coal-prize/call-for-projects-2026/"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Paris-based art/ecology prize - 2026 edition theme is "The Night" (the
+    night as ecological common good). Main prize EUR 12,000 + residency at
+    Domaine de Belval, plus a EUR 3,000 jury prize and other mentions.
+    International artists eligible (separate COAL Student Prize for French
+    art schools). Page states a 2026-04-28 deadline, which per the page text
+    itself is already past as of 2026-07-28 - watching for the 2027 edition
+    to open at this same URL or a successor page.
+
+- name: digital_storytelling_lab_breakthroughs_watch
+  display_name: "Digital Storytelling Lab — Breakthroughs Awards (watch)"
+  organizer: "Digital Storytelling Lab, Columbia University"
+  country: "US"
+  region_tier: high
+  adapter: html
+  url: "https://digitalstorytellinglab.com/breakthroughs/about"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    NOT an open call you can apply to - this recognizes 12 projects a year
+    ("the Digital Dozen") across film/video/journalism/games/VR/AR/
+    experimental storytelling, selected by Lab faculty/jury, winners
+    announced each spring. No submission process found as of 2026-07-28.
+    Watching anyway per your request, in case that changes - useful mainly
+    as an annual "what got recognized" signal, not something to apply for.
+
+- name: zebrastraat_ntaa_watch
+  display_name: "Zebrastraat — New Technological Art Award (watch)"
+  organizer: "Zebrastraat"
+  country: "Belgium"
+  region_tier: high
+  adapter: html
+  url: "https://www.zebrastraat.be/nl/ntaa"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+  notes: >
+    NTAa (New Technological Art Award) - international digital/technological
+    art competition and curated exhibition. No <main> landmark on this page,
+    so content_selector defaults to body. No open call as of 2026-07-28 -
+    the 2025 edition already concluded (Public Prize: Stephanie Roland,
+    "Missing People"; Jury Prize: Verena Bachl & Karsten Schuhl, "What is for
+    Sure" - EUR 7,500 each). Page gives no date for the next edition -
+    whole-page watch for whenever a new call appears.
+
+- name: falling_walls_art_science_watch
+  display_name: "Falling Walls — Art Meets Science (watch)"
+  organizer: "Falling Walls Foundation"
+  country: "Germany"
+  region_tier: high
+  adapter: html
+  url: "https://falling-walls.com/art-science"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Berlin-based science-meets-art initiative/prize - seeks artists
+    transforming scientific breakthroughs into artistic work. 2025 Breakthrough
+    of the Year: Marco Barotti, "Coral Sonic Resilience" (3D-printed solar
+    sculptures emitting reef-healthy sounds). Page states the 2026 call is
+    already closed, and separately mentions an April 30, 2026 date for a
+    "next nomination period" - these two statements don't line up cleanly
+    with today's date (2026-07-28), so treat the page's own timeline as
+    unreliable and rely on the whole-page watch to catch whenever the actual
+    next call opens rather than trusting a specific date from it.
+
+- name: aesthetica_art_prize_watch
+  display_name: "Aesthetica Art Prize (watch)"
+  organizer: "Aesthetica Magazine"
+  country: "UK"
+  region_tier: high
+  adapter: html
+  url: "https://artprize.aestheticamagazine.com/about-us/"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+  notes: >
+    York-based, part of the UNESCO City of Media Arts network. Open to any
+    media (painting/video/installation/performance/photography/digital
+    art/artists' film), no theme restriction. GBP 10,000 cash prize + public
+    gallery exhibition + magazine publication. No <main> landmark on this
+    page, so content_selector defaults to body. Currently open as of
+    2026-07-28 (entries via shop.aestheticamagazine.com) but no deadline
+    stated on this page - watch for a stated deadline or closure.
+
+- name: pudding_cup_watch
+  display_name: "The Pudding — Pudding Cup (watch)"
+  organizer: "The Pudding"
+  country: "US"
+  region_tier: high
+  adapter: html
+  url: "https://pudding.cool/pudding-cup/"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+    content_selector: "main"
+  notes: >
+    Annual award for outstanding data-driven/interactive visual storytelling
+    (data journalism + visualization) - strong fit for data_art practice.
+    $1,500 per winning project, 3 winners. 9th edition (2025) already
+    announced/concluded as of 2026-07-28, no open call visible on this page
+    right now - whole-page watch for the next edition's call to open.
+
+- name: information_is_beautiful_awards_watch
+  display_name: "Information is Beautiful Awards (watch)"
+  organizer: "Data Visualization Society"
+  country: null
+  region_tier: high
+  adapter: html
+  url: "https://www.informationisbeautifulawards.com/awards/2024"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+  notes: >
+    Data visualization award (infographics/data journalism/maps/interactives/
+    information art/sculpture) - core fit for data_art/information_art
+    practice. No <main> landmark on this page, so content_selector defaults
+    to body. This is a year-specific URL (/awards/2024) whose entry window
+    already closed (was 2025-02-03) - checked the site's main /awards page
+    too and no 2025/2026 cycle exists yet as of 2026-07-28, so this really is
+    the most current page available. Once a newer cycle launches it may live
+    at a new URL (e.g. /awards/2026) rather than updating this one - revisit
+    this entry's url if the watch goes quiet for a long time.
+
 # --- Manual leads (newsletter-only, no scrapable page at all) ---
 # Example of the `manual` adapter shape — delete this or replace with real leads.
 
