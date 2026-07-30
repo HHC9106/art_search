@@ -808,6 +808,51 @@
     already closed as of 2026-07-29 ("nomination period for 2026 award has
     now closed") - watching for the 2027 cycle to open at this same URL.
 
+- name: adc_awards_interactive_watch
+  display_name: "ADC Awards — Interactive (watch)"
+  organizer: "The One Club for Creativity"
+  country: "US"
+  region_tier: high
+  adapter: html
+  url: "https://adcawards.org/categories/interactive/"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+  notes: >
+    ADC 105th Annual Awards, Interactive discipline - 22 subcategories
+    spanning data visualization, digital craft, XR, social media, NFTs and
+    more, run by The One Club for Creativity (New York). No <main> landmark
+    on this page, so content_selector defaults to body. Deadline/open-call
+    status not stated on this category page itself (site references a
+    separate "Deadlines + Dates" section but the guessed URL 404'd) - whole
+    page watch rather than trusting an unconfirmed date.
+
+- name: webby_awards_data_visualization_watch
+  display_name: "Webby Awards — Best Data Visualization (watch)"
+  organizer: "International Academy of Digital Arts and Sciences"
+  country: "US"
+  region_tier: high
+  adapter: html
+  url: "https://winners.webbyawards.com/winners/websites-and-mobile-sites/features-design/best-data-visualization?years=0"
+  enabled: true
+  listing_type: prize
+  frequency: quarterly
+  parser_options:
+    single_page: true
+  notes: >
+    Websites & Mobile Sites > Features & Design > Best Data Visualization
+    category, run by IADAS ("Honoring the Best Of The Internet Since 1997").
+    Strong fit for data_art/information_art practice. This URL is a
+    winners/gallery view (years=0 param) rather than a dedicated open-call
+    page - the live site shows an "Enter Now" link pointing at
+    entries.webbyawards.com for the current cycle, but that's a separate
+    submissions platform, not this category page, so deadline/open status
+    isn't captured here. No <main> landmark, content_selector defaults to
+    body. Whole-page watch for whenever this page's content changes (e.g.
+    a new year's winners posted).
+
 # --- Manual leads (newsletter-only, no scrapable page at all) ---
 # Example of the `manual` adapter shape — delete this or replace with real leads.
 
