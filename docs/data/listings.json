@@ -51,8 +51,8 @@
     "first_seen_date": "2026-08-23",
     "last_seen_date": "2026-08-23",
     "last_checked_date": "2026-08-23",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "month",
+    "last_notified_date": "2026-08-23",
     "raw_extra": {}
   },
   {
@@ -194,8 +194,8 @@
     "first_seen_date": "2026-08-23",
     "last_seen_date": "2026-08-23",
     "last_checked_date": "2026-08-23",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "month",
+    "last_notified_date": "2026-08-23",
     "raw_extra": {}
   },
   {
@@ -252,8 +252,8 @@
     "first_seen_date": "2026-08-23",
     "last_seen_date": "2026-08-23",
     "last_checked_date": "2026-08-23",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "month",
+    "last_notified_date": "2026-08-23",
     "raw_extra": {}
   },
   {
@@ -600,8 +600,8 @@
     "first_seen_date": "2026-08-23",
     "last_seen_date": "2026-08-23",
     "last_checked_date": "2026-08-23",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "month",
+    "last_notified_date": "2026-08-23",
     "raw_extra": {}
   },
   {
@@ -967,8 +967,8 @@
     "first_seen_date": "2026-07-28",
     "last_seen_date": "2026-08-23",
     "last_checked_date": "2026-08-23",
-    "notified_tier": "none",
-    "last_notified_date": null,
+    "notified_tier": "month",
+    "last_notified_date": "2026-08-23",
     "raw_extra": {}
   },
   {
